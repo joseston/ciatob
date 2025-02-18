@@ -138,7 +138,7 @@ const SpecialistsCarousel: React.FC = () => {
       items.push({ ...specialists[index], key: `${index}-${i}` });
     }
     return items;
-  }, [currentIndex, itemsToShow]);
+  }, [currentIndex, itemsToShow, totalSlides]);
 
   return (
     <div className="relative w-full px-4 py-8">

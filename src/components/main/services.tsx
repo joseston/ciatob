@@ -7,7 +7,7 @@ export const ServicesSection = () => {
     const services = [
       {
         icon: Droplet,
-        title: "Endocrinología",
+        title: "Endocrinologia",
         description: "Evaluación y tratamiento hormonal especializado para el control del peso y trastornos metabólicos.",
       },
       {
@@ -52,7 +52,7 @@ export const ServicesSection = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link href={`/especialidades/${service.title.toLowerCase()}`}>
+                <Link href={`/${service.title.toLowerCase()}`}>
                   <button className="flex items-center text-[#46b1b9] hover:text-[#22616a] transition-colors duration-200">
                     Saber más <ChevronRight className="w-4 h-4 ml-1" />
                   </button>
