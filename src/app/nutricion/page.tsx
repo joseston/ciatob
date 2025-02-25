@@ -7,7 +7,7 @@ import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
 import FAQSection from '@/components/specialty/faq-section';
 import CTASection from '@/components/specialty/cta-section';
-import { Stethoscope, Award, Users, Apple, BookOpen, Utensils, Scale, Clock, Calendar } from 'lucide-react';
+import { Stethoscope, Award, Users, Apple, BookOpen, Utensils, Scale } from 'lucide-react';
 
 const NutricionPage = () => {
   // Hero section data
@@ -123,7 +123,7 @@ const NutricionPage = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {treatments.map((treatment, index) => (
+                {treatments.map((treatment) => (
                   <div
                     key={treatment.title}
                     className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
