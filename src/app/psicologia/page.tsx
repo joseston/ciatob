@@ -1,4 +1,4 @@
-// src/app/nutricion/page.tsx
+// src/app/psicologia/page.tsx
 'use client';
 
 import React from 'react';
@@ -7,24 +7,26 @@ import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
 import FAQSection from '@/components/specialty/faq-section';
 import CTASection from '@/components/specialty/cta-section';
-import { Stethoscope, Award, Users, Apple, BookOpen, Utensils, Scale} from 'lucide-react';
+import { Stethoscope, Award, Users, Brain, Heart, Lightbulb, Puzzle, CopyCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-const NutricionPage = () => {
+const PsicologiaPage = () => {
   // Hero section data
   const heroStats = [
     {
       icon: Stethoscope,
-      value: "+800",
+      value: "+600",
       label: "Pacientes Atendidos"
     },
     {
       icon: Award,
-      value: "12+",
+      value: "10+",
       label: "Años de Experiencia"
     },
     {
       icon: Users,
-      value: "97%",
+      value: "95%",
       label: "Satisfacción"
     }
   ];
@@ -32,128 +34,157 @@ const NutricionPage = () => {
   // Info section data
   const infoItems = [
     {
-      title: "Planes Personalizados",
-      description: "Desarrollamos planes de alimentación adaptados a tu estilo de vida, preferencias y necesidades nutricionales específicas."
+      title: "Terapia Cognitivo-Conductual",
+      description: "Abordaje especializado para modificar patrones de pensamiento y comportamiento relacionados con la alimentación y la imagen corporal."
     },
     {
-      title: "Educación Nutricional",
-      description: "Te enseñamos a tomar decisiones informadas sobre tu alimentación para mantener hábitos saludables a largo plazo."
+      title: "Atención a Trastornos Alimentarios",
+      description: "Diagnóstico y tratamiento de trastornos de la conducta alimentaria como parte integral del manejo de la obesidad."
     },
     {
-      title: "Monitoreo de Composición Corporal",
-      description: "Evaluamos periódicamente tu composición corporal para ajustar tu plan nutricional y maximizar resultados."
+      title: "Manejo de Ansiedad y Estrés",
+      description: "Técnicas efectivas para reducir la ansiedad y el estrés que frecuentemente conducen a la alimentación emocional."
     },
     {
-      title: "Abordaje de Trastornos Alimenticios",
-      description: "Tratamiento especializado para personas con trastornos de la conducta alimentaria y relación problemática con la comida."
+      title: "Apoyo en Cambio de Hábitos",
+      description: "Estrategias psicológicas para facilitar la adopción y mantenimiento de hábitos saludables de forma sostenible."
     },
     {
-      title: "Suplementación Inteligente",
-      description: "Recomendaciones personalizadas de suplementos nutricionales cuando son necesarios para optimizar tu salud."
+      title: "Mejora de Autoestima",
+      description: "Trabajo terapéutico orientado a fortalecer la autoimagen y la confianza durante el proceso de cambio."
     },
     {
-      title: "Coaching Nutricional",
-      description: "Acompañamiento continuo para ayudarte a superar obstáculos y mantener tu motivación durante todo el proceso."
+      title: "Terapia Individual y Grupal",
+      description: "Opciones de tratamiento adaptadas a tus necesidades personales, incluyendo sesiones individuales y grupos de apoyo."
     }
   ];
 
-  // Nutrition treatments
+  // Psychological treatments
   const treatments = [
     {
-      icon: Apple,
-      title: "Plan Nutricional Personalizado",
-      description: "Diseño de planes de alimentación adaptados a tus necesidades específicas, preferencias y estilo de vida."
+      icon: Brain,
+      title: "Terapia Cognitivo-Conductual",
+      description: "Técnicas especializadas para modificar patrones de pensamiento negativos y comportamientos problemáticos relacionados con la alimentación."
     },
     {
-      icon: BookOpen,
-      title: "Educación Alimentaria",
-      description: "Enseñanza de principios nutricionales para comprender la relación entre alimentación y salud."
+      icon: Heart,
+      title: "Manejo de Alimentación Emocional",
+      description: "Estrategias para identificar y gestionar las emociones que desencadenan conductas alimentarias no saludables."
     },
     {
-      icon: Utensils,
-      title: "Asesoría en Preparación de Alimentos",
-      description: "Guía práctica para la preparación de comidas saludables y satisfactorias."
+      icon: Lightbulb,
+      title: "Mindfulness y Alimentación Consciente",
+      description: "Prácticas para desarrollar una relación más atenta y consciente con la comida y las señales de hambre y saciedad."
     },
     {
-      icon: Scale,
-      title: "Control de Peso Saludable",
-      description: "Estrategias efectivas para lograr y mantener un peso saludable sin dietas restrictivas."
+      icon: Puzzle,
+      title: "Terapia de Aceptación y Compromiso",
+      description: "Enfoque terapéutico para aceptar las dificultades y comprometerse con acciones alineadas con tus valores personales."
     }
   ];
 
   // FAQ section data
   const faqs = [
     {
-      question: "¿Cómo se diferencia su enfoque nutricional de las dietas convencionales?",
-      answer: "Nuestro enfoque no se basa en restricciones extremas ni en planes genéricos. Trabajamos con planes personalizados basados en tu metabolismo, preferencias y estilo de vida, buscando crear hábitos sostenibles a largo plazo en lugar de soluciones temporales."
+      question: "¿Cómo influye la psicología en el tratamiento de la obesidad?",
+      answer: "La psicología aborda los factores emocionales, cognitivos y conductuales que influyen en la alimentación y el mantenimiento de la obesidad. Trabaja aspectos como la alimentación emocional, los pensamientos automáticos negativos, la motivación para el cambio y el desarrollo de nuevos hábitos sostenibles."
     },
     {
-      question: "¿Cuánto tiempo toma ver resultados con la asesoría nutricional?",
-      answer: "Los primeros cambios suelen notarse entre 2-4 semanas, pero los resultados más significativos y duraderos se observan después de 3-6 meses de seguimiento consistente. Cada persona avanza a su propio ritmo según factores individuales."
+      question: "¿Cuántas sesiones de terapia psicológica necesitaré?",
+      answer: "El número de sesiones varía según cada caso. Generalmente, el proceso comienza con sesiones semanales durante 1-2 meses, pasando gradualmente a sesiones quincenales y mensuales. Un tratamiento completo puede durar entre 4-6 meses, con seguimientos posteriores para mantenimiento."
     },
     {
-      question: "¿Debo seguir una dieta especial antes de mi primera consulta?",
-      answer: "No es necesario. De hecho, recomendamos mantener tus hábitos actuales para poder evaluar adecuadamente tu situación inicial y crear un plan realista basado en tu punto de partida."
+      question: "¿La terapia psicológica reemplaza el tratamiento nutricional o médico?",
+      answer: "No. La terapia psicológica es complementaria y trabaja en coordinación con los demás especialistas. El enfoque multidisciplinario es fundamental, ya que cada especialidad aborda diferentes aspectos del tratamiento integral de la obesidad."
     },
     {
-      question: "¿Tendré que eliminar completamente ciertos alimentos?",
-      answer: "Nuestro enfoque raramente incluye prohibiciones absolutas. Creemos en el equilibrio y la moderación. Trabajaremos para ajustar frecuencias y porciones de alimentos según tus objetivos, pero siempre manteniendo flexibilidad."
+      question: "¿Qué diferencia hay entre un psicólogo especializado en obesidad y uno general?",
+      answer: "Un psicólogo especializado en obesidad posee conocimientos específicos sobre los mecanismos psicológicos involucrados en el desarrollo y mantenimiento del sobrepeso, las conductas alimentarias problemáticas, y técnicas terapéuticas específicas para estos casos."
     },
     {
-      question: "¿Con qué frecuencia debo tener consultas de seguimiento?",
-      answer: "Inicialmente recomendamos consultas cada 2-3 semanas para ajustar el plan según tu respuesta y progreso. A medida que avanzas, las consultas pueden espaciarse a mensuales o bimestrales para mantenimiento."
+      question: "¿Es normal sentir ansiedad cuando se cambian los hábitos alimentarios?",
+      answer: "Sí, es completamente normal. El cambio de hábitos alimentarios puede generar ansiedad, especialmente al inicio. Parte de la terapia psicológica consiste en desarrollar herramientas para manejar esta ansiedad de forma saludable."
     }
   ];
 
-  // Custom Treatment Section for Nutrition
-  const NutritionTreatmentSection = () => {
+  // Custom Psychology Treatment Section
+  const PsychologyTreatmentSection = () => {
     return (
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Servicios Especializados en{' '}
-                <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
-                  Nutrición
-                </span>
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Nuestro equipo de nutricionistas desarrolla planes alimentarios personalizados, educación nutricional y estrategias para transformar tu relación con la comida.
-              </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Nuestro Enfoque{' '}
+              <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+                Psicológico
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Abordamos los aspectos emocionales y conductuales que influyen en la relación con la comida y el peso, proporcionando herramientas para lograr cambios duraderos.
+            </p>
+          </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {treatments.map((treatment) => (
-                  <div
-                    key={treatment.title}
-                    className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
-                        <treatment.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {treatment.title}
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          {treatment.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2 relative">
-              <img
-                src="https://static.scieluxe.com/files/nutricion.jpg"
-                alt="Servicios nutricionales en CIATOB"
-                className="rounded-2xl shadow-2xl w-full h-auto"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl h-[400px]">
+              <Image
+                src="https://static.scieluxe.com/files/psicologia.jpg"
+                alt="Psicología en CIATOB"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
+
+            <div className="space-y-6">
+              {treatments.map((treatment, index) => (
+                <motion.div
+                  key={treatment.title}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
+                      <treatment.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {treatment.title}
+                      </h3>
+                      <p className="text-gray-600">
+                        {treatment.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-12 p-6 bg-gray-50 rounded-xl border border-[#46b1b9]/20"
+          >
+            <div className="flex items-start space-x-4">
+              <CopyCheck className="w-8 h-8 text-[#46b1b9] flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Nuestro Compromiso
+                </h3>
+                <p className="text-gray-600">
+                  En CIATOB, entendemos que cada persona tiene una historia única con su peso y su alimentación. Nuestro equipo de psicólogos especializados te ofrece un espacio seguro, confidencial y libre de juicios donde podrás explorar y transformar tu relación con la comida, tu cuerpo y tus emociones, como parte esencial del tratamiento integral de la obesidad.
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     );
@@ -164,19 +195,19 @@ const NutricionPage = () => {
       <Header />
       
       <HeroSpecialty
-        title="Nutrición"
-        description="Transforma tu relación con la comida a través de planes nutricionales personalizados, educación alimentaria y acompañamiento continuo para lograr cambios duraderos en tu salud y bienestar."
-        imagePath="https://static.scieluxe.com/files/nutricion.jpg"
+        title="Psicología"
+        description="Abordamos los aspectos emocionales y conductuales que influyen en la obesidad. Nuestros psicólogos especializados te ayudarán a transformar tu relación con la comida y desarrollar estrategias efectivas para el cambio duradero."
+        imagePath="https://static.scieluxe.com/files/psicologia.jpg"
         stats={heroStats}
       />
 
       <InfoSection
-        title="¿Por qué elegir nuestra especialidad en Nutrición?"
-        description="Nuestro equipo de nutricionistas está especializado en crear estrategias alimentarias personalizadas para el manejo efectivo de la obesidad."
+        title="¿Por qué elegir nuestra especialidad en Psicología?"
+        description="Nuestro equipo de psicólogos está especializado en los aspectos emocionales y conductuales que influyen en la obesidad."
         items={infoItems}
       />
 
-      <NutritionTreatmentSection />
+      <PsychologyTreatmentSection />
 
       <FAQSection faqs={faqs} />
 
@@ -185,4 +216,4 @@ const NutricionPage = () => {
   );
 };
 
-export default NutricionPage;
+export default PsicologiaPage;
