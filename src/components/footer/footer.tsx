@@ -19,6 +19,10 @@ import {
   Dumbbell as Barbell  
 } from 'lucide-react';
 
+const loaderProp = ({ src }: { src: string }) => {
+  return src;
+};
+
 interface FooterSection {
   title: string;
   icon: React.ElementType;
@@ -148,6 +152,8 @@ const Footer: React.FC = () => {
               <Link href="/" className="group">
                 <div className="relative flex items-center space-x-3">
                   <Image
+                    loader={loaderProp}
+                    unoptimized
                     src="https://static.scieluxe.com/files/logociatov.jpg"
                     alt="Scieluxe Logo"
                     width={100}

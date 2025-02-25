@@ -4,6 +4,11 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const loaderProp = ({ src }: { src: string }) => {
+  return src;
+};
+
+
 export const HeroSection = () => (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#46b1b9]/10 to-transparent py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,6 +56,8 @@ export const HeroSection = () => (
             className="relative"
           >
             <Image
+              loader={loaderProp}
+              unoptimized
               src="https://static.scieluxe.com/files/logociatov.jpg"
               alt="Equipo médico CIATOB"
               width={600}

@@ -5,6 +5,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Award } from 'lucide-react';
+const loaderProp = ({ src }: { src: string }) => {
+  return src;
+};
 
 interface Specialist {
   id: number;
@@ -87,6 +90,8 @@ const SpecialistCard: React.FC<{
   >
     <div className="relative w-48 h-48 mb-4 rounded-full overflow-hidden">
       <Image
+        loader={loaderProp}
+        unoptimized
         src={specialist.image}
         alt={specialist.name}
         fill

@@ -6,6 +6,12 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const loaderProp = ({ src }: { src: string }) => {
+  return src;
+};
+
+
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -24,6 +30,8 @@ const Header = () => {
           <Link href="/" className="group">
             <div className="relative flex items-center space-x-3">
               <Image
+                loader={loaderProp}
+                unoptimized
                 src="https://static.scieluxe.com/files/logociatov.jpg"
                 alt="CIATOB Logo"
                 width={50}
