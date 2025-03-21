@@ -1,3 +1,4 @@
+// src/components/header/header.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -9,8 +10,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const loaderProp = ({ src }: { src: string }) => {
   return src;
 };
-
-
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,11 +55,15 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <button 
-              className="px-4 py-2 rounded-md bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white hover:opacity-90 transition-opacity duration-200"
-            >
-              Agenda Cita
-            </button>
+            <Link href="/agendar-cita">
+              <motion.button 
+                className="px-4 py-2 rounded-md bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white hover:opacity-90 transition-opacity duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Agenda Cita
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -103,11 +106,13 @@ const Header = () => {
                   </Link>
                 ))}
                 <div className="px-4 pt-2">
-                  <button 
-                    className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white hover:opacity-90 transition-opacity duration-200"
-                  >
-                    Agenda Cita
-                  </button>
+                  <Link href="/agendar-cita">
+                    <button 
+                      className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white hover:opacity-90 transition-opacity duration-200"
+                    >
+                      Agenda Cita
+                    </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
