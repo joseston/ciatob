@@ -70,13 +70,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         imageUrl={service.imageUrl}
         features={service.features}
       />
-      
-      {/* Content Section */}
-      <ServiceContent
-        sections={service.sections}
-        benefits={service.benefits}
-      />
-      
+
       {/* Pricing Section */}
       <ServicePricing
         mainPrice={service.price}
@@ -85,6 +79,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         pricingOptions={service.pricingOptions}
         onBookNow={handleBookNow}
       />
+      
+      
+      {/* Content Section */}
+      <ServiceContent
+        sections={service.sections}
+        benefits={service.benefits}
+      />
+      
       
       {/* CTA Section */}
       <ServiceCTA

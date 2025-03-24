@@ -30,7 +30,7 @@ const ServicePricing: React.FC<ServicePricingProps> = ({
   onBookNow
 }) => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className=" bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,7 +38,7 @@ const ServicePricing: React.FC<ServicePricingProps> = ({
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+         {/*  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Inversión en tu{' '}
             <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
               Salud
@@ -46,7 +46,7 @@ const ServicePricing: React.FC<ServicePricingProps> = ({
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Nuestros precios están diseñados para hacer que la atención de calidad sea accesible para ti.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Main Pricing */}
@@ -84,7 +84,7 @@ const ServicePricing: React.FC<ServicePricingProps> = ({
         </motion.div>
 
         {/* Optional Additional Pricing Plans */}
-        {pricingOptions.length > 0 && (
+        {/* {pricingOptions.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {pricingOptions.map((option, index) => (
               <motion.div
@@ -145,7 +145,7 @@ const ServicePricing: React.FC<ServicePricingProps> = ({
               </motion.div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );
