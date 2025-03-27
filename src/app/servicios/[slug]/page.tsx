@@ -1,63 +1,49 @@
-'use client';
+// src/app/servicios/[slug]/page.tsx
 
-import React, { useEffect, useState } from 'react';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Header from '@/components/header/header';
 import ServiceHero from '../components/service-detail/service-hero';
 import ServiceContent from '../components/service-detail/service-content';
 import ServicePricing from '../components/service-detail/service-pricing';
 import ServiceCTA from '../components/service-detail/service-cta';
-import useServices from '../hooks/use-services';
-import { ServiceDetails } from '../types/services';
+import { getServiceBySlug } from '../services/service-utils';
+import { Metadata } from 'next';
 
-export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
-  const router = useRouter();
-  const { getServiceBySlug, isLoading, error } = useServices();
-  const [service, setService] = useState<ServiceDetails | null>(null);
-
-  useEffect(() => {
-    const loadServiceDetails = async () => {
-      const serviceDetails = await getServiceBySlug(params.slug);
-      if (serviceDetails) {
-        setService(serviceDetails);
-      }
+// Definir los parámetros de la página
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const service = await getServiceBySlug(params.slug);
+  if (!service) {
+    return {
+      title: 'Servicio no encontrado'
     };
-
-    loadServiceDetails();
-  }, [params.slug, getServiceBySlug]);
-
-  // Manejar el caso de carga
-  if (isLoading) {
-    return (
-      <main className="min-h-screen">
-        <Header />
-        <div className="flex justify-center items-center h-[70vh]">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#46b1b9]"></div>
-        </div>
-      </main>
-    );
   }
+  
+  return {
+    title: `${service.title} | CIATOB`,
+    description: service.description
+  };
+}
 
-  // Manejar el caso de error o servicio no encontrado
-  if (error || !service) {
+// Componente de página principal
+export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
+  const service = await getServiceBySlug(params.slug);
+  
+  // Manejar el caso de servicio no encontrado
+  if (!service) {
     return notFound();
   }
 
-  // Función para manejar el botón de reserva
-  const handleBookNow = () => {
-    // Aquí iría la lógica para iniciar el proceso de reserva
-    console.log('Reservando servicio:', service.title);
-    // Podría redirigir a una página de reserva o abrir un modal
-    alert('Funcionalidad de reserva en desarrollo');
-  };
-
-  // Función para manejar el botón de contacto
-  const handleContactUs = () => {
-    // Aquí iría la lógica para contacto
-    console.log('Contacto para servicio:', service.title);
-    // Podría redirigir a una página de contacto
-    router.push('/contacto');
-  };
+  // Crear funciones que se pasarán como props (se ejecutarán en el cliente)
+  const handleBookNowProps = JSON.stringify({ 
+    action: 'book', 
+    serviceId: service.id, 
+    title: service.title 
+  });
+  
+  const handleContactUsProps = JSON.stringify({ 
+    action: 'contact', 
+    serviceId: service.id 
+  });
 
   return (
     <main className="min-h-screen">
@@ -77,9 +63,8 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         currency={service.currency}
         discountedPrice={service.discountedPrice}
         pricingOptions={service.pricingOptions}
-        onBookNow={handleBookNow}
+        onBookNowProps={handleBookNowProps}
       />
-      
       
       {/* Content Section */}
       <ServiceContent
@@ -87,11 +72,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         benefits={service.benefits}
       />
       
-      
       {/* CTA Section */}
       <ServiceCTA
-        onPrimaryAction={handleBookNow}
-        onSecondaryAction={handleContactUs}
+        primaryActionProps={handleBookNowProps}
+        secondaryActionProps={handleContactUsProps}
       />
     </main>
   );
