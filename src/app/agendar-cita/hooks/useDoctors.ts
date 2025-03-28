@@ -8,7 +8,7 @@ interface UseDoctorsReturn {
   selectedDoctor: Doctor | null;
   loading: boolean;
   error: Error | null;
-  selectDoctor: (doctor: Doctor) => void;
+  selectDoctor: (doctor: Doctor | null) => void;  // Modificado para aceptar null
 }
 
 /**
@@ -38,7 +38,7 @@ export const useDoctors = (): UseDoctorsReturn => {
     fetchDoctors();
   }, []);
 
-  const selectDoctor = (doctor: Doctor) => {
+  const selectDoctor = (doctor: Doctor | null) => {  // Modificado para aceptar null
     setSelectedDoctor(doctor);
   };
 

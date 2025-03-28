@@ -5,6 +5,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useAppointment } from '../../hooks/useAppointment';
 import Header from '@/components/header/header';
+import SpecialtySelector from './SpecialtySelector';
 import DoctorSelector from './DoctorSelector';
 import DateRangeSelector from './DateRangeSelector';
 import AppointmentSummary from './AppointmentSummary';
@@ -13,12 +14,15 @@ import AppointmentButton from './AppointmentButton';
 
 const AppointmentPage: React.FC = () => {
   const {
+    specialties,
+    selectedSpecialty,
     doctors,
     selectedDoctor,
     dateRange,
     groupedSlots,
     selectedSlot,
     loading,
+    handleSpecialtySelect,
     handleDoctorSelect,
     handleDateRangeChange,
     handleSlotSelect
@@ -55,24 +59,24 @@ const AppointmentPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Selecciona el especialista y la fecha que mejor se adapte a tus necesidades
+              Selecciona la especialidad y el profesional que mejor se adapte a tus necesidades
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {/* Selección de especialidad */}
+            <SpecialtySelector 
+              specialties={specialties}
+              selectedSpecialty={selectedSpecialty}
+              onSelectSpecialty={handleSpecialtySelect}
+            />
+
             {/* Selección de médico */}
             <DoctorSelector 
               doctors={doctors}
               selectedDoctor={selectedDoctor}
               onSelectDoctor={handleDoctorSelect}
-            />
-
-            {/* Selección de fechas */}
-            <DateRangeSelector 
-              dateRange={dateRange}
-              onDateChange={handleDateRangeChange}
-              disabled={!selectedDoctor}
-              onSearch={handleSearch}
+              disabled={!selectedSpecialty}
             />
 
             {/* Resumen de selección */}
@@ -83,14 +87,27 @@ const AppointmentPage: React.FC = () => {
             />
           </div>
 
-          {/* Horarios disponibles */}
-          <TimeSlotSelector 
-            groupedSlots={groupedSlots}
-            selectedSlot={selectedSlot}
-            onSelectSlot={handleSlotSelect}
-            loading={loading}
-            doctorSelected={!!selectedDoctor}
-          />
+          {/* Horarios disponibles - Solo se muestra si hay un doctor seleccionado */}
+          {selectedDoctor && (
+            <>
+              <div className="mb-10">
+                <DateRangeSelector 
+                  dateRange={dateRange}
+                  onDateChange={handleDateRangeChange}
+                  disabled={!selectedDoctor}
+                  onSearch={handleSearch}
+                />
+              </div>
+
+              <TimeSlotSelector 
+                groupedSlots={groupedSlots}
+                selectedSlot={selectedSlot}
+                onSelectSlot={handleSlotSelect}
+                loading={loading}
+                doctorSelected={!!selectedDoctor}
+              />
+            </>
+          )}
 
           {/* Botón para continuar */}
           <AppointmentButton 

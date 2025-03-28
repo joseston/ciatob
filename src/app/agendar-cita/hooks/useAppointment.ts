@@ -1,12 +1,21 @@
 // src/hooks/useAppointment.ts
 import { useDoctors } from './useDoctors';
 import { useAppointmentSlots } from './useAppointmentSlots';
+import { useSpecialties } from './useSpecialties';
 import { Slot, DateRange } from '../types/appointment';
 
 /**
- * Hook principal que combina la lógica de selección de médicos y slots
+ * Hook principal que combina la lógica de selección de especialidades, médicos y slots
  */
 export const useAppointment = () => {
+  const {
+    specialties,
+    selectedSpecialty,
+    loading: loadingSpecialties,
+    error: specialtiesError,
+    selectSpecialty
+  } = useSpecialties();
+
   const {
     doctors,
     selectedDoctor,
@@ -14,6 +23,11 @@ export const useAppointment = () => {
     error: doctorsError,
     selectDoctor
   } = useDoctors();
+
+  // Filtramos los médicos según la especialidad seleccionada
+  const filteredDoctors = selectedSpecialty 
+    ? doctors.filter(doctor => doctor.specialty?.name === selectedSpecialty.name)
+    : [];
 
   const {
     dateRange,
@@ -27,8 +41,19 @@ export const useAppointment = () => {
     doctorId: selectedDoctor?.id || null
   });
 
+  const handleSpecialtySelect = (specialtyId: number) => {
+    const specialty = specialties.find(s => s.id === specialtyId);
+    if (specialty) {
+      selectSpecialty(specialtyId);
+      // Reseteamos el médico seleccionado cuando cambiamos de especialidad
+      if (selectedDoctor) {
+        selectDoctor(null);
+      }
+    }
+  };
+
   const handleDoctorSelect = (doctorId: number) => {
-    const doctor = doctors.find(d => d.id === doctorId);
+    const doctor = filteredDoctors.find(d => d.id === doctorId);
     if (doctor) {
       selectDoctor(doctor);
     }
@@ -47,15 +72,18 @@ export const useAppointment = () => {
 
   return {
     // Estado
-    doctors,
+    specialties,
+    selectedSpecialty,
+    doctors: filteredDoctors,
     selectedDoctor,
     dateRange,
     groupedSlots,
     selectedSlot,
-    loading: loadingDoctors || loadingSlots,
-    error: doctorsError || slotsError,
+    loading: loadingSpecialties || loadingDoctors || loadingSlots,
+    error: specialtiesError || doctorsError || slotsError,
     
     // Acciones
+    handleSpecialtySelect,
     handleDoctorSelect,
     handleDateRangeChange,
     handleSlotSelect

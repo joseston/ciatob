@@ -15,6 +15,13 @@ const mockDoctors = [
   { id: 5, nombre: "Dra. Alexandra Fernandez", specialty: { name: "Medicina Deportiva" } }
 ];
 
+const mockSpecialties = [
+  { id: 1, name: "Endocrinología" },
+  { id: 2, name: "Nutrición" },
+  { id: 3, name: "Psicología" },
+  { id: 4, name: "Medicina Deportiva" }
+];
+
 const mockSlots = [
   { id: 101, fecha: "2025-03-05", hora_inicio: "09:00", hora_fin: "09:30", duracion: "30" },
   { id: 102, fecha: "2025-03-05", hora_inicio: "10:00", hora_fin: "10:30", duracion: "30" },
@@ -25,6 +32,29 @@ const mockSlots = [
   { id: 107, fecha: "2025-03-07", hora_inicio: "14:00", hora_fin: "14:30", duracion: "30" },
   { id: 108, fecha: "2025-03-07", hora_inicio: "15:00", hora_fin: "15:30", duracion: "30" }
 ];
+
+export const getSpecialties = async (companyId: number = DEFAULT_COMPANY_ID) => {
+  try {
+    // Usamos el endpoint público que no requiere autenticación
+    const response = await fetch(`${API_URL}/business/config/public/specialties/${companyId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Error al obtener las especialidades');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error en getSpecialties:', error);
+    console.log('Usando datos simulados como fallback');
+    // Si falla la petición, usamos datos simulados como fallback
+    return mockSpecialties;
+  }
+};
 
 /**
  * Obtiene los médicos de una empresa usando el endpoint público
