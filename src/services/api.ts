@@ -3,6 +3,9 @@
 // Configuración de la URL base de la API
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
+// ID de empresa por defecto
+export const DEFAULT_COMPANY_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_COMPANY_ID) || 1;
+
 // Simulación de datos para desarrollo
 const mockDoctors = [
   { id: 1, nombre: "Dr. Helard Manrique", specialty: { name: "Endocrinología" } },
@@ -25,9 +28,9 @@ const mockSlots = [
 
 /**
  * Obtiene los médicos de una empresa usando el endpoint público
- * @param companyId - ID de la empresa (por defecto 1)
+ * @param companyId - ID de la empresa (por defecto se usa el valor de la variable de entorno)
  */
-export const getDoctorsByCompany = async (companyId: number = 1) => {
+export const getDoctorsByCompany = async (companyId: number = DEFAULT_COMPANY_ID) => {
   try {
     // Usamos el endpoint público que no requiere autenticación
     const response = await fetch(`${API_URL}/business/config/public/doctors/${companyId}`, {
@@ -52,13 +55,13 @@ export const getDoctorsByCompany = async (companyId: number = 1) => {
 
 /**
  * Obtiene los slots disponibles para un médico en un rango de fechas
- * @param companyId - ID de la empresa (por defecto 1)
+ * @param companyId - ID de la empresa (por defecto se usa el valor de la variable de entorno)
  * @param doctorId - ID del médico
  * @param startDate - Fecha de inicio (formato YYYY-MM-DD)
  * @param endDate - Fecha de fin (formato YYYY-MM-DD)
  */
 export const getAvailableSlots = async (
-  companyId: number = 1,
+  companyId: number = DEFAULT_COMPANY_ID,
   doctorId: number,
   startDate: string,
   endDate: string
