@@ -15,7 +15,7 @@ interface UseAppointmentSlotsReturn {
   loading: boolean;
   error: Error | null;
   setDateRange: (range: DateRange) => void;
-  selectSlot: (slot: Slot) => void;
+  selectSlot: (slot: Slot | null) => void;  // Modificar aquí para aceptar null
 }
 
 /**
@@ -63,7 +63,7 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
     setSelectedSlot(null);
   };
 
-  const selectSlot = (slot: Slot) => {
+  const selectSlot = (slot: Slot | null) => {  // Modificar aquí para aceptar null
     setSelectedSlot(slot);
   };
 

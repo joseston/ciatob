@@ -42,7 +42,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof PatientFormData, string>>>({});
-  const [isCheckingDni, setIsCheckingDni] = useState(false);
+  const [isCheckingDni] = useState(false);
   const [patientType, setPatientType] = useState<string | null>(null);
 
   // Reset form when modal closes

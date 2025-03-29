@@ -2,7 +2,7 @@
 import { useDoctors } from './useDoctors';
 import { useAppointmentSlots } from './useAppointmentSlots';
 import { useSpecialties } from './useSpecialties';
-import { Slot, DateRange } from '../types/appointment';
+import { Slot } from '../types/appointment';
 
 /**
  * Hook principal que combina la lógica de selección de especialidades, médicos y slots
@@ -66,7 +66,7 @@ export const useAppointment = () => {
     });
   };
 
-  const handleSlotSelect = (slot: Slot) => {
+  const handleSlotSelect = (slot: Slot | null) => {  // Modificar aquí para aceptar null
     selectSlot(slot);
   };
 
