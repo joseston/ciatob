@@ -17,7 +17,7 @@ const Header = () => {
   const menuItems = [
     { name: 'Inicio', href: '/' },
     { name: 'Servicios', href: '/servicios' },
-    { name: 'Especialidades', href: '/especialidades' },
+    { name: 'Especialistas', href: '/especialistas' },
     { name: 'Nosotros', href: '/nosotros' },
   ];
 
