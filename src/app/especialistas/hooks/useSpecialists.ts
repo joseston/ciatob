@@ -1,6 +1,6 @@
 // src/app/especialidades/hooks/useSpecialists.ts
 import { useState, useEffect } from 'react';
-import { Specialist, SpecialtyCategory } from '../types/specialist.types';
+import { Specialist } from '../types/specialist.types';
 import { SpecialistsService } from '../services/specialists.service';
 
 export const useSpecialists = () => {
