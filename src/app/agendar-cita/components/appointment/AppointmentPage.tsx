@@ -1,9 +1,10 @@
-// src/components/appointment/AppointmentPage.tsx
+// src/app/agendar-cita/components/appointment/AppointmentPage.tsx
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAppointment } from '../../hooks/useAppointment';
+import { useBooking } from '../../hooks/useBooking';
 import Header from '@/components/header/header';
 import SpecialtySelector from './SpecialtySelector';
 import DoctorSelector from './DoctorSelector';
@@ -11,6 +12,8 @@ import DateRangeSelector from './DateRangeSelector';
 import AppointmentSummary from './AppointmentSummary';
 import TimeSlotSelector from './TimeSlotSelector';
 import AppointmentButton from './AppointmentButton';
+import BookingModal from './BookingModal';
+import BookingSuccess from './BookingSuccess';
 
 const AppointmentPage: React.FC = () => {
   const {
@@ -28,16 +31,29 @@ const AppointmentPage: React.FC = () => {
     handleSlotSelect
   } = useAppointment();
 
-  const handleContinue = () => {
-    // Implementar navegación a la página de confirmación de la cita
-    console.log('Continuando con la reserva...', selectedSlot);
-    alert('Funcionalidad en desarrollo: Reservar cita');
-  };
+  const {
+    isModalOpen,
+    isLoading,
+    bookingSuccess,
+    errorMessage,
+    appointmentData,
+    openBookingModal,
+    closeBookingModal,
+    bookAppointment,
+    resetBooking
+  } = useBooking({
+    doctor: selectedDoctor,
+    selectedSlot
+  });
 
   const handleSearch = () => {
-    // Este es un no-op ya que la búsqueda se dispara automáticamente
-    // al cambiar el médico o el rango de fechas
+    // La búsqueda se dispara automáticamente cuando cambia el rango de fechas
     console.log('Búsqueda iniciada manualmente');
+  };
+
+  const handleReset = () => {
+    resetBooking();
+    handleSlotSelect(null);
   };
 
   return (
@@ -87,7 +103,7 @@ const AppointmentPage: React.FC = () => {
             />
           </div>
 
-          {/* Horarios disponibles - Solo se muestra si hay un doctor seleccionado */}
+          {/* Selección de fecha y hora - Solo se muestra si hay un doctor seleccionado */}
           {selectedDoctor && (
             <>
               <div className="mb-10">
@@ -111,9 +127,32 @@ const AppointmentPage: React.FC = () => {
 
           {/* Botón para continuar */}
           <AppointmentButton 
-            onContinue={handleContinue}
+            onContinue={openBookingModal}
             disabled={!selectedSlot}
           />
+
+          {/* Modal de reserva */}
+          <BookingModal
+            isOpen={isModalOpen}
+            onClose={closeBookingModal}
+            onSubmit={bookAppointment}
+            doctor={selectedDoctor}
+            selectedSlot={selectedSlot}
+            isLoading={isLoading}
+            errorMessage={errorMessage}
+          />
+
+          {/* Modal de confirmación de reserva exitosa */}
+          <AnimatePresence>
+            {bookingSuccess && appointmentData && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <BookingSuccess 
+                  appointmentData={appointmentData}
+                  onReset={handleReset}
+                />
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </main>

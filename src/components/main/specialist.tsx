@@ -27,16 +27,16 @@ const specialists: Specialist[] = [
     },
     {
       id: 2,
-      name: "Ken Lly Cardoza",
+      name: "Kenlly Cardoza",
       specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+      image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
       "description" : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
     },
     {
       id: 3,
-      name: "Guadalupe Rios",
+      name: "Guadalupe Ruiz",
       specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+      image: "https://static.scieluxe.com/files/guadalupe-ruiz.JPG",
         description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
     },
     {
@@ -69,9 +69,9 @@ const specialists: Specialist[] = [
     },
     {
       id: 8,
-      name: "Alexandra Fernandez Paniura",
+      name: "Alexandra Fernandez",
       specialty: "Deportología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+      image: "https://static.scieluxe.com/files/alexander-fernandez.JPG",
         description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
     }
   ];
