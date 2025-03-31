@@ -12,7 +12,7 @@ const mockDoctors = [
   { id: 2, nombre: "Dra. Ken Lly Cardoza", specialty: { name: "Endocrinología" } },
   { id: 3, nombre: "Dra. Melany Nito", specialty: { name: "Nutrición" } },
   { id: 4, nombre: "Lic. Luciana Castro", specialty: { name: "Psicología" } },
-  { id: 5, nombre: "Dra. Alexandra Fernandez", specialty: { name: "Medicina Deportiva" } }
+  { id: 5, nombre: "Dr. Alexander Fernandez", specialty: { name: "Medicina Deportiva" } }
 ];
 
 const mockSpecialties = [
