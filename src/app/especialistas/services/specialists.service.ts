@@ -55,7 +55,7 @@ export const specialists: Specialist[] = [
   {
     id: 8,
     name: "Alexander Fernandez",
-    specialty: "Deportología",
+    specialty: "Prescripción del ejercicio",
     category: "deportologia",
     image: "https://static.scieluxe.com/files/alexander-fernandez.JPG",
   }
@@ -66,7 +66,7 @@ export const categoryLabels: Record<SpecialtyCategory, string> = {
   endocrinologia: "Endocrinología",
   nutricion: "Nutrición",
   psicologia: "Psicología",
-  deportologia: "Deportología"
+  deportologia: "Prescripción del ejercicio"
 };
 
 // Funciones de servicio (simula llamadas a API)
