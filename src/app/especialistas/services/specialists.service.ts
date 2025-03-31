@@ -33,7 +33,7 @@ export const specialists: Specialist[] = [
   },
   {
     id: 5,
-    name: "Melany Nito Bellido",
+    name: "Alondra Ramirez",
     specialty: "Nutrición",
     category: "nutricion",
     image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
@@ -54,7 +54,7 @@ export const specialists: Specialist[] = [
   },
   {
     id: 8,
-    name: "Alexandra Fernandez",
+    name: "Alexander Fernandez",
     specialty: "Deportología",
     category: "deportologia",
     image: "https://static.scieluxe.com/files/alexander-fernandez.JPG",
