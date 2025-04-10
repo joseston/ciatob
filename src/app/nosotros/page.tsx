@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/header/header';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { 
@@ -123,9 +122,7 @@ const equipoDirectivo = [
 
 const NosotrosPage = () => {
   return (
-    <main className="min-h-screen">
-      <Header />
-      
+    <main className="min-h-screen">      
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-b from-[#46b1b9]/10 to-transparent overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

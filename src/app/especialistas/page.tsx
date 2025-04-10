@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Header from '@/components/header/header';
 import { CategoryFilter, SpecialistGrid } from './components';
 import { useFilteredSpecialists } from './hooks/useFilteredSpecialists';
 import { categoryLabels } from './services/specialists.service';
@@ -19,7 +18,6 @@ export default function EspecialidadesPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <Header />
       
       <section className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

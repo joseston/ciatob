@@ -5,8 +5,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppointment } from '../../hooks/useAppointment';
 import { useBooking } from '../../hooks/useBooking';
-import Header from '@/components/header/header';
-import SpecialtySelector from './SpecialtySelector';
+import HorizontalSpecialtySelector from './HorizontalSpecialtySelector';
 import DoctorSelector from './DoctorSelector';
 import DateRangeSelector from './DateRangeSelector';
 import AppointmentSummary from './AppointmentSummary';
@@ -58,7 +57,6 @@ const AppointmentPage: React.FC = () => {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <Header />
       
       <section className="py-10 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,14 +77,14 @@ const AppointmentPage: React.FC = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            {/* Selección de especialidad */}
-            <SpecialtySelector 
-              specialties={specialties}
-              selectedSpecialty={selectedSpecialty}
-              onSelectSpecialty={handleSpecialtySelect}
-            />
+          {/* Selección de especialidad horizontal */}
+          <HorizontalSpecialtySelector 
+            specialties={specialties}
+            selectedSpecialty={selectedSpecialty}
+            onSelectSpecialty={handleSpecialtySelect}
+          />
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {/* Selección de médico */}
             <DoctorSelector 
               doctors={doctors}
@@ -95,35 +93,41 @@ const AppointmentPage: React.FC = () => {
               disabled={!selectedSpecialty}
             />
 
-            {/* Resumen de selección */}
-            <AppointmentSummary 
-              selectedDoctor={selectedDoctor}
-              dateRange={dateRange}
-              selectedSlot={selectedSlot}
-            />
+            {/* Selección de fecha y hora - Solo se muestra siempre */}
+            <div>
+              <DateRangeSelector 
+                dateRange={dateRange}
+                onDateChange={handleDateRangeChange}
+                disabled={!selectedDoctor}
+                onSearch={handleSearch}
+              />
+            </div>
           </div>
 
-          {/* Selección de fecha y hora - Solo se muestra si hay un doctor seleccionado */}
-          {selectedDoctor && (
-            <>
-              <div className="mb-10">
-                <DateRangeSelector 
-                  dateRange={dateRange}
-                  onDateChange={handleDateRangeChange}
-                  disabled={!selectedDoctor}
-                  onSearch={handleSearch}
-                />
-              </div>
 
-              <TimeSlotSelector 
-                groupedSlots={groupedSlots}
-                selectedSlot={selectedSlot}
-                onSelectSlot={handleSlotSelect}
-                loading={loading}
-                doctorSelected={!!selectedDoctor}
-              />
-            </>
+          {/* Selección de hora */}
+          {selectedDoctor && (
+            <TimeSlotSelector 
+              groupedSlots={groupedSlots}
+              selectedSlot={selectedSlot}
+              onSelectSlot={handleSlotSelect}
+              loading={loading}
+              doctorSelected={!!selectedDoctor}
+            />
           )}
+
+          {/* Resumen de selección - Ahora está fuera del grid, después de la selección de fecha */}
+          {selectedDoctor && (
+            <div className="mb-10">
+              <AppointmentSummary 
+                selectedDoctor={selectedDoctor}
+                dateRange={dateRange}
+                selectedSlot={selectedSlot}
+              />
+            </div>
+          )}
+
+          
 
           {/* Botón para continuar */}
           <AppointmentButton 
