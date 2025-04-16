@@ -95,3 +95,29 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Estilos específicos para contenido del blog */
+.blog-content {
+  max-width: 100%;
+  width: 100%;
+}
+
+.blog-content p,
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6,
+.blog-content ul,
+.blog-content ol,
+.blog-content blockquote {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Override para el plugin de prose que añade sangrías */
+.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
