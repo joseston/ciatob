@@ -64,7 +64,7 @@ const specialists: Specialist[] = [
       id: 7,
       name: "Luciana Castro",
       specialty: "Psicología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+      image: "https://static.scieluxe.com/files/luciana-castro.jpg",
         description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
     },
     {

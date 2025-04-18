@@ -2,6 +2,13 @@
 
 export type SpecialtyCategory = 'todos' | 'endocrinologia' | 'nutricion' | 'psicologia' | 'deportologia';
 
+export interface Review {
+  id: number;
+  content: string;
+  patientInfo: string;
+  rating: number;
+}
+
 export interface Specialist {
   id: number;
   name: string;
@@ -9,6 +16,8 @@ export interface Specialist {
   category: SpecialtyCategory; // Categoría para filtrado
   image: string;
   description?: string;
+  reviews?: Review[];
+  averageRating?: number;
 }
 
 export interface SpecialistsState {
