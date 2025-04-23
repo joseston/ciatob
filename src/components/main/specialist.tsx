@@ -4,114 +4,91 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Award } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Award, Star } from 'lucide-react';
+import ReviewsModal from '../../app/especialistas/components/ReviewsModal';
+import { Specialist } from '../../app/especialistas/types/specialist.types';
+import { specialists as specialistsData } from '../../app/especialistas/services/specialists.service';
+
 const loaderProp = ({ src }: { src: string }) => {
   return src;
 };
 
-interface Specialist {
-  id: number;
-  name: string;
-  specialty: string;
-  image: string;
-  description: string;
-}
-
-const specialists: Specialist[] = [
-    {
-      id: 1,
-      name: "Helard Manrique Hurtado",
-      specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-      description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 2,
-      name: "Kenlly Cardoza",
-      specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-      "description" : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 3,
-      name: "Guadalupe Ruiz",
-      specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/guadalupe-ruiz.JPG",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 4,
-      name: "Katty Manrique Franco",
-      specialty: "Endocrinología",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 5,
-      name: "Melany Nito Bellido",
-      specialty: "Nutrición",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 6,
-      name: "Valeria Vilchez",
-      specialty: "Nutrición",
-      image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 7,
-      name: "Luciana Castro",
-      specialty: "Psicología",
-      image: "https://static.scieluxe.com/files/luciana-castro.jpg",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    },
-    {
-      id: 8,
-      name: "Alexandra Fernandez",
-      specialty: "Deportología",
-      image: "https://static.scieluxe.com/files/alexander-fernandez.JPG",
-        description : "Médico especialista en Endocrinología y Nutrición. Con más de 10 años de experiencia en el tratamiento de enfermedades metabólicas y nutricionales."
-    }
-  ];
+// Utilizamos los especialistas del servicio de especialistas que ya tiene reviews
+const specialists: Specialist[] = specialistsData.map(specialist => ({
+  ...specialist,
+  description: "Médico especialista con amplia experiencia en el tratamiento de enfermedades metabólicas y nutricionales.",
+  // Si el especialista no tiene una categoría definida, asignamos 'todos' como valor por defecto
+  category: specialist.category || 'todos'
+}));
 
 const SpecialistCard: React.FC<{
   specialist: Specialist;
   isSelected: boolean;
-}> = ({ specialist, isSelected }) => (
-  <motion.div
-    className={`relative flex flex-col items-center p-6 rounded-xl bg-white shadow-lg transition-all duration-300 ${
-      isSelected ? 'scale-105 shadow-xl' : 'hover:shadow-xl hover:scale-102'
-    }`}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    whileHover={{ y: -5 }}
-  >
-    <div className="relative w-48 h-48 mb-4 rounded-full overflow-hidden">
-      <Image
-        loader={loaderProp}
-        unoptimized
-        src={specialist.image}
-        alt={specialist.name}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
-    </div>
-    <h3 className="text-xl font-semibold text-gray-900 mb-2">{specialist.name}</h3>
-    <div className="flex items-center space-x-2 mb-2">
-      <Award className="w-5 h-5 text-[#46b1b9]" />
-      <span className="text-[#46b1b9] font-medium">{specialist.specialty}</span>
-    </div>
-    <p className="text-gray-600 text-center text-sm">{specialist.description}</p>
-  </motion.div>
-);
+  onReviewsClick: (specialist: Specialist) => void;
+}> = ({ specialist, isSelected, onReviewsClick }) => {
+  const hasReviews = specialist.reviews && specialist.reviews.length > 0;
+  
+  return (
+    <motion.div
+      className={`relative flex flex-col items-center p-6 rounded-xl bg-white shadow-lg transition-all duration-300 ${
+        isSelected ? 'scale-105 shadow-xl' : 'hover:shadow-xl hover:scale-102'
+      }`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -5 }}
+    >
+      <div className="relative w-48 h-48 mb-4 rounded-full overflow-hidden">
+        <Image
+          loader={loaderProp}
+          unoptimized
+          src={specialist.image}
+          alt={specialist.name}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">{specialist.name}</h3>
+      <div className="flex items-center space-x-2 mb-2">
+        <Award className="w-5 h-5 text-[#46b1b9]" />
+        <span className="text-[#46b1b9] font-medium">{specialist.specialty}</span>
+      </div>
+      <p className="text-gray-600 text-center text-sm mb-4">{specialist.description}</p>
+      
+      {/* Estrellas clickeables para mostrar reseñas */}
+      <button
+        onClick={() => onReviewsClick(specialist)}
+        className="flex items-center space-x-1 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+      >
+        <div className="flex">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`w-4 h-4 ${
+                hasReviews && i < (specialist.averageRating || 0)
+                  ? 'text-yellow-400 fill-current'
+                  : 'text-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+        <span className="text-sm text-gray-600">
+          {hasReviews 
+            ? `${specialist.reviews?.length} ${specialist.reviews?.length === 1 ? 'opinión' : 'opiniones'}`
+            : 'Sin opiniones'
+          }
+        </span>
+      </button>
+    </motion.div>
+  );
+};
 
 const SpecialistsCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [width, setWidth] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [selectedSpecialist, setSelectedSpecialist] = useState<Specialist | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -144,6 +121,15 @@ const SpecialistsCarousel: React.FC = () => {
     }
     return items;
   }, [currentIndex, itemsToShow, totalSlides]);
+
+  const handleReviewsClick = (specialist: Specialist) => {
+    setSelectedSpecialist(specialist);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="relative w-full px-4 py-8">
@@ -182,6 +168,7 @@ const SpecialistsCarousel: React.FC = () => {
                   <SpecialistCard
                     specialist={specialist}
                     isSelected={index === 0}
+                    onReviewsClick={handleReviewsClick}
                   />
                 </motion.div>
               ))}
@@ -198,6 +185,15 @@ const SpecialistsCarousel: React.FC = () => {
           <ChevronRight className="w-6 h-6" />
         </motion.button>
       </div>
+
+      {/* Modal de Testimonios */}
+      {selectedSpecialist && (
+        <ReviewsModal
+          specialist={selectedSpecialist}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

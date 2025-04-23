@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/header/header';
 import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
 import FAQSection from '@/components/specialty/faq-section';
@@ -215,7 +214,6 @@ const MedicinaDeportivaPage = () => {
 
   return (
     <main className="min-h-screen">
-      <Header />
       
       <HeroSpecialty
         title="Medicina Deportiva"

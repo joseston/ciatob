@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/header/header';
 import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
 import TreatmentSection from '@/components/specialty/treatment-section';
@@ -84,7 +83,6 @@ const EndocrinologiaPage = () => {
 
   return (
     <main className="min-h-screen">
-      <Header />
       
       <HeroSpecialty
         title="Endocrinología"

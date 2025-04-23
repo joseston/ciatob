@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -11,19 +12,22 @@ const TestimonialsSection = () => {
       content: "Después de muchos intentos fallidos con dietas y tratamientos, decidí probar una nueva alternativa en CIATOB. Desde el primer mes, noté una diferencia real: sin ansiedad, sin restricciones extremas y con resultados sostenibles. Hoy me siento más ligera, activa y segura. Volver a disfrutar de mi ropa y de mi cuerpo ha sido increíble. Gracias a la Dra. Katty Manrique y su equipo por acompañarme con un enfoque profesional y humano.",
       patientInfo: "Paciente, 60 años",
       professional: "Dra. Katty Manrique",
-      rating: 5
+      rating: 5,
+      specialistImage: "https://static.scieluxe.com/files/katty-manrique.jpg"
     },
     {
       content: "Llegué a CIATOB por recomendación y desde el primer momento el trato fue excelente. La Lic. Valeria me explicó todo con mucha paciencia y claridad, dándome la confianza que necesitaba. Me sentí muy cómoda, seguir su plan fue fácil y lo mejor es que vi cambios positivos muy pronto. ¡Estoy muy satisfecha y motivada!",
       patientInfo: "Jimena Oblitas",
       professional: "Lic. Valeria Vilchez",
-      rating: 5
+      rating: 5,
+      specialistImage: "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg"
     },
     {
       content: "Me sentí comprendido y muy cómodo con la Lic. Valeria desde el principio. Fue muy clara con mi plan de alimentación y valoro enormemente su ayuda para coordinar con otros especialistas, lo cual fue clave para mi salud. He mejorado notablemente y cambiado mi estilo de vida. Su profesionalismo y apoyo constante son destacables.",
       patientInfo: "José Hugo",
       professional: "Lic. Valeria Vilchez",
-      rating: 5
+      rating: 5,
+      specialistImage: "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg"
     }
   ];
 
@@ -127,7 +131,18 @@ const TestimonialsSection = () => {
 
               <div className="text-center mt-8 border-t border-gray-100 pt-6">
                 <p className="font-semibold text-[#46b1b9] text-lg">{testimonials[currentIndex].patientInfo}</p>
-                <p className="text-sm text-gray-500 mt-1">Atendido por {testimonials[currentIndex].professional}</p>
+                
+                {/* Especialista con foto al costado */}
+                <div className="flex items-center justify-center mt-2">
+                  <Image
+                    src={testimonials[currentIndex].specialistImage}
+                    alt={testimonials[currentIndex].professional}
+                    width={32}
+                    height={32}
+                    className="rounded-full mr-2"
+                  />
+                  <p className="text-sm text-gray-500">Atendido por {testimonials[currentIndex].professional}</p>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

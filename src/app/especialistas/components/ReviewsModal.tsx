@@ -16,12 +16,30 @@ const loaderProp = ({ src }: { src: string }) => {
   return src;
 };
 
+// Función para determinar el título adecuado según la especialidad y género
+const getTitleForSpecialist = (specialist: Specialist): string => {
+  // Para nutrición y deportología (prescripción del ejercicio) usar "Lic."
+  if (specialist.category === 'nutricion' || specialist.category === 'deportologia') {
+    return 'Lic.';
+  }
+  
+  // Para endocrinología (médicos) usar "Dr." o "Dra." según el género
+  if (specialist.gender === 'female') {
+    return 'Dra.';
+  }
+  
+  return 'Dr.';
+};
+
 const ReviewsModal: React.FC<ReviewsModalProps> = ({ specialist, isOpen, onClose }) => {
   // Si el modal no está abierto, no renderizamos nada
   if (!isOpen) return null;
   
   // Si no hay reseñas para este especialista
   const noReviews = !specialist.reviews || specialist.reviews.length === 0;
+  
+  // Obtenemos el título correcto para el especialista
+  const title = getTitleForSpecialist(specialist);
   
   return (
     <AnimatePresence>
@@ -80,7 +98,7 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ specialist, isOpen, onClose
                 </div>
                 
                 <div className="text-center md:text-left">
-                  <h3 className="text-xl font-bold text-gray-800">Dr. {specialist.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-800">{title} {specialist.name}</h3>
                   <p className="text-[#46b1b9] font-medium">{specialist.specialty}</p>
                   
                   {/* Promedio de calificación */}

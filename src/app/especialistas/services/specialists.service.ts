@@ -36,6 +36,7 @@ export const specialists: Specialist[] = [
     name: "Helard Manrique ",
     specialty: "Endocrinología",
     category: "endocrinologia",
+    gender: "male", // Dr.
     image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
     reviews: [],
     averageRating: 0
@@ -45,6 +46,7 @@ export const specialists: Specialist[] = [
     name: "Kenlly Cardoza",
     specialty: "Endocrinología",
     category: "endocrinologia",
+    gender: "male", // Dra.
     image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
     reviews: [],
     averageRating: 0
@@ -54,16 +56,18 @@ export const specialists: Specialist[] = [
     name: "Guadalupe Ruiz",
     specialty: "Endocrinología",
     category: "endocrinologia",
+    gender: "female", // Dra.
     image: "https://static.scieluxe.com/files/guadalupe-ruiz.JPG",
     reviews: [],
     averageRating: 0
   },
   {
     id: 4,
-    name: "Katty Manrique Franco",
+    name: "Katty Manrique ",
     specialty: "Endocrinología",
     category: "endocrinologia",
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+    gender: "female", // Dra.
+    image: "https://static.scieluxe.com/files/katty-manrique.jpg",
     reviews: [reviews[0]],
     averageRating: 5
   },
@@ -72,6 +76,7 @@ export const specialists: Specialist[] = [
     name: "Alondra Ramirez",
     specialty: "Nutrición",
     category: "nutricion",
+    gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
     image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
     reviews: [],
     averageRating: 0
@@ -81,7 +86,8 @@ export const specialists: Specialist[] = [
     name: "Valeria Vilchez",
     specialty: "Nutrición",
     category: "nutricion",
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+    gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
+    image: "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg",
     reviews: [reviews[1], reviews[2]],
     averageRating: 5
   },
@@ -90,6 +96,7 @@ export const specialists: Specialist[] = [
     name: "Luciana Castro",
     specialty: "Psicología",
     category: "psicologia",
+    gender: "female", // Lic.
     image: "https://static.scieluxe.com/files/luciana-castro.jpg",
     reviews: [],
     averageRating: 0
@@ -99,6 +106,7 @@ export const specialists: Specialist[] = [
     name: "Alexander Fernandez",
     specialty: "Prescripción del ejercicio",
     category: "deportologia",
+    gender: "male", // Lic.
     image: "https://static.scieluxe.com/files/alexander-fernandez.JPG",
     reviews: [],
     averageRating: 0

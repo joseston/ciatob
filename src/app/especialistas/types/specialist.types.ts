@@ -2,6 +2,9 @@
 
 export type SpecialtyCategory = 'todos' | 'endocrinologia' | 'nutricion' | 'psicologia' | 'deportologia';
 
+// Tipo para definir el género del especialista
+export type Gender = 'male' | 'female';
+
 export interface Review {
   id: number;
   content: string;
@@ -14,6 +17,7 @@ export interface Specialist {
   name: string;
   specialty: string;
   category: SpecialtyCategory; // Categoría para filtrado
+  gender?: Gender; // Campo para indicar si es Dr. o Dra.
   image: string;
   description?: string;
   reviews?: Review[];
