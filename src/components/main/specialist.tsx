@@ -14,12 +14,18 @@ const loaderProp = ({ src }: { src: string }) => {
 };
 
 // Utilizamos los especialistas del servicio de especialistas que ya tiene reviews
-const specialists: Specialist[] = specialistsData.map(specialist => ({
-  ...specialist,
-  description: "Médico especialista con amplia experiencia en el tratamiento de enfermedades metabólicas y nutricionales.",
-  // Si el especialista no tiene una categoría definida, asignamos 'todos' como valor por defecto
-  category: specialist.category || 'todos'
-}));
+// Ordenamos por cantidad de opiniones (de mayor a menor)
+const specialists: Specialist[] = specialistsData
+  .map(specialist => ({
+    ...specialist,
+    // Si el especialista no tiene una categoría definida, asignamos 'todos' como valor por defecto
+    category: specialist.category || 'todos'
+  }))
+  .sort((a, b) => {
+    const reviewsA = a.reviews?.length || 0;
+    const reviewsB = b.reviews?.length || 0;
+    return reviewsB - reviewsA;
+  });
 
 const SpecialistCard: React.FC<{
   specialist: Specialist;
@@ -47,13 +53,11 @@ const SpecialistCard: React.FC<{
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-      </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{specialist.name}</h3>
-      <div className="flex items-center space-x-2 mb-2">
+      </div>      <h3 className="text-xl font-semibold text-gray-900 mb-2">{specialist.name}</h3>
+      <div className="flex items-center space-x-2 mb-4">
         <Award className="w-5 h-5 text-[#46b1b9]" />
         <span className="text-[#46b1b9] font-medium">{specialist.specialty}</span>
       </div>
-      <p className="text-gray-600 text-center text-sm mb-4">{specialist.description}</p>
       
       {/* Estrellas clickeables para mostrar reseñas */}
       <button

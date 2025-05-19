@@ -8,7 +8,6 @@ const loaderProp = ({ src }: { src: string }) => {
   return src;
 };
 
-
 export const HeroSection = () => (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#46b1b9]/10 to-transparent py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,11 +57,12 @@ export const HeroSection = () => (
             <Image
               loader={loaderProp}
               unoptimized
-              src="https://static.scieluxe.com/files/logociatov.jpg"
+              src="https://static.scieluxe.com/files/ciatoblogo.webp"
               alt="Equipo médico CIATOB"
               width={600}
               height={400}
-              className="rounded-2xl shadow-2xl"
+              className="rounded-2xl"
+              style={{ filter: 'drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2))' }}
               priority
             />
           </motion.div>

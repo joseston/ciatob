@@ -37,7 +37,7 @@ export const specialists: Specialist[] = [
     specialty: "Endocrinología",
     category: "endocrinologia",
     gender: "male", // Dr.
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+    image: "https://static.scieluxe.com/files/helard-manrique.png",
     reviews: [],
     averageRating: 0
   },
@@ -77,7 +77,7 @@ export const specialists: Specialist[] = [
     specialty: "Nutrición",
     category: "nutricion",
     gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+    image: "https://static.scieluxe.com/files/alondra-ramirez.jpg",
     reviews: [],
     averageRating: 0
   },
