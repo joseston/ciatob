@@ -83,7 +83,7 @@ export const specialists: Specialist[] = [
     specialty: "Nutrición",
     category: "nutricion",
     gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
-    image: "https://static.scieluxe.com/files/alondra-ramirez.jpg",
+    image: "https://static.scieluxe.com/files/alondra-ramirez.webp",
     reviews: [reviews[3], reviews[4]], // Añadidos ambos testimonios que la mencionan
     averageRating: 5
   },
