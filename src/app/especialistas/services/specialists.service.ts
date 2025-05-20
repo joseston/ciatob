@@ -23,13 +23,13 @@ const reviews: Review[] = [
   },
   {
     id: 4,
-    content: "Si estas pensando en un lugar para bajar de peso donde te den tranquilidad, apoyo y sobre todo te educan sobre como cuidarte y alimentarte, sin duda alguna ese es CIATOB con la Dra. Katty Manrique y la Lic. Alondra Ramirez, llevo 5 meses donde desde el primer mes vi muchos cambios no solo físicos en mí; pero lo que mas valoro es que es cero ansiedad, ya que no te mandan dietas imposibles sino que te enseñan a que comer y cuanto de lo que se prepare en tu casa para toda la familia, ósea nada de platos aparte y el stress que eso te puede generar.",
+    content: "En CIATOB, con la Dra. Katty Manrique y la Lic. Alondra Ramirez, encontré el apoyo para bajar de peso sin ansiedad. En 5 meses logré cambios notables porque me enseñaron a alimentarme correctamente con la misma comida familiar, evitando dietas imposibles y el estrés de preparar platos separados.",
     patientInfo: "Gabriela Rojas",
     rating: 5
   },
   {
     id: 5,
-    content: "Después de intentar buscar mi mejor versión sobre todo bienestar por recomendación conocí Ciatob no solo he podido cambiar mi vida si no que ahora me siento con más vida con más energía radiante segura de mi misma realmente he vuelto a nacer estoy muy agradecida con el Dr Helard Manrique y la Lic Alondra Ramirez que se esmeraron desde el día uno por ayudarme a lograr los resultados que deseaba tener.",
+    content: "Gracias a una recomendación conocí CIATOB. El Dr. Helard Manrique y la Lic. Alondra Ramirez me ayudaron desde el primer día a lograr mi mejor versión. Ahora tengo más energía, me siento radiante y segura de mí misma. He renacido y estoy muy agradecida.",
     patientInfo: "Julia Rivera",
     rating: 5
   }

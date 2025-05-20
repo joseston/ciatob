@@ -96,28 +96,6 @@ const especialidades = [
 ];
 
 // Equipo directivo
-const equipoDirectivo = [
-  {
-    name: "Dr. Helard Manrique",
-    role: "Fundador y Director Médico",
-    specialty: "Endocrinología",
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-    description: "Médico endocrinólogo con más de 15 años de experiencia en el tratamiento de la obesidad y trastornos metabólicos."
-  },
-  {    name: "Dra. Kenlly Cardoza",
-    role: "Directora Clínica",
-    specialty: "Endocrinología",
-    image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-    description: "Especialista en endocrinología con enfoque en salud metabólica y trastornos hormonales."
-  },
-  {
-    name: "Lic. Melany Nito Bellido",
-    role: "Coordinadora de Nutrición",
-    specialty: "Nutrición",
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
-    description: "Nutricionista con amplia experiencia en el diseño de planes alimentarios para el manejo de la obesidad."
-  }
-];
 
 const NosotrosPage = () => {
   return (
