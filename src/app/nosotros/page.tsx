@@ -104,11 +104,10 @@ const equipoDirectivo = [
     image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
     description: "Médico endocrinólogo con más de 15 años de experiencia en el tratamiento de la obesidad y trastornos metabólicos."
   },
-  {
-    name: "Dra. Ken Lly Cardoza",
+  {    name: "Dra. Kenlly Cardoza",
     role: "Directora Clínica",
     specialty: "Endocrinología",
-    image: "https://static.scieluxe.com/files/prueba-medico-1735423911.jpg",
+    image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
     description: "Especialista en endocrinología con enfoque en salud metabólica y trastornos hormonales."
   },
   {
@@ -296,11 +295,10 @@ const NosotrosPage = () => {
             >
               <div className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto relative">
                 <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-2xl transform translate-x-4 translate-y-4"></div>
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[3/4]">
-                  <Image
+                <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[3/4]">                  <Image
                     loader={loaderProp}
                     unoptimized
-                    src="https://static.scieluxe.com/files/prueba-medico-1735423911.jpg"
+                    src="https://static.scieluxe.com/files/helard-manrique.png"
                     alt="Dr. Helard Manrique - Fundador de CIATOB"
                     fill
                     className="object-cover"
@@ -450,63 +448,7 @@ const NosotrosPage = () => {
             </motion.div>
           </div>
         </div>
-      </section>
-
-      {/* Equipo Directivo */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Equipo Directivo
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#46b1b9] to-[#22616a] mx-auto mb-8"></div>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Profesionales de primer nivel comprometidos con transformar vidas a través de un abordaje integral de la obesidad.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {equipoDirectivo.map((miembro, index) => (
-              <motion.div
-                key={miembro.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative h-64">
-                  <Image
-                    loader={loaderProp}
-                    unoptimized
-                    src={miembro.image}
-                    alt={miembro.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{miembro.name}</h3>
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Award className="w-5 h-5 text-[#46b1b9]" />
-                    <span className="text-[#46b1b9] font-medium">{miembro.specialty}</span>
-                  </div>
-                  <p className="text-gray-500 text-sm mb-3">{miembro.role}</p>
-                  <p className="text-gray-600">{miembro.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      
-    </main>
+      </section>      </main>
   );
 };
 
