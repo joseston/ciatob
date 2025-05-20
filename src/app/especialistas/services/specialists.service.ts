@@ -20,14 +20,20 @@ const reviews: Review[] = [
     content: "Me sentí comprendido y muy cómodo con la Lic. Valeria desde el principio. Fue muy clara con mi plan de alimentación y valoro enormemente su ayuda para coordinar con otros especialistas, lo cual fue clave para mi salud. He mejorado notablemente y cambiado mi estilo de vida. Su profesionalismo y apoyo constante son destacables.",
     patientInfo: "José Hugo",
     rating: 5
+  },
+  {
+    id: 4,
+    content: "Si estas pensando en un lugar para bajar de peso donde te den tranquilidad, apoyo y sobre todo te educan sobre como cuidarte y alimentarte, sin duda alguna ese es CIATOB con la Dra. Katty Manrique y la Lic. Alondra Ramirez, llevo 5 meses donde desde el primer mes vi muchos cambios no solo físicos en mí; pero lo que mas valoro es que es cero ansiedad, ya que no te mandan dietas imposibles sino que te enseñan a que comer y cuanto de lo que se prepare en tu casa para toda la familia, ósea nada de platos aparte y el stress que eso te puede generar.",
+    patientInfo: "Gabriela Rojas",
+    rating: 5
+  },
+  {
+    id: 5,
+    content: "Después de intentar buscar mi mejor versión sobre todo bienestar por recomendación conocí Ciatob no solo he podido cambiar mi vida si no que ahora me siento con más vida con más energía radiante segura de mi misma realmente he vuelto a nacer estoy muy agradecida con el Dr Helard Manrique y la Lic Alondra Ramirez que se esmeraron desde el día uno por ayudarme a lograr los resultados que deseaba tener.",
+    patientInfo: "Julia Rivera",
+    rating: 5
   }
 ];
-
-// Mapeo entre especialistas y sus reviews
-/* const specialistReviewsMap: Record<number, number[]> = {
-  4: [1], // Katty Manrique Franco: review 1
-  6: [2, 3], // Valeria Vilchez: reviews 2 y 3
-}; */
 
 // Datos estáticos de especialistas
 export const specialists: Specialist[] = [
@@ -38,8 +44,8 @@ export const specialists: Specialist[] = [
     category: "endocrinologia",
     gender: "male", // Dr.
     image: "https://static.scieluxe.com/files/helard-manrique.png",
-    reviews: [],
-    averageRating: 0
+    reviews: [reviews[4]], // Añadido el testimonio de Julia Rivera
+    averageRating: 5
   },
   {
     id: 2,
@@ -68,7 +74,7 @@ export const specialists: Specialist[] = [
     category: "endocrinologia",
     gender: "female", // Dra.
     image: "https://static.scieluxe.com/files/katty-manrique.jpg",
-    reviews: [reviews[0]],
+    reviews: [reviews[0], reviews[3]], // Añadido el testimonio de Gabriela Rojas
     averageRating: 5
   },
   {
@@ -78,8 +84,8 @@ export const specialists: Specialist[] = [
     category: "nutricion",
     gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
     image: "https://static.scieluxe.com/files/alondra-ramirez.jpg",
-    reviews: [],
-    averageRating: 0
+    reviews: [reviews[3], reviews[4]], // Añadidos ambos testimonios que la mencionan
+    averageRating: 5
   },
   {
     id: 6,
