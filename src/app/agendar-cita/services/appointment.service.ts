@@ -3,6 +3,25 @@ import { Doctor, Slot, GroupedSlots } from '../types/appointment';
 import { getDoctorsByCompany, getAvailableSlots, DEFAULT_COMPANY_ID } from '@/services/api';
 import { format } from 'date-fns';
 
+// Mapeo de especialistas de endocrinología con sus fotos
+const endocrinologySpecialistsImages: Record<string, string> = {
+  "helard manrique": "https://static.scieluxe.com/files/helard-manrique.png",
+  "helard andres manrique hurtado": "https://static.scieluxe.com/files/helard-manrique.png",
+  "kenlly cardoza": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
+  "kennlly josseph cardoza jimenez": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
+  "katty manrique": "https://static.scieluxe.com/files/katty-manrique.jpg",
+  "katty manrique franco": "https://static.scieluxe.com/files/katty-manrique.jpg"
+};
+
+// Función para normalizar nombres y hacer el matching
+const normalizeNameForMatching = (name: string): string => {
+  return name.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remover acentos
+    .replace(/[^\w\s]/g, '') // Remover caracteres especiales
+    .trim();
+};
+
 /**
  * Servicio para gestionar las citas y horarios disponibles
  */
@@ -12,7 +31,23 @@ export const AppointmentService = {
    */
   fetchDoctors: async (): Promise<Doctor[]> => {
     try {
-      return await getDoctorsByCompany(DEFAULT_COMPANY_ID);
+      const doctors = await getDoctorsByCompany(DEFAULT_COMPANY_ID);
+      
+      // Agregar imágenes a los especialistas de endocrinología
+      return doctors.map((doctor: Doctor) => {
+        const isEndocrinology = doctor.specialty?.name?.toLowerCase().includes('endocrin');
+        
+        if (isEndocrinology) {
+          const normalizedName = normalizeNameForMatching(doctor.nombre);
+          const image = endocrinologySpecialistsImages[normalizedName];
+          
+          if (image) {
+            return { ...doctor, image };
+          }
+        }
+        
+        return doctor;
+      });
     } catch (error) {
       console.error('Error fetching doctors:', error);
       throw error;
