@@ -11,6 +11,7 @@ export interface Specialty {
     specialty?: {
       name: string;
     };
+    image?: string; // Añadir imagen opcional
   }
     
   export interface Slot {

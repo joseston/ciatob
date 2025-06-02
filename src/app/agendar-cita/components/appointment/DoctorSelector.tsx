@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users } from 'lucide-react';
+import Image from 'next/image';
 import { Doctor } from '../../types/appointment';
 
 interface DoctorSelectorProps {
@@ -37,8 +38,7 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
         <div className="text-center py-6 text-gray-500">
           <p>No hay especialistas disponibles para esta especialidad</p>
         </div>
-      ) : (
-        <div className="space-y-3">
+      ) : (        <div className="space-y-3">
           {doctors.map((doctor) => (
             <motion.button
               key={doctor.id}
@@ -51,10 +51,31 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
               whileHover={{ x: 5 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="font-medium text-gray-900">{doctor.nombre}</div>
-              {doctor.specialty && (
-                <div className="text-sm text-[#46b1b9]">{doctor.specialty.name}</div>
-              )}
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="font-medium text-gray-900">{doctor.nombre}</div>
+                  {doctor.specialty && (
+                    <div className="text-sm text-[#46b1b9]">{doctor.specialty.name}</div>
+                  )}
+                </div>
+                {doctor.image && (
+                  <div className="ml-3 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#46b1b9]/20">
+                      <Image
+                        src={doctor.image}
+                        alt={`Dr. ${doctor.nombre}`}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.button>
           ))}
         </div>
