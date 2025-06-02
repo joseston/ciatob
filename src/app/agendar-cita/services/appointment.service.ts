@@ -3,14 +3,28 @@ import { Doctor, Slot, GroupedSlots } from '../types/appointment';
 import { getDoctorsByCompany, getAvailableSlots, DEFAULT_COMPANY_ID } from '@/services/api';
 import { format } from 'date-fns';
 
-// Mapeo de especialistas de endocrinología con sus fotos
-const endocrinologySpecialistsImages: Record<string, string> = {
-  "helard manrique": "https://static.scieluxe.com/files/helard-manrique.png",
-  "helard andres manrique hurtado": "https://static.scieluxe.com/files/helard-manrique.png",
-  "kenlly cardoza": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-  "kennlly josseph cardoza jimenez": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-  "katty manrique": "https://static.scieluxe.com/files/katty-manrique.jpg",
-  "katty manrique franco": "https://static.scieluxe.com/files/katty-manrique.jpg"
+// Mapeo de especialistas con sus fotos
+// Endocrinología
+const specialistsImages: Record<string, Record<string, string>> = {
+  endocrinologia: {
+    "helard manrique": "https://static.scieluxe.com/files/helard-manrique.png",
+    "helard andres manrique hurtado": "https://static.scieluxe.com/files/helard-manrique.png",
+    "kenlly cardoza": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
+    "kennlly josseph cardoza jimenez": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
+    "katty manrique": "https://static.scieluxe.com/files/katty-manrique.jpg",
+    "katty manrique franco": "https://static.scieluxe.com/files/katty-manrique.jpg"
+  },
+  // Nutrición
+  nutricion: {
+    "alondra ramirez": "https://static.scieluxe.com/files/alondra-ramirez.webp",
+    "valeria vilchez": "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg",
+    "valeria vilchez alburquerque": "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg"
+  },
+  // Psicología
+  psicologia: {
+    "luciana castro": "https://static.scieluxe.com/files/luciana-castro.jpg",
+    "luciana castro cabrera": "https://static.scieluxe.com/files/luciana-castro.jpg"
+  }
 };
 
 // Función para normalizar nombres y hacer el matching
@@ -28,18 +42,28 @@ const normalizeNameForMatching = (name: string): string => {
 export const AppointmentService = {
   /**
    * Obtiene la lista de médicos disponibles
-   */
-  fetchDoctors: async (): Promise<Doctor[]> => {
+   */  fetchDoctors: async (): Promise<Doctor[]> => {
     try {
       const doctors = await getDoctorsByCompany(DEFAULT_COMPANY_ID);
       
-      // Agregar imágenes a los especialistas de endocrinología
+      // Agregar imágenes a los especialistas según su especialidad
       return doctors.map((doctor: Doctor) => {
-        const isEndocrinology = doctor.specialty?.name?.toLowerCase().includes('endocrin');
+        const specialtyName = doctor.specialty?.name?.toLowerCase() || '';
+        let category = '';
         
-        if (isEndocrinology) {
+        // Determinar la categoría según la especialidad
+        if (specialtyName.includes('endocrin')) {
+          category = 'endocrinologia';
+        } else if (specialtyName.includes('nutri')) {
+          category = 'nutricion';
+        } else if (specialtyName.includes('psicolog')) {
+          category = 'psicologia';
+        }
+        
+        // Si encontramos una categoría válida, buscamos la imagen
+        if (category && specialistsImages[category]) {
           const normalizedName = normalizeNameForMatching(doctor.nombre);
-          const image = endocrinologySpecialistsImages[normalizedName];
+          const image = specialistsImages[category][normalizedName];
           
           if (image) {
             return { ...doctor, image };
