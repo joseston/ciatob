@@ -125,13 +125,13 @@ const AppointmentPage: React.FC = () => {  const {
             <>
               {loadingSlots ? (
                 <TimeSlotSelectorSkeleton />
-              ) : (
-                <TimeSlotSelector 
+              ) : (                <TimeSlotSelector 
                   groupedSlots={groupedSlots}
                   selectedSlot={selectedSlot}
                   onSelectSlot={handleSlotSelect}
                   loading={loading}
                   doctorSelected={!!selectedDoctor}
+                  selectedDoctor={selectedDoctor}
                 />
               )}
             </>

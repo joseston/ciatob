@@ -12,6 +12,7 @@ export interface Specialty {
       name: string;
     };
     image?: string; // Añadir imagen opcional
+    gender?: 'male' | 'female'; // Género del doctor para formatear correctamente los títulos
   }
     
   export interface Slot {

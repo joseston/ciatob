@@ -1,7 +1,6 @@
 // src/services/appointment.service.ts
-import { Doctor, Slot, GroupedSlots } from '../types/appointment';
-import { getDoctorsByCompany, getAvailableSlots, DEFAULT_COMPANY_ID } from '@/services/api';
-import { format } from 'date-fns';
+import { Doctor, /* Slot, */ GroupedSlots } from '../types/appointment';
+import { getDoctorsByCompany, /* getAvailableSlots */ DEFAULT_COMPANY_ID } from '@/services/api';
 
 // Mapeo de especialistas con sus fotos
 // Endocrinología
@@ -59,15 +58,29 @@ export const AppointmentService = {
         } else if (specialtyName.includes('psicolog')) {
           category = 'psicologia';
         }
+          // Determinar género basado en el nombre o los datos conocidos
+        let gender: 'male' | 'female' = 'male';
+        const normalizedName = normalizeNameForMatching(doctor.nombre);
+        
+        // Asignar género según los datos conocidos de los especialistas
+        if (normalizedName.includes('katty') || 
+            normalizedName.includes('guadalupe') || 
+            normalizedName.includes('valeria') || 
+            normalizedName.includes('alondra') ||
+            normalizedName.includes('luciana')) {
+          gender = 'female';
+        }
         
         // Si encontramos una categoría válida, buscamos la imagen
         if (category && specialistsImages[category]) {
-          const normalizedName = normalizeNameForMatching(doctor.nombre);
           const image = specialistsImages[category][normalizedName];
           
           if (image) {
-            return { ...doctor, image };
+            return { ...doctor, image, gender };
           }
+          
+          // Incluso si no tenemos imagen, asignamos el género
+          return { ...doctor, gender };
         }
         
         return doctor;
@@ -77,15 +90,20 @@ export const AppointmentService = {
       throw error;
     }
   },
-  
-  /**
+    /**
    * Obtiene los slots disponibles para un médico en un rango de fechas
+   * (Actualmente devuelve un objeto vacío para usar el sistema de WhatsApp)
    */
   fetchAvailableSlots: async (
-    doctorId: number,
+    /* doctorId: number,
     startDate: Date,
-    endDate: Date
+    endDate: Date */
   ): Promise<GroupedSlots> => {
+    // Devolvemos un objeto vacío para que no se muestren slots
+    // y así forzar el uso del botón de WhatsApp
+    return {};
+    
+    /* COMENTADO PARA USO FUTURO
     try {
       const startDateStr = format(startDate, 'yyyy-MM-dd');
       const endDateStr = format(endDate, 'yyyy-MM-dd');
@@ -109,6 +127,7 @@ export const AppointmentService = {
       console.error('Error fetching available slots:', error);
       throw error;
     }
+    */
   },
   
   /**

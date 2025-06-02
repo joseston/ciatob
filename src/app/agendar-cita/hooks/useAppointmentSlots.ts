@@ -38,9 +38,9 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
       try {
         setLoading(true);
         const slots = await AppointmentService.fetchAvailableSlots(
-          doctorId,
+          /* doctorId,
           dateRange.startDate,
-          dateRange.endDate
+          dateRange.endDate */
         );
         setGroupedSlots(slots);
         setError(null);
