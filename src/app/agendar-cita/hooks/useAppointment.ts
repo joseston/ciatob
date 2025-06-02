@@ -69,7 +69,6 @@ export const useAppointment = () => {
   const handleSlotSelect = (slot: Slot | null) => {  // Modificar aquí para aceptar null
     selectSlot(slot);
   };
-
   return {
     // Estado
     specialties,
@@ -80,6 +79,9 @@ export const useAppointment = () => {
     groupedSlots,
     selectedSlot,
     loading: loadingSpecialties || loadingDoctors || loadingSlots,
+    loadingSpecialties,
+    loadingDoctors,
+    loadingSlots,
     error: specialtiesError || doctorsError || slotsError,
     
     // Acciones

@@ -13,9 +13,14 @@ import TimeSlotSelector from './TimeSlotSelector';
 import AppointmentButton from './AppointmentButton';
 import BookingModal from './BookingModal';
 import BookingSuccess from './BookingSuccess';
+import { 
+  DoctorSelectorSkeleton, 
+  DateRangeSelectorSkeleton, 
+  SpecialtySelectorSkeleton, 
+  TimeSlotSelectorSkeleton 
+} from './SkeletonLoader';
 
-const AppointmentPage: React.FC = () => {
-  const {
+const AppointmentPage: React.FC = () => {  const {
     specialties,
     selectedSpecialty,
     doctors,
@@ -24,6 +29,9 @@ const AppointmentPage: React.FC = () => {
     groupedSlots,
     selectedSlot,
     loading,
+    loadingSpecialties,
+    loadingDoctors,
+    loadingSlots,
     handleSpecialtySelect,
     handleDoctorSelect,
     handleDateRangeChange,
@@ -75,45 +83,58 @@ const AppointmentPage: React.FC = () => {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Selecciona la especialidad y el profesional que mejor se adapte a tus necesidades
             </p>
-          </motion.div>
-
-          {/* Selección de especialidad horizontal */}
-          <HorizontalSpecialtySelector 
-            specialties={specialties}
-            selectedSpecialty={selectedSpecialty}
-            onSelectSpecialty={handleSpecialtySelect}
-          />
+          </motion.div>          {/* Selección de especialidad horizontal */}
+          {loadingSpecialties ? (
+            <SpecialtySelectorSkeleton />
+          ) : (
+            <HorizontalSpecialtySelector 
+              specialties={specialties}
+              selectedSpecialty={selectedSpecialty}
+              onSelectSpecialty={handleSpecialtySelect}
+            />
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {/* Selección de médico */}
-            <DoctorSelector 
-              doctors={doctors}
-              selectedDoctor={selectedDoctor}
-              onSelectDoctor={handleDoctorSelect}
-              disabled={!selectedSpecialty}
-            />
+            {loadingDoctors || loadingSpecialties ? (
+              <DoctorSelectorSkeleton />
+            ) : (
+              <DoctorSelector 
+                doctors={doctors}
+                selectedDoctor={selectedDoctor}
+                onSelectDoctor={handleDoctorSelect}
+                disabled={!selectedSpecialty}
+              />
+            )}
 
             {/* Selección de fecha y hora - Solo se muestra siempre */}
-            <div>
-              <DateRangeSelector 
-                dateRange={dateRange}
-                onDateChange={handleDateRangeChange}
-                disabled={!selectedDoctor}
-                onSearch={handleSearch}
-              />
-            </div>
-          </div>
-
-
-          {/* Selección de hora */}
+            {loadingDoctors || loadingSpecialties ? (
+              <DateRangeSelectorSkeleton />
+            ) : (
+              <div>
+                <DateRangeSelector 
+                  dateRange={dateRange}
+                  onDateChange={handleDateRangeChange}
+                  disabled={!selectedDoctor}
+                  onSearch={handleSearch}
+                />
+              </div>
+            )}
+          </div>          {/* Selección de hora */}
           {selectedDoctor && (
-            <TimeSlotSelector 
-              groupedSlots={groupedSlots}
-              selectedSlot={selectedSlot}
-              onSelectSlot={handleSlotSelect}
-              loading={loading}
-              doctorSelected={!!selectedDoctor}
-            />
+            <>
+              {loadingSlots ? (
+                <TimeSlotSelectorSkeleton />
+              ) : (
+                <TimeSlotSelector 
+                  groupedSlots={groupedSlots}
+                  selectedSlot={selectedSlot}
+                  onSelectSlot={handleSlotSelect}
+                  loading={loading}
+                  doctorSelected={!!selectedDoctor}
+                />
+              )}
+            </>
           )}
 
           {/* Resumen de selección - Ahora está fuera del grid, después de la selección de fecha */}

@@ -1,10 +1,41 @@
 // src/services/api.ts
+import { Specialty } from '../app/agendar-cita/types/appointment';
 
 // Configuración de la URL base de la API
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
 // ID de empresa por defecto
 export const DEFAULT_COMPANY_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_COMPANY_ID) || 1;
+
+// Función para hacer peticiones HTTP que funcione en cliente y servidor
+const apiClient = async (url: string, options: RequestInit = {}) => {
+  // En desarrollo o cuando la API no esté disponible, usar datos mock
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
+  if (isDevelopment) {
+    // Por ahora, usar datos mock en desarrollo
+    return null; // Será manejado por cada función específica
+  }
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('API request failed:', error);
+    throw error;
+  }
+};
 
 // Simulación de datos para desarrollo
 const mockDoctors = [
@@ -35,24 +66,32 @@ const mockSlots = [
 
 export const getSpecialties = async (companyId: number = DEFAULT_COMPANY_ID) => {
   try {
-    // Usamos el endpoint público que no requiere autenticación
-    const response = await fetch(`${API_URL}/business/config/public/specialties/${companyId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    let specialties;
     
-    if (!response.ok) {
-      throw new Error('Error al obtener las especialidades');
-    }
+    // En desarrollo, usar datos mock directamente para evitar problemas de fetch
+    if (process.env.NODE_ENV === 'development') {
+      // Simular delay de red
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      specialties = mockSpecialties;
+    } else {
+      // En producción, usar la API real
+      const data = await apiClient(`${API_URL}/business/config/public/specialties/${companyId}`, {
+        method: 'GET',
+      });
+      specialties = data || mockSpecialties; // Fallback a mock si la API falla
+    }    // Filtrar la especialidad "Multiple" que no debe aparecer
+    const filteredSpecialties = specialties.filter(
+      (specialty: Specialty) => specialty.name && specialty.name.toLowerCase() !== 'multiple'
+    );
     
-    return await response.json();
+    return filteredSpecialties;
   } catch (error) {
-    console.error('Error en getSpecialties:', error);
-    console.log('Usando datos simulados como fallback');
-    // Si falla la petición, usamos datos simulados como fallback
-    return mockSpecialties;
+    console.error('Error al obtener las especialidades:', error);
+    // Fallback a datos mock en caso de error y filtrar "Multiple"
+    const filteredMockSpecialties = mockSpecialties.filter(
+      specialty => specialty.name.toLowerCase() !== 'multiple'
+    );
+    return filteredMockSpecialties;
   }
 };
 
@@ -62,23 +101,22 @@ export const getSpecialties = async (companyId: number = DEFAULT_COMPANY_ID) => 
  */
 export const getDoctorsByCompany = async (companyId: number = DEFAULT_COMPANY_ID) => {
   try {
-    // Usamos el endpoint público que no requiere autenticación
-    const response = await fetch(`${API_URL}/business/config/public/doctors/${companyId}`, {
+    // En desarrollo, usar datos mock directamente
+    if (process.env.NODE_ENV === 'development') {
+      // Simular delay de red
+      await new Promise(resolve => setTimeout(resolve, 800));
+      return mockDoctors;
+    }
+
+    // En producción, usar la API real
+    const data = await apiClient(`${API_URL}/business/config/public/doctors/${companyId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
     
-    if (!response.ok) {
-      throw new Error('Error al obtener los médicos');
-    }
-    
-    return await response.json();
+    return data || mockDoctors; // Fallback a mock si la API falla
   } catch (error) {
-    console.error('Error en getDoctorsByCompany:', error);
-    console.log('Usando datos simulados como fallback');
-    // Si falla la petición, usamos datos simulados como fallback
+    console.error('Error al obtener los médicos:', error);
+    // Fallback a datos mock en caso de error
     return mockDoctors;
   }
 };
@@ -97,6 +135,13 @@ export const getAvailableSlots = async (
   endDate: string
 ) => {
   try {
+    // En desarrollo, usar datos mock directamente
+    if (process.env.NODE_ENV === 'development') {
+      // Simular delay de red
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      return { slots: mockSlots };
+    }
+
     const queryParams = new URLSearchParams({
       company_id: companyId.toString(),
       doctor_id: doctorId.toString(),
@@ -104,23 +149,15 @@ export const getAvailableSlots = async (
       end_date: endDate
     });
     
-    // Usamos el endpoint público que no requiere autenticación
-    const response = await fetch(`${API_URL}/business/calendar/public/available-slots?${queryParams}`, {
+    // En producción, usar la API real
+    const data = await apiClient(`${API_URL}/business/calendar/public/available-slots?${queryParams}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
     
-    if (!response.ok) {
-      throw new Error('Error al obtener los slots disponibles');
-    }
-    
-    return await response.json();
+    return data || { slots: mockSlots }; // Fallback a mock si la API falla
   } catch (error) {
-    console.error('Error en getAvailableSlots:', error);
-    console.log('Usando datos simulados como fallback');
-    // Si falla la petición, usamos datos simulados como fallback
+    console.error('Error al obtener los slots disponibles:', error);
+    // Fallback a datos mock en caso de error
     return { slots: mockSlots };
   }
 };
