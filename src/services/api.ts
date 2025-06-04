@@ -1,4 +1,12 @@
 // src/services/api.ts
+// API Service para CIATOB - Sistema de Citas Médicas
+// 
+// Comportamiento:
+// - SOLO usa datos del backend real (localhost:3002 -> localhost:8000/api)
+// - NO usa datos mock - Si no hay datos del backend, muestra estados vacíos
+// - Configurado para Company ID 1 en desarrollo
+// - Incluye timeout de 5 segundos para evitar esperas largas
+//
 import { Specialty } from '../app/agendar-cita/types/appointment';
 
 // Configuración de la URL base de la API
@@ -7,24 +15,26 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000
 // ID de empresa por defecto
 export const DEFAULT_COMPANY_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_COMPANY_ID) || 1;
 
+// ID de usuario por defecto (para desarrollo)
+export const DEFAULT_USER_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_USER_ID) || 2;
+
 // Función para hacer peticiones HTTP que funcione en cliente y servidor
 const apiClient = async (url: string, options: RequestInit = {}) => {
-  // En desarrollo o cuando la API no esté disponible, usar datos mock
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  
-  if (isDevelopment) {
-    // Por ahora, usar datos mock en desarrollo
-    return null; // Será manejado por cada función específica
-  }
-
   try {
+    // Agregar timeout para evitar esperas largas
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos timeout
+
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
       },
+      signal: controller.signal,
       ...options,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -32,66 +42,34 @@ const apiClient = async (url: string, options: RequestInit = {}) => {
 
     return await response.json();
   } catch (error) {
-    console.error('API request failed:', error);
+    console.error('❌ Error en petición al backend:', error);
     throw error;
   }
 };
 
-// Simulación de datos para desarrollo
-const mockDoctors = [
-  { id: 1, nombre: "Dr. Helard Manrique", specialty: { name: "Endocrinología" } },
-  { id: 2, nombre: "Dra. Ken Lly Cardoza", specialty: { name: "Endocrinología" } },
-  { id: 3, nombre: "Dra. Melany Nito", specialty: { name: "Nutrición" } },
-  { id: 4, nombre: "Lic. Luciana Castro", specialty: { name: "Psicología" } },
-  { id: 5, nombre: "Dr. Alexander Fernandez", specialty: { name: "Prescripción del ejercicio" } }
-];
-
-const mockSpecialties = [
-  { id: 1, name: "Endocrinología" },
-  { id: 2, name: "Nutrición" },
-  { id: 3, name: "Psicología" },
-  { id: 4, name: "Prescripción del ejercicio" }
-];
-
-const mockSlots = [
-  { id: 101, fecha: "2025-03-05", hora_inicio: "09:00", hora_fin: "09:30", duracion: "30" },
-  { id: 102, fecha: "2025-03-05", hora_inicio: "10:00", hora_fin: "10:30", duracion: "30" },
-  { id: 103, fecha: "2025-03-05", hora_inicio: "11:00", hora_fin: "11:30", duracion: "30" },
-  { id: 104, fecha: "2025-03-06", hora_inicio: "09:00", hora_fin: "09:30", duracion: "30" },
-  { id: 105, fecha: "2025-03-06", hora_inicio: "10:00", hora_fin: "10:30", duracion: "30" },
-  { id: 106, fecha: "2025-03-07", hora_inicio: "09:00", hora_fin: "09:30", duracion: "30" },
-  { id: 107, fecha: "2025-03-07", hora_inicio: "14:00", hora_fin: "14:30", duracion: "30" },
-  { id: 108, fecha: "2025-03-07", hora_inicio: "15:00", hora_fin: "15:30", duracion: "30" }
-];
-
+/**
+ * Obtiene las especialidades de una empresa usando el endpoint público
+ * @param companyId - ID de la empresa (por defecto se usa el valor de la variable de entorno)
+ */
 export const getSpecialties = async (companyId: number = DEFAULT_COMPANY_ID) => {
   try {
-    let specialties;
+    console.log(`🔄 Obteniendo especialidades del backend: ${API_URL}/business/config/public/specialties/${companyId}`);
     
-    // En desarrollo, usar datos mock directamente para evitar problemas de fetch
-    if (process.env.NODE_ENV === 'development') {
-      // Simular delay de red
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      specialties = mockSpecialties;
-    } else {
-      // En producción, usar la API real
-      const data = await apiClient(`${API_URL}/business/config/public/specialties/${companyId}`, {
-        method: 'GET',
-      });
-      specialties = data || mockSpecialties; // Fallback a mock si la API falla
-    }    // Filtrar la especialidad "Multiple" que no debe aparecer
-    const filteredSpecialties = specialties.filter(
+    const data = await apiClient(`${API_URL}/business/config/public/specialties/${companyId}`, {
+      method: 'GET',
+    });
+    
+    console.log('✅ Especialidades obtenidas del backend:', data);
+    
+    // Filtrar la especialidad "Multiple" que no debe aparecer
+    const filteredSpecialties = data.filter(
       (specialty: Specialty) => specialty.name && specialty.name.toLowerCase() !== 'multiple'
     );
     
     return filteredSpecialties;
   } catch (error) {
-    console.error('Error al obtener las especialidades:', error);
-    // Fallback a datos mock en caso de error y filtrar "Multiple"
-    const filteredMockSpecialties = mockSpecialties.filter(
-      specialty => specialty.name.toLowerCase() !== 'multiple'
-    );
-    return filteredMockSpecialties;
+    console.error('❌ Error al obtener especialidades del backend:', error);
+    throw new Error('No se pudieron cargar las especialidades. Verifique que el backend esté funcionando.');
   }
 };
 
@@ -101,23 +79,18 @@ export const getSpecialties = async (companyId: number = DEFAULT_COMPANY_ID) => 
  */
 export const getDoctorsByCompany = async (companyId: number = DEFAULT_COMPANY_ID) => {
   try {
-    // En desarrollo, usar datos mock directamente
-    if (process.env.NODE_ENV === 'development') {
-      // Simular delay de red
-      await new Promise(resolve => setTimeout(resolve, 800));
-      return mockDoctors;
-    }
-
-    // En producción, usar la API real
+    console.log(`🔄 Obteniendo médicos del backend: ${API_URL}/business/config/public/doctors/${companyId}`);
+    
     const data = await apiClient(`${API_URL}/business/config/public/doctors/${companyId}`, {
       method: 'GET',
     });
     
-    return data || mockDoctors; // Fallback a mock si la API falla
+    console.log('✅ Médicos obtenidos del backend:', data);
+    
+    return data;
   } catch (error) {
-    console.error('Error al obtener los médicos:', error);
-    // Fallback a datos mock en caso de error
-    return mockDoctors;
+    console.error('❌ Error al obtener médicos del backend:', error);
+    throw new Error('No se pudieron cargar los médicos. Verifique que el backend esté funcionando.');
   }
 };
 
@@ -135,13 +108,6 @@ export const getAvailableSlots = async (
   endDate: string
 ) => {
   try {
-    // En desarrollo, usar datos mock directamente
-    if (process.env.NODE_ENV === 'development') {
-      // Simular delay de red
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      return { slots: mockSlots };
-    }
-
     const queryParams = new URLSearchParams({
       company_id: companyId.toString(),
       doctor_id: doctorId.toString(),
@@ -149,15 +115,18 @@ export const getAvailableSlots = async (
       end_date: endDate
     });
     
-    // En producción, usar la API real
-    const data = await apiClient(`${API_URL}/business/calendar/public/available-slots?${queryParams}`, {
+    const url = `${API_URL}/business/calendar/public/available-slots?${queryParams}`;
+    console.log(`🔄 Obteniendo slots del backend: ${url}`);
+    
+    const data = await apiClient(url, {
       method: 'GET',
     });
     
-    return data || { slots: mockSlots }; // Fallback a mock si la API falla
+    console.log('✅ Slots obtenidos del backend:', data);
+    
+    return data;
   } catch (error) {
-    console.error('Error al obtener los slots disponibles:', error);
-    // Fallback a datos mock en caso de error
-    return { slots: mockSlots };
+    console.error('❌ Error al obtener slots del backend:', error);
+    throw new Error('No se pudieron cargar los horarios disponibles. Verifique que el backend esté funcionando.');
   }
 };

@@ -1,7 +1,7 @@
 // src/components/appointment/TimeSlotSelector.tsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { /* Clock */ MessageCircle, Copy, Check } from 'lucide-react';
+import { /* Clock */ MessageCircle } from 'lucide-react';
 /* import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale'; */
 import { Slot, GroupedSlots, Doctor } from '../../types/appointment';
@@ -22,9 +22,7 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
   /* loading, */
   doctorSelected,
   selectedDoctor
-}) => {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [copied, setCopied] = useState(false);
+}) => {  const [isDesktop, setIsDesktop] = useState(false);
 
   // Detectar si es un dispositivo de escritorio
   useEffect(() => {
@@ -46,21 +44,9 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
     const doctorTitle = selectedDoctor.specialty?.name?.toLowerCase().includes('psicolog') ? 'Lic.' :
                         (selectedDoctor.specialty?.name?.toLowerCase().includes('nutri') ? 'Lic.' : 
                         (selectedDoctor.gender === 'female' ? 'Dra.' : 'Dr.'));
-    
-    return `Hola, quisiera una cita con el ${doctorTitle} ${selectedDoctor.nombre}, de la especialidad de ${selectedDoctor.specialty?.name || 'especialidad'}, ¿qué horarios tiene disponible?`;
+      return `Hola, quisiera una cita con el ${doctorTitle} ${selectedDoctor.nombre}, de la especialidad de ${selectedDoctor.specialty?.name || 'especialidad'}, ¿qué horarios tiene disponible?`;
   };
 
-  // Función para copiar el mensaje al portapapeles
-  const copyMessageToClipboard = async () => {
-    const message = generateWhatsAppMessage();
-    try {
-      await navigator.clipboard.writeText(message);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Error al copiar:', err);
-    }
-  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -78,46 +64,13 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
         </div>
       ) : (        <div className="space-y-6">
           <div className="p-5 bg-[#25D366]/10 rounded-lg border border-[#25D366]/30">
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 mb-6">
               Para agendar tu cita con {selectedDoctor?.gender === 'female' ? 'la' : 'el'} {
                 selectedDoctor?.specialty?.name?.toLowerCase().includes('psicolog') ? 'Lic.' :
                 (selectedDoctor?.specialty?.name?.toLowerCase().includes('nutri') ? 'Lic.' : 
                 (selectedDoctor?.gender === 'female' ? 'Dra.' : 'Dr.'))
-              } {selectedDoctor?.nombre}, {isDesktop ? 'copia el mensaje y contacta' : 'haz clic en el botón'} por WhatsApp.
+              } {selectedDoctor?.nombre}, haz clic en el botón para contactar por WhatsApp.
             </p>
-            
-            {/* Mostrar mensaje para copiar en desktop */}
-            {isDesktop && (
-              <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-medium text-gray-900">Mensaje para WhatsApp:</h4>
-                  <motion.button
-                    onClick={copyMessageToClipboard}
-                    className={`flex items-center px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                      copied 
-                        ? 'bg-green-100 text-green-700' 
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-4 h-4 mr-1" />
-                        Copiado
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4 mr-1" />
-                        Copiar
-                      </>
-                    )}
-                  </motion.button>
-                </div>                <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded border italic">
-                  &ldquo;{generateWhatsAppMessage()}&rdquo;
-                </p>
-              </div>
-            )}
             
             <div className="flex justify-center">
               <motion.a
@@ -145,19 +98,8 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
                 >
                   <path d="M87.882 14.185c-40.525 0-73.475 32.95-73.49 73.475a73.318 73.318 0 0 0 11.208 38.948L14.14 161.26l35.34-9.258a73.504 73.504 0 0 0 38.312 10.513h.033c40.542 0 73.475-32.95 73.491-73.491a73.085 73.085 0 0 0-21.511-51.97 73.075 73.075 0 0 0-51.924-21.869zm-.05 135.75h-.026a61.033 61.033 0 0 1-31.098-8.505l-2.236-1.324-23.14 6.07 6.169-22.54-1.458-2.318a60.991 60.991 0 0 1-9.34-32.672c.012-33.701 27.445-61.118 61.163-61.118a60.729 60.729 0 0 1 43.136 17.894 60.762 60.762 0 0 1 17.877 43.152c-.015 33.712-27.438 61.13-61.047 61.13zm33.54-45.809c-1.844-.922-10.868-5.36-12.547-5.969-1.685-.613-2.909-.92-4.132.922-1.23 1.844-4.76 5.97-5.836 7.192-1.075 1.23-2.14 1.385-3.984.461-1.845-.922-7.795-2.871-14.84-9.148-5.483-4.892-9.189-10.933-10.259-12.777-1.075-1.844-.113-2.841.808-3.76.83-.825 1.844-2.15 2.764-3.225.922-1.076 1.23-1.844 1.844-3.072.614-1.23.307-2.304-.153-3.225-.461-.922-4.132-9.955-5.655-13.625-1.49-3.579-3-3.088-4.132-3.147-1.075-.051-2.305-.061-3.53-.061-1.23 0-3.225.461-4.909 2.305-1.685 1.844-6.435 6.292-6.435 15.33 0 9.04 6.589 17.771 7.511 19 .92 1.23 13.04 19.926 31.576 27.925 4.407 1.906 7.84 3.042 10.522 3.894 4.417 1.403 8.433 1.204 11.612.73 3.54-.531 10.868-4.439 12.394-8.734 1.53-4.292 1.53-7.97 1.075-8.732-.461-.767-1.685-1.23-3.53-2.15z" fillRule="evenodd"/>
                 </svg>
-                {isDesktop ? 'Abrir WhatsApp Web' : 'Contactar por WhatsApp'}
+                ABRIR WHATSAPP WEB
               </motion.a>
-            </div>
-            
-            <div className="mt-4 text-center text-sm text-gray-600">
-              {isDesktop ? (
-                <div>
-                  <p className="mb-1">📱 <strong>Recomendación:</strong> Si el mensaje no aparece automáticamente,</p>
-                  <p>copia el texto de arriba y pégalo en WhatsApp.</p>
-                </div>
-              ) : (
-                <p>Te responderemos a la brevedad para confirmar tu cita.</p>
-              )}
             </div>
           </div>
           
