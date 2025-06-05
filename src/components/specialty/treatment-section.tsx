@@ -36,6 +36,13 @@ const TreatmentSection: React.FC = () => {
     }
   ];
 
+  // Determine colors - this component is used by Endocrinología
+  const colors = {
+    primary: '#02283b',
+    secondary: '#1a4a5c',
+    gradient: 'from-[#02283b] to-[#1a4a5c]'
+  };
+
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +54,7 @@ const TreatmentSection: React.FC = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Tratamientos Especializados en{' '}
-              <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+              <span className={`bg-gradient-to-r ${colors.gradient} text-transparent bg-clip-text`}>
                 Endocrinología
               </span>
             </h2>
@@ -65,7 +72,7 @@ const TreatmentSection: React.FC = () => {
                   className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${colors.gradient} rounded-lg flex items-center justify-center flex-shrink-0`}>
                       <treatment.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>

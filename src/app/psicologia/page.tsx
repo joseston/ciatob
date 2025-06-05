@@ -120,7 +120,7 @@ const PsicologiaPage = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Nuestro Enfoque{' '}
-              <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-[#b72955] to-[#a02348] text-transparent bg-clip-text">
                 Psicológico
               </span>
             </h2>
@@ -150,7 +150,7 @@ const PsicologiaPage = () => {
                   className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#b72955] to-[#a02348] rounded-lg flex items-center justify-center flex-shrink-0">
                       <treatment.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -171,10 +171,10 @@ const PsicologiaPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 p-6 bg-gray-50 rounded-xl border border-[#46b1b9]/20"
+            className="mt-12 p-6 bg-gray-50 rounded-xl border border-[#b72955]/20"
           >
             <div className="flex items-start space-x-4">
-              <CopyCheck className="w-8 h-8 text-[#46b1b9] flex-shrink-0 mt-1" />
+              <CopyCheck className="w-8 h-8 text-[#b72955] flex-shrink-0 mt-1" />
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Nuestro Compromiso
@@ -192,7 +192,6 @@ const PsicologiaPage = () => {
 
   return (
     <main className="min-h-screen">
-      <Header />
       
       <HeroSpecialty
         title="Psicología"
@@ -211,7 +210,7 @@ const PsicologiaPage = () => {
 
       <FAQSection faqs={faqs} />
 
-      <CTASection />
+      <CTASection specialty="psicología" />
     </main>
   );
 };

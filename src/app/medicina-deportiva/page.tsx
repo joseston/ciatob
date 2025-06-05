@@ -118,7 +118,7 @@ const MedicinaDeportivaPage = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Servicios de{' '}
-              <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-[#398e43] to-[#2d7235] text-transparent bg-clip-text">
                 Medicina Deportiva
               </span>
             </h2>
@@ -138,7 +138,7 @@ const MedicinaDeportivaPage = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-start space-x-4"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#398e43] to-[#2d7235] rounded-lg flex items-center justify-center flex-shrink-0">
                       <treatment.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -162,7 +162,7 @@ const MedicinaDeportivaPage = () => {
                 className="bg-white p-6 rounded-xl shadow-lg"
               >
                 <div className="flex items-start space-x-4">
-                  <BarChart className="w-8 h-8 text-[#46b1b9] flex-shrink-0" />
+                  <BarChart className="w-8 h-8 text-[#398e43] flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       Nuestro Proceso
@@ -232,7 +232,7 @@ const MedicinaDeportivaPage = () => {
 
       <FAQSection faqs={faqs} />
 
-      <CTASection />
+      <CTASection specialty="medicina deportiva" />
     </main>
   );
 };

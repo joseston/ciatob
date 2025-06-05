@@ -5,9 +5,62 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight } from 'lucide-react';
 
-const CTASection: React.FC = () => {
+interface CTASectionProps {
+  specialty?: string;
+}
+
+const CTASection: React.FC<CTASectionProps> = ({ specialty }) => {
+  // Determine color based on specialty prop
+  const getSpecialtyColors = (specialtyName?: string) => {
+    if (!specialtyName) {
+      // Fallback to pathname detection
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname;
+        if (path.includes('nutricion')) {
+          specialtyName = 'nutrición';
+        } else if (path.includes('endocrinologia')) {
+          specialtyName = 'endocrinología';
+        } else if (path.includes('psicologia')) {
+          specialtyName = 'psicología';
+        } else if (path.includes('medicina-deportiva')) {
+          specialtyName = 'medicina deportiva';
+        }
+      }
+    }
+
+    switch (specialtyName?.toLowerCase()) {
+      case 'nutrición':
+        return {
+          gradient: 'from-[#d29113] to-[#b8781a]',
+          primary: '#d29113'
+        };
+      case 'endocrinología':
+        return {
+          gradient: 'from-[#02283b] to-[#1a4a5c]',
+          primary: '#02283b'
+        };
+      case 'psicología':
+        return {
+          gradient: 'from-[#b72955] to-[#a02348]',
+          primary: '#b72955'
+        };
+      case 'medicina deportiva':
+        return {
+          gradient: 'from-[#398e43] to-[#2d7235]',
+          primary: '#398e43'
+        };
+      default:
+        return {
+          gradient: 'from-[#46b1b9] to-[#22616a]',
+          primary: '#46b1b9'
+        };
+    }
+  };
+
+  const colors = getSpecialtyColors(specialty);
+
   return (
-    <section className="py-20 bg-gradient-to-br from-[#46b1b9] to-[#22616a] relative overflow-hidden">
+    <section className={`py-20 bg-gradient-to-br ${colors.gradient} relative overflow-hidden`}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -36,7 +89,8 @@ const CTASection: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white text-[#46b1b9] font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                style={{ color: colors.primary }}
               >
                 <Calendar className="w-5 h-5 mr-2" />
                 Agendar Consulta

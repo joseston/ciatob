@@ -21,6 +21,25 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Determine color based on current page - check if we're on nutrition page
+  const getSpecialtyColor = () => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      if (path.includes('nutricion')) {
+        return '#d29113';
+      } else if (path.includes('endocrinologia')) {
+        return '#02283b';
+      } else if (path.includes('psicologia')) {
+        return '#b72955';
+      } else if (path.includes('medicina-deportiva')) {
+        return '#398e43';
+      }
+    }
+    return '#46b1b9'; // default
+  };
+
+  const specialtyColor = getSpecialtyColor();
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +53,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
             Preguntas Frecuentes
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Resolvemos tus dudas sobre el tratamiento endocrinológico de la obesidad
+            Resolvemos tus dudas sobre la prescripción de ejercicio en el manejo de la obesidad
           </p>
         </motion.div>
 
@@ -53,9 +72,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
               >
                 <span className="text-lg font-semibold text-gray-900">{faq.question}</span>
                 {openIndex === index ? (
-                  <Minus className="w-5 h-5 text-[#46b1b9]" />
+                  <Minus className={`w-5 h-5 text-[${specialtyColor}]`} />
                 ) : (
-                  <Plus className="w-5 h-5 text-[#46b1b9]" />
+                  <Plus className={`w-5 h-5 text-[${specialtyColor}]`} />
                 )}
               </button>
               <AnimatePresence>

@@ -21,6 +21,22 @@ const InfoSection: React.FC<InfoSectionProps> = ({
   description,
   items
 }) => {
+  // Determine color based on specialty in title
+  const getSpecialtyColor = (title: string) => {
+    if (title.toLowerCase().includes('endocrinología')) {
+      return '#02283b';
+    } else if (title.toLowerCase().includes('nutrición')) {
+      return '#d29113';
+    } else if (title.toLowerCase().includes('psicología')) {
+      return '#b72955';
+    } else if (title.toLowerCase().includes('medicina deportiva')) {
+      return '#398e43';
+    }
+    return '#46b1b9'; // default
+  };
+
+  const specialtyColor = getSpecialtyColor(title);
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,7 +64,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
               className="p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300"
             >
               <div className="flex items-start space-x-4">
-                <CheckCircle2 className="w-6 h-6 text-[#46b1b9] mt-1 flex-shrink-0" />
+                <CheckCircle2 className={`w-6 h-6 text-[${specialtyColor}] mt-1 flex-shrink-0`} />
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {item.title}

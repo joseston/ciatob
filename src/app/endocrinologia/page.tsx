@@ -101,7 +101,7 @@ const EndocrinologiaPage = () => {
 
       <FAQSection faqs={faqs} />
 
-      <CTASection />
+      <CTASection specialty="endocrinología" />
     </main>
   );
 };
