@@ -48,10 +48,10 @@ const footerSections: FooterSection[] = [
     title: "Especialidades",
     icon: HeartPulse,
     links: [
-      { text: "Endocrinología", href: "/especialidades/endocrinologia", icon: Droplet },
-      { text: "Nutrición", href: "/especialidades/nutricion", icon: Leaf },
-      { text: "Psicología", href: "/especialidades/psicologia", icon: Smile },
-      { text: "Medicina Deportiva", href: "/especialidades/medicina-deportiva", icon: Barbell }
+      { text: "Endocrinología", href: "/endocrinologia", icon: Droplet },
+      { text: "Nutrición", href: "/nutricion", icon: Leaf },
+      { text: "Psicología", href: "/psicologia", icon: Smile },
+      { text: "Medicina Deportiva", href: "/medicina-deportiva", icon: Barbell }
     ]
   }
 ];
