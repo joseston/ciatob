@@ -9,25 +9,8 @@ interface CTASectionProps {
   specialty?: string;
 }
 
-const CTASection: React.FC<CTASectionProps> = ({ specialty }) => {
-  // Determine color based on specialty prop
+const CTASection: React.FC<CTASectionProps> = ({ specialty }) => {  // Determine color based on specialty prop
   const getSpecialtyColors = (specialtyName?: string) => {
-    if (!specialtyName) {
-      // Fallback to pathname detection
-      if (typeof window !== 'undefined') {
-        const path = window.location.pathname;
-        if (path.includes('nutricion')) {
-          specialtyName = 'nutrición';
-        } else if (path.includes('endocrinologia')) {
-          specialtyName = 'endocrinología';
-        } else if (path.includes('psicologia')) {
-          specialtyName = 'psicología';
-        } else if (path.includes('medicina-deportiva')) {
-          specialtyName = 'medicina deportiva';
-        }
-      }
-    }
-
     switch (specialtyName?.toLowerCase()) {
       case 'nutrición':
         return {

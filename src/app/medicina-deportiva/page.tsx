@@ -4,10 +4,10 @@
 import React from 'react';
 import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
+import TreatmentSection from '@/components/specialty/treatment-section';
 import FAQSection from '@/components/specialty/faq-section';
 import CTASection from '@/components/specialty/cta-section';
-import { Stethoscope, Award, Users, Dumbbell, HeartPulse, Timer, Target, BarChart } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Stethoscope, Award, Users } from 'lucide-react';
 
 const MedicinaDeportivaPage = () => {
   // Hero section data
@@ -54,32 +54,7 @@ const MedicinaDeportivaPage = () => {
     {
       title: "Educación en Actividad Física",
       description: "Enseñanza de técnicas correctas de ejercicio y principios fundamentales para mantener una vida activa."
-    }
-  ];
-
-  // Sports Medicine treatments
-  const treatments = [
-    {
-      icon: Dumbbell,
-      title: "Prescripción de Ejercicio Terapéutico",
-      description: "Programas de actividad física diseñados científicamente para mejorar la salud metabólica y facilitar la pérdida de peso."
-    },
-    {
-      icon: HeartPulse,
-      title: "Evaluación de Capacidad Física",
-      description: "Tests especializados para determinar tu condición cardiovascular, fuerza y resistencia actuales."
-    },
-    {
-      icon: Timer,
-      title: "Entrenamiento por Intervalos",
-      description: "Protocolos de ejercicio altamente efectivos para optimizar el gasto calórico y la salud metabólica."
-    },
-    {
-      icon: Target,
-      title: "Planificación de Progresión",
-      description: "Diseño de objetivos incrementales para asegurar una mejora constante y segura en tu condición física."
-    }
-  ];
+    }  ];
 
   // FAQ section data
   const faqs = [
@@ -102,123 +77,13 @@ const MedicinaDeportivaPage = () => {
     {
       question: "¿Puedo hacer ejercicio si tengo problemas articulares o limitaciones físicas?",
       answer: "Absolutamente. Especialmente en estos casos, la prescripción médica del ejercicio es crucial. Adaptamos los movimientos, intensidades y tipos de ejercicio para proteger tus articulaciones mientras mejoras tu condición física y metabolismo."
-    }
-  ];
-
-  // Custom Sports Medicine Treatment Section
-  const SportsMedicineTreatmentSection = () => {
-    return (
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Servicios de{' '}
-              <span className="bg-gradient-to-r from-[#398e43] to-[#2d7235] text-transparent bg-clip-text">
-                Medicina Deportiva
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              La actividad física prescrita médicamente es una herramienta terapéutica poderosa en el manejo de la obesidad. Nuestro enfoque científico garantiza programas seguros y efectivos.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-xl shadow-xl">
-              <div className="grid grid-cols-1 gap-6">
-                {treatments.map((treatment, index) => (
-                  <motion.div
-                    key={treatment.title}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-start space-x-4"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#398e43] to-[#2d7235] rounded-lg flex items-center justify-center flex-shrink-0">
-                      <treatment.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        {treatment.title}
-                      </h3>
-                      <p className="text-gray-600">
-                        {treatment.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white p-6 rounded-xl shadow-lg"
-              >
-                <div className="flex items-start space-x-4">
-                  <BarChart className="w-8 h-8 text-[#398e43] flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Nuestro Proceso
-                    </h3>
-                    <ol className="space-y-3 text-gray-600">
-                      <li className="flex items-start">
-                        <span className="font-bold mr-2">1.</span> 
-                        <span>Evaluación inicial completa de tu condición física y metabólica</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="font-bold mr-2">2.</span> 
-                        <span>Diseño personalizado de tu programa de ejercicio</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="font-bold mr-2">3.</span> 
-                        <span>Educación sobre técnicas y principios del ejercicio</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="font-bold mr-2">4.</span> 
-                        <span>Monitoreo regular para ajustar y progresar tu programa</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="font-bold mr-2">5.</span> 
-                        <span>Coordinación con el resto del equipo multidisciplinario</span>
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative overflow-hidden rounded-xl shadow-xl h-[250px]"
-              >
-                <img
-                  src="https://static.scieluxe.com/files/medicina-deportiva.jpg"
-                  alt="Medicina Deportiva en CIATOB"
-                  className="object-cover w-full h-full"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  };
-
+    }  ];
   return (
     <main className="min-h-screen">
-      
       <HeroSpecialty
         title="Medicina Deportiva"
         description="Prescripción científica de actividad física como herramienta terapéutica para el manejo de la obesidad. Nuestros especialistas diseñan programas personalizados que consideran tu condición actual y objetivos de salud."
-        imagePath="https://static.scieluxe.com/files/medicina-deportiva.jpg"
+        imagePath="https://static.scieluxe.com/files/ciatob/medicina_deportiva.webp"
         stats={heroStats}
       />
 
@@ -228,9 +93,9 @@ const MedicinaDeportivaPage = () => {
         items={infoItems}
       />
 
-      <SportsMedicineTreatmentSection />
+      <TreatmentSection specialty="medicina deportiva" />
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqs} specialty="medicina deportiva" />
 
       <CTASection specialty="medicina deportiva" />
     </main>

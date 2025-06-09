@@ -1,7 +1,7 @@
 // src/app/especialidades/endocrinologia/page.tsx
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
 import TreatmentSection from '@/components/specialty/treatment-section';
@@ -10,8 +10,9 @@ import CTASection from '@/components/specialty/cta-section';
 import { Stethoscope, Award, Users } from 'lucide-react';
 
 const EndocrinologiaPage = () => {
-  // Hero section data
-  const heroStats = [
+  console.log('🚀 ENDOCRINOLOGIA-PAGE: Componente renderizándose');
+  console.log('📍 ENDOCRINOLOGIA-PAGE: Iniciando renderizado de la página');
+    const heroStats = [
     {
       icon: Stethoscope,
       value: "+1000",
@@ -28,6 +29,15 @@ const EndocrinologiaPage = () => {
       label: "Satisfacción"
     }
   ];
+
+  useEffect(() => {
+    console.log('🔄 ENDOCRINOLOGIA-PAGE: useEffect ejecutándose - página montada');
+    console.log('📊 ENDOCRINOLOGIA-PAGE: heroStats:', heroStats);
+    console.log('📋 ENDOCRINOLOGIA-PAGE: Pasando props a HeroSpecialty:', {
+      title: "Endocrinología",
+      imagePath: "https://static.scieluxe.com/files/ciatob/psicologia_ciatob2.webp"
+    });
+  }, []);
 
   // Info section data
   const infoItems = [
@@ -78,16 +88,14 @@ const EndocrinologiaPage = () => {
     {
       question: "¿Puedo combinar el tratamiento con otros programas de pérdida de peso?",
       answer: "Sí, de hecho, el tratamiento endocrinológico se complementa muy bien con planes nutricionales y de ejercicio supervisado."
-    }
-  ];
+    }  ];
 
   return (
     <main className="min-h-screen">
-      
       <HeroSpecialty
         title="Endocrinología"
         description="Especialistas en el diagnóstico y tratamiento de trastornos hormonales y metabólicos relacionados con la obesidad. Nuestro enfoque personalizado combina la última tecnología con años de experiencia clínica."
-        imagePath="https://static.scieluxe.com/files/endocrinologia.jpg"
+        imagePath="https://static.scieluxe.com/files/ciatob/ciatob_endocrinologia.webp"
         stats={heroStats}
       />
 
@@ -97,9 +105,9 @@ const EndocrinologiaPage = () => {
         items={infoItems}
       />
 
-      <TreatmentSection />
+      <TreatmentSection specialty="endocrinología" />
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqs} specialty="endocrinología" />
 
       <CTASection specialty="endocrinología" />
     </main>

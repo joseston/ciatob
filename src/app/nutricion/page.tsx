@@ -4,9 +4,10 @@
 import React from 'react';
 import HeroSpecialty from '@/components/specialty/hero-specialty';
 import InfoSection from '@/components/specialty/info-section';
+import TreatmentSection from '@/components/specialty/treatment-section';
 import FAQSection from '@/components/specialty/faq-section';
 import CTASection from '@/components/specialty/cta-section';
-import { Stethoscope, Award, Users, Apple, BookOpen, Utensils, Scale } from 'lucide-react';
+import { Stethoscope, Award, Users } from 'lucide-react';
 
 const NutricionPage = () => {
   // Hero section data
@@ -53,32 +54,7 @@ const NutricionPage = () => {
     {
       title: "Coaching Nutricional",
       description: "Acompañamiento continuo para ayudarte a superar obstáculos y mantener tu motivación durante todo el proceso."
-    }
-  ];
-
-  // Nutrition treatments
-  const treatments = [
-    {
-      icon: Apple,
-      title: "Plan Nutricional Personalizado",
-      description: "Diseño de planes de alimentación adaptados a tus necesidades específicas, preferencias y estilo de vida."
-    },
-    {
-      icon: BookOpen,
-      title: "Educación Alimentaria",
-      description: "Enseñanza de principios nutricionales para comprender la relación entre alimentación y salud."
-    },
-    {
-      icon: Utensils,
-      title: "Asesoría en Preparación de Alimentos",
-      description: "Guía práctica para la preparación de comidas saludables y satisfactorias."
-    },
-    {
-      icon: Scale,
-      title: "Control de Peso Saludable",
-      description: "Estrategias efectivas para lograr y mantener un peso saludable sin dietas restrictivas."
-    }
-  ];
+    }  ];
 
   // FAQ section data
   const faqs = [
@@ -100,63 +76,8 @@ const NutricionPage = () => {
     },
     {
       question: "¿Con qué frecuencia debo tener consultas de seguimiento?",
-      answer: "Inicialmente recomendamos consultas cada 2-3 semanas para ajustar el plan según tu respuesta y progreso. A medida que avanzas, las consultas pueden espaciarse a mensuales o bimestrales para mantenimiento."
-    }
+      answer: "Inicialmente recomendamos consultas cada 2-3 semanas para ajustar el plan según tu respuesta y progreso. A medida que avanzas, las consultas pueden espaciarse a mensuales o bimestrales para mantenimiento."    }
   ];
-
-  // Custom Treatment Section for Nutrition
-  const NutritionTreatmentSection = () => {
-    return (
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Servicios Especializados en{' '}
-                <span className="bg-gradient-to-r from-[#d29113] to-[#b8781a] text-transparent bg-clip-text">
-                  Nutrición
-                </span>
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Nuestro equipo de nutricionistas desarrolla planes alimentarios personalizados, educación nutricional y estrategias para transformar tu relación con la comida.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {treatments.map((treatment) => (
-                  <div
-                    key={treatment.title}
-                    className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#d29113] to-[#b8781a] rounded-lg flex items-center justify-center flex-shrink-0">
-                        <treatment.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {treatment.title}
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          {treatment.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2 relative">
-              <img
-                src="https://static.scieluxe.com/files/nutricion.jpg"
-                alt="Servicios nutricionales en CIATOB"
-                className="rounded-2xl shadow-2xl w-full h-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  };
 
   return (
     <main className="min-h-screen">
@@ -164,19 +85,17 @@ const NutricionPage = () => {
       <HeroSpecialty
         title="Nutrición"
         description="Transforma tu relación con la comida a través de planes nutricionales personalizados, educación alimentaria y acompañamiento continuo para lograr cambios duraderos en tu salud y bienestar."
-        imagePath="https://static.scieluxe.com/files/nutricion.jpg"
+        imagePath="https://static.scieluxe.com/files/ciatob/nutricion_ciatob.webp"
         stats={heroStats}
-      />
-
-      <InfoSection
+      />      <InfoSection
         title="¿Por qué elegir nuestra especialidad en Nutrición?"
         description="Nuestro equipo de nutricionistas está especializado en crear estrategias alimentarias personalizadas para el manejo efectivo de la obesidad."
         items={infoItems}
       />
 
-      <NutritionTreatmentSection />
+      <TreatmentSection specialty="nutrición" />
 
-      <FAQSection faqs={faqs} />
+      <FAQSection faqs={faqs} specialty="nutrición" />
 
       <CTASection specialty="nutrición" />
     </main>

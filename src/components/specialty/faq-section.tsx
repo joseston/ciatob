@@ -12,33 +12,33 @@ interface FAQ {
 
 interface FAQSectionProps {
   faqs: FAQ[];
+  specialty?: string;
 }
 
-const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
+const FAQSection: React.FC<FAQSectionProps> = ({ faqs, specialty }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Determine color based on current page - check if we're on nutrition page
-  const getSpecialtyColor = () => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      if (path.includes('nutricion')) {
+  // Determine color based on specialty prop
+  const getSpecialtyColor = (specialtyName?: string) => {
+    switch (specialtyName?.toLowerCase()) {
+      case 'nutrición':
         return '#d29113';
-      } else if (path.includes('endocrinologia')) {
+      case 'endocrinología':
         return '#02283b';
-      } else if (path.includes('psicologia')) {
+      case 'psicología':
         return '#b72955';
-      } else if (path.includes('medicina-deportiva')) {
+      case 'medicina deportiva':
         return '#398e43';
-      }
+      default:
+        return '#46b1b9';
     }
-    return '#46b1b9'; // default
   };
 
-  const specialtyColor = getSpecialtyColor();
+  const specialtyColor = getSpecialtyColor(specialty);
 
   return (
     <section className="py-20 bg-gray-50">
