@@ -101,7 +101,7 @@ const NosotrosPage = () => {
   return (
     <main className="min-h-screen">      
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-[#46b1b9]/10 to-transparent overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-b from-[#02283b]/10 to-transparent overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
@@ -111,9 +111,9 @@ const NosotrosPage = () => {
               transition={{ duration: 0.5 }}
               className="text-center lg:text-left"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-[#02283b] mb-6">
                 Acerca de{' '}
-                <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+                <span className="bg-gradient-to-r from-[#02283b] to-slate-600 text-transparent bg-clip-text">
                   CIATOB
                 </span>
               </h1>
@@ -132,7 +132,7 @@ const NosotrosPage = () => {
                     className="p-4 bg-white rounded-lg shadow-lg"
                   >
                     <div className="flex flex-col items-center">
-                      <stat.icon className="w-8 h-8 text-[#46b1b9] mb-2" />
+                      <stat.icon className="w-8 h-8 text-[#02283b] mb-2" />
                       <span className="text-2xl font-bold text-gray-900">{stat.value}</span>
                       <span className="text-sm text-gray-600">{stat.label}</span>
                     </div>
@@ -151,7 +151,7 @@ const NosotrosPage = () => {
               <Image
                 loader={loaderProp}
                 unoptimized
-                src="https://static.scieluxe.com/files/logociatov.jpg"
+                src="https://static.scieluxe.com/files/ciatob/logo_ciatob_pequeño.PNG"
                 alt="Equipo CIATOB"
                 width={400}
                 height={400}
@@ -172,10 +172,10 @@ const NosotrosPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#02283b] mb-4">
               Nuestra Historia y Misión
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#46b1b9] to-[#22616a] mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#02283b] to-slate-600 mx-auto mb-8"></div>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -200,13 +200,13 @@ const NosotrosPage = () => {
             >
               <h3 className="text-2xl font-semibold text-gray-900 mb-4">Misión y Visión</h3>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-6">
-                <h4 className="text-xl font-semibold text-[#46b1b9] mb-2">Misión</h4>
+                <h4 className="text-xl font-semibold text-[#02283b] mb-2">Misión</h4>
                 <p className="text-gray-600">
                   Brindar atención médica especializada e integral a personas con obesidad, mediante un equipo multidisciplinario comprometido con la excelencia científica y humana, para mejorar su salud y calidad de vida.
                 </p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-                <h4 className="text-xl font-semibold text-[#46b1b9] mb-2">Visión</h4>
+                <h4 className="text-xl font-semibold text-[#02283b] mb-2">Visión</h4>
                 <p className="text-gray-600">
                   Ser reconocidos como el centro de referencia en el tratamiento integral de la obesidad en Perú, destacando por nuestro enfoque multidisciplinario, la calidad de nuestra atención y los resultados sostenibles.
                 </p>
@@ -225,10 +225,10 @@ const NosotrosPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#02283b] mb-4">
               Nuestro Fundador
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#46b1b9] to-[#22616a] mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#02283b] to-slate-600 mx-auto mb-8"></div>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -251,15 +251,15 @@ const NosotrosPage = () => {
 
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center">
-                  <Award className="w-5 h-5 text-[#46b1b9] mr-2" />
+                  <Award className="w-5 h-5 text-[#02283b] mr-2" />
                   <span className="text-gray-800">Especialista en Endocrinología</span>
                 </div>
                 <div className="flex items-center">
-                  <Users className="w-5 h-5 text-[#46b1b9] mr-2" />
+                  <Users className="w-5 h-5 text-[#02283b] mr-2" />
                   <span className="text-gray-800">+3,000 Pacientes Atendidos</span>
                 </div>
                 <div className="flex items-center">
-                  <Clock className="w-5 h-5 text-[#46b1b9] mr-2" />
+                  <Clock className="w-5 h-5 text-[#02283b] mr-2" />
                   <span className="text-gray-800">15+ Años de Experiencia</span>
                 </div>
               </div>
@@ -272,7 +272,7 @@ const NosotrosPage = () => {
               className="order-1 lg:order-2 relative"
             >
               <div className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto relative">
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-2xl transform translate-x-4 translate-y-4"></div>
+                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#02283b] to-slate-600 rounded-2xl transform translate-x-4 translate-y-4"></div>
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[3/4]">                  <Image
                     loader={loaderProp}
                     unoptimized
@@ -298,10 +298,10 @@ const NosotrosPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#02283b] mb-4">
               Nuestros Valores
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#46b1b9] to-[#22616a] mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#02283b] to-slate-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Estos principios guían nuestro trabajo diario y definen nuestra relación con cada paciente.
             </p>
@@ -316,7 +316,7 @@ const NosotrosPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#02283b] to-slate-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <valor.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">{valor.title}</h3>
@@ -336,10 +336,10 @@ const NosotrosPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#02283b] mb-4">
               Enfoque Multidisciplinario
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#46b1b9] to-[#22616a] mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#02283b] to-slate-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               En CIATOB comprendemos que la obesidad es una condición compleja que requiere un abordaje integral. Nuestro enfoque combina diversas especialidades médicas para brindar una atención completa.
             </p>
@@ -354,33 +354,33 @@ const NosotrosPage = () => {
             >
               <svg className="w-full h-auto max-w-md mx-auto" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
                 {/* Círculo central */}
-                <circle cx="200" cy="200" r="60" fill="#46b1b9" />
+                <circle cx="200" cy="200" r="60" fill="#02283b" />
                 <text x="200" y="200" textAnchor="middle" dominantBaseline="middle" fill="white" fontWeight="bold" fontSize="16">PACIENTE</text>
                 
                 {/* Círculos externos y líneas conectoras */}
                 <g>
-                  <line x1="200" y1="140" x2="200" y2="80" stroke="#46b1b9" strokeWidth="3" />
-                  <circle cx="200" cy="60" r="30" fill="#22616a" />
+                  <line x1="200" y1="140" x2="200" y2="80" stroke="#02283b" strokeWidth="3" />
+                  <circle cx="200" cy="60" r="30" fill="#475569" />
                   <text x="200" y="60" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Endocrinología</text>
                 </g>
                 <g>
-                  <line x1="253" y1="173" x2="320" y2="120" stroke="#46b1b9" strokeWidth="3" />
-                  <circle cx="340" cy="100" r="30" fill="#22616a" />
+                  <line x1="253" y1="173" x2="320" y2="120" stroke="#02283b" strokeWidth="3" />
+                  <circle cx="340" cy="100" r="30" fill="#475569" />
                   <text x="340" y="100" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Nutrición</text>
                 </g>
                 <g>
-                  <line x1="253" y1="227" x2="320" y2="280" stroke="#46b1b9" strokeWidth="3" />
-                  <circle cx="340" cy="300" r="30" fill="#22616a" />
+                  <line x1="253" y1="227" x2="320" y2="280" stroke="#02283b" strokeWidth="3" />
+                  <circle cx="340" cy="300" r="30" fill="#475569" />
                   <text x="340" y="300" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Psicología</text>
                 </g>
                 <g>
-                  <line x1="200" y1="260" x2="200" y2="320" stroke="#46b1b9" strokeWidth="3" />
-                  <circle cx="200" cy="340" r="30" fill="#22616a" />
+                  <line x1="200" y1="260" x2="200" y2="320" stroke="#02283b" strokeWidth="3" />
+                  <circle cx="200" cy="340" r="30" fill="#475569" />
                   <text x="200" y="340" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Medicina Deportiva</text>
                 </g>
                 <g>
-                  <line x1="147" y1="173" x2="80" y2="120" stroke="#46b1b9" strokeWidth="3" />
-                  <circle cx="60" cy="100" r="30" fill="#22616a" />
+                  <line x1="147" y1="173" x2="80" y2="120" stroke="#02283b" strokeWidth="3" />
+                  <circle cx="60" cy="100" r="30" fill="#475569" />
                   <text x="60" y="100" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Seguimiento</text>
                 </g>
               </svg>
@@ -404,7 +404,7 @@ const NosotrosPage = () => {
                     transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
                     className="flex items-start space-x-4"
                   >
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#46b1b9] to-[#22616a] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#02283b] to-slate-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <esp.icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -419,7 +419,7 @@ const NosotrosPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                className="mt-8 p-4 bg-gray-50 border-l-4 border-[#46b1b9] rounded-r-lg"
+                className="mt-8 p-4 bg-gray-50 border-l-4 border-[#02283b] rounded-r-lg"
               >
                 Este enfoque integrado nos permite ofrecer soluciones personalizadas que abordan la complejidad de la obesidad, logrando resultados más efectivos y sostenibles.
               </motion.p>

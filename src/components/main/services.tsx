@@ -102,9 +102,9 @@ export const ServicesSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-full border border-teal-200/50 mb-6">
-            <Sparkles className="w-5 h-5 text-teal-600" />
-            <span className="text-2xl font-bold text-teal-800">Nuestras Especialidades</span>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-[#02283b] rounded-full border border-[#02283b] mb-6">
+            <Sparkles className="w-5 h-5 text-white" />
+            <span className="text-2xl font-bold text-white">Nuestras Especialidades</span>
           </div>
           
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">

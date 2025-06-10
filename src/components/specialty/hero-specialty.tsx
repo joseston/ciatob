@@ -36,15 +36,14 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
   imagePath,
   stats
 }) => {
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [colors, setColors] = useState<SpecialtyColors>({
-    primary: '#46b1b9',
-    secondary: '#22616a', 
-    gradient: 'from-[#46b1b9] to-[#22616a]',
-    bgGradient: 'from-[#46b1b9] to-[#22616a]',
+  const [isHydrated, setIsHydrated] = useState(false);  const [colors, setColors] = useState<SpecialtyColors>({
+    primary: '#02283b',
+    secondary: '#011a28', 
+    gradient: 'from-[#02283b] to-[#011a28]',
+    bgGradient: 'from-[#02283b] to-[#011a28]',
     textGradient: 'from-white to-gray-200',
     iconColor: 'text-white',
-    bgClass: 'bg-gradient-to-br from-[#46b1b9] to-[#22616a]',
+    bgClass: 'bg-gradient-to-br from-[#02283b] to-[#011a28]',
     textClass: 'bg-gradient-to-r from-white to-gray-200'
   });
 

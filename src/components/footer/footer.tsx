@@ -64,16 +64,16 @@ const FooterAccordion: React.FC<{
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-[#46b1b9]/10 lg:border-none">
+    <div className="border-b border-white/20 lg:border-none">
       {/* Mobile Version */}
       <div className="lg:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between w-full py-4 text-left text-gray-800 group"
+          className="flex items-center justify-between w-full py-4 text-left text-white group"
         >
           <div className="flex items-center space-x-2">
-            <Icon className="w-5 h-5 text-[#46b1b9] group-hover:text-[#22616a] transition-colors" />
-            <span className="text-lg font-semibold group-hover:text-[#46b1b9] transition-colors">
+            <Icon className="w-5 h-5 text-white group-hover:text-white/80 transition-colors" />
+            <span className="text-lg font-semibold group-hover:text-white/80 transition-colors">
               {title}
             </span>
           </div>
@@ -81,7 +81,7 @@ const FooterAccordion: React.FC<{
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ChevronDown className="w-5 h-5 text-[#46b1b9]" />
+            <ChevronDown className="w-5 h-5 text-white" />
           </motion.div>
         </button>
 
@@ -106,8 +106,8 @@ const FooterAccordion: React.FC<{
       <div className="hidden lg:block">
         <div className="py-4">
           <div className="flex items-center space-x-2 mb-4">
-            <Icon className="w-5 h-5 text-[#46b1b9]" />
-            <span className="text-lg font-semibold text-gray-800">
+            <Icon className="w-5 h-5 text-white" />
+            <span className="text-lg font-semibold text-white">
               {title}
             </span>
           </div>
@@ -126,7 +126,7 @@ const SocialLink: React.FC<{
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-[#46b1b9] to-[#22616a] text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+    className="w-10 h-10 flex items-center justify-center bg-white text-[#02283b] rounded-lg shadow-md hover:shadow-lg hover:bg-white/90 transition-all duration-300"
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     aria-label={label}
@@ -137,8 +137,7 @@ const SocialLink: React.FC<{
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-b from-white to-gray-50">
-
+    <footer className="bg-[#02283b]">
       <div className="max-w-7xl mx-auto px-4 pt-16 pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Branding Section */}
@@ -154,19 +153,19 @@ const Footer: React.FC = () => {
                   <Image
                     loader={loaderProp}
                     unoptimized
-                    src="https://static.scieluxe.com/files/logociatov.jpg"
+                    src="https://static.scieluxe.com/files/ciatob/logo_ciatob_pequeño.PNG"
                     alt="Scieluxe Logo"
                     width={100}
                     height={100}
                     className="transition-transform group-hover:scale-105"
                     priority
                   />
-                  <span className="text-2xl font-bold bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
+                  <span className="text-2xl font-bold text-white">
                     CIATOB
                   </span>
                 </div>
               </Link>
-              <p className="text-gray-600 text-center lg:text-left">
+              <p className="text-white/80 text-center lg:text-left">
                 Clínica Integral Avanzada de Tratamiento de Obesidades. 
               </p>
               <div className="flex space-x-3">
@@ -202,7 +201,7 @@ const Footer: React.FC = () => {
                       >
                         <Link
                           href={link.href}
-                          className="flex items-center space-x-2 text-gray-600 hover:text-[#46b1b9] transition-colors duration-200"
+                          className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors duration-200"
                         >
                           {link.icon && (
                             <link.icon className="w-4 h-4" />
@@ -225,8 +224,8 @@ const Footer: React.FC = () => {
                   className="flex items-start space-x-3 group"
                   whileHover={{ x: 5 }}
                 >
-                  <MapPin className="w-5 h-5 text-[#46b1b9] mt-1" />
-                  <p className="text-gray-600 group-hover:text-[#46b1b9] transition-colors">
+                  <MapPin className="w-5 h-5 text-white mt-1" />
+                  <p className="text-white/70 group-hover:text-white transition-colors">
                     Av. Alejandro Velasco Astete 1952, <br/>
                     Lima 18, Perú
                   </p>
@@ -235,10 +234,10 @@ const Footer: React.FC = () => {
                   className="flex items-start space-x-3 group"
                   whileHover={{ x: 5 }}
                 >
-                  <Mail className="w-5 h-5 text-[#46b1b9] mt-1" />
+                  <Mail className="w-5 h-5 text-white mt-1" />
                   <a 
                     href="mailto:contacto@ciatob.com"
-                    className="text-gray-600 group-hover:text-[#46b1b9] transition-colors"
+                    className="text-white/70 group-hover:text-white transition-colors"
                   >
                     contacto@ciatob.com
                   </a>
@@ -247,10 +246,10 @@ const Footer: React.FC = () => {
                   className="flex items-start space-x-3 group"
                   whileHover={{ x: 5 }}
                 >
-                  <Phone className="w-5 h-5 text-[#46b1b9] mt-1" />
+                  <Phone className="w-5 h-5 text-white mt-1" />
                   <a 
                     href="tel:+51948213270"
-                    className="text-gray-600 group-hover:text-[#46b1b9] transition-colors"
+                    className="text-white/70 group-hover:text-white transition-colors"
                   >
                     +51 948213270
                   </a>
@@ -261,21 +260,21 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-12 pt-6 border-t border-[#46b1b9]/10">
+        <div className="mt-12 pt-6 border-t border-white/20">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-white/60">
               © {new Date().getFullYear()} CIATOB. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <Link
                 href="/es-pe/privacy"
-                className="text-sm text-gray-500 hover:text-[#46b1b9] transition-colors"
+                className="text-sm text-white/60 hover:text-white transition-colors"
               >
                 Política de Privacidad
               </Link>
               <Link
                 href="/terms"
-                className="text-sm text-gray-500 hover:text-[#46b1b9] transition-colors"
+                className="text-sm text-white/60 hover:text-white transition-colors"
               >
                 Términos de Servicio
               </Link>
