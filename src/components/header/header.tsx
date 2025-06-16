@@ -13,9 +13,9 @@ const loaderProp = ({ src }: { src: string }) => {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const menuItems = [
     { name: 'Inicio', href: '/' },
+    { name: 'Servicios', href: '/servicios' },
     { name: 'Blog', href: '/blog' },
     { name: 'Especialistas', href: '/especialistas' },
     { name: 'Nosotros', href: '/nosotros' },

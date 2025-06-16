@@ -1,18 +1,33 @@
 // src/app/servicios/components/ServiceList.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Service } from '../types/service.types';
 import ServiceCard from './ServiceCard';
 import ServiceFilter from './ServiceFilter';
 import { ServiceCategory } from '../types/service.types';
 
+// Tipo para el servicio que usa ServiceCard
+interface ServiceCardData {
+  id: string;
+  slug: string;
+  titulo: string;
+  descripcion: string;
+  precio: string;
+  precioOriginal?: string;
+  ubicacion: string;
+  categoria: string;
+  promocion?: {
+    tipo: string;
+    descuento: string;
+    vigencia: string;
+  };
+}
+
 interface ServiceListProps {
-  services: Service[];
+  services: ServiceCardData[];
   selectedCategory: ServiceCategory;
   loading: boolean;
   error: string | null;
   onCategoryChange: (category: ServiceCategory) => void;
-  onSelectService: (id: number) => void;
 }
 
 const ServiceList: React.FC<ServiceListProps> = ({ 
@@ -20,8 +35,7 @@ const ServiceList: React.FC<ServiceListProps> = ({
   selectedCategory,
   loading, 
   error,
-  onCategoryChange,
-  onSelectService
+  onCategoryChange
 }) => {
   if (loading) {
     return (
@@ -51,14 +65,11 @@ const ServiceList: React.FC<ServiceListProps> = ({
         <div className="text-center py-10">
           <p className="text-gray-500">No hay servicios disponibles en esta categoría.</p>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {services.map((service, index) => (
+      ) : (        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {services.map((service) => (
             <ServiceCard 
               key={service.id} 
-              service={service} 
-              onSelect={onSelectService}
-              index={index}
+              service={service}
             />
           ))}
         </div>
