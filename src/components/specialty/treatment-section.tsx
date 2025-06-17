@@ -89,7 +89,7 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             description: "Definición de objetivos realistas y desarrollo de estrategias para mantener la motivación a largo plazo."
           }
         ];
-      case 'medicina deportiva':
+      case 'prescripcion del ejercicio':
         return [
           {
             icon: Activity,
@@ -173,7 +173,7 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
           imageSrc: 'https://static.scieluxe.com/files/ciatob/psicologia_ciatob2.webp',
           altText: 'Tratamientos psicológicos en CIATOB'
         };
-      case 'medicina deportiva':
+      case 'prescripcion del ejercicio':
         return {
           colors: {
             primary: '#398e43',
@@ -181,7 +181,7 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             gradient: 'from-[#398e43] to-[#2d7235]'
           },
           imageSrc: 'https://static.scieluxe.com/files/ciatob/medicina_deportiva2.webp',
-          altText: 'Tratamientos de medicina deportiva en CIATOB'
+          altText: 'Tratamientos de prescripción del ejercicio en CIATOB'
         };
       default:
         return {

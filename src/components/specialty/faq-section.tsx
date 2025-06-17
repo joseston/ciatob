@@ -31,7 +31,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, specialty }) => {
         return '#02283b';
       case 'psicología':
         return '#b72955';
-      case 'medicina deportiva':
+      case 'prescripcion del ejercicio':
         return '#398e43';
       default:
         return '#46b1b9';

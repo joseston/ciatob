@@ -1,6 +1,6 @@
 // src/app/especialidades/types/specialist.types.ts
 
-export type SpecialtyCategory = 'todos' | 'endocrinologia' | 'nutricion' | 'psicologia' | 'deportologia';
+export type SpecialtyCategory = 'todos' | 'endocrinologia' | 'nutricion' | 'psicologia' | 'prescripcion-ejercicio';
 
 // Tipo para definir el género del especialista
 export type Gender = 'male' | 'female';

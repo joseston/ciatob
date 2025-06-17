@@ -85,7 +85,7 @@ const PsicologiaPage = () => {
       <HeroSpecialty
         title="Psicología"
         description="Abordamos los aspectos emocionales y conductuales que influyen en la obesidad. Nuestros psicólogos especializados te ayudarán a transformar tu relación con la comida y desarrollar estrategias efectivas para el cambio duradero."
-        imagePath="https://static.scieluxe.com/files/ciatob/psicologia_ciatob.webp"
+        imagePath="https://static.scieluxe.com/files/ciatob/psicologia_11zon.webp"
         stats={heroStats}
       />
 

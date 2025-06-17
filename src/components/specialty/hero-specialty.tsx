@@ -83,7 +83,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
           bgClass: 'bg-gradient-to-br from-[#b72955] to-[#a02348]',
           textClass: 'bg-gradient-to-r from-white to-pink-100'
         };
-      case 'medicina deportiva':
+      case 'prescripcion del ejercicio':
         return {
           primary: '#398e43',
           secondary: '#2d7235',
@@ -180,8 +180,8 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
                 <Image
                   src={imagePath}
                   alt={`${title} en CIATOB`}
-                  width={600}
-                  height={400}
+                  width={800}
+                  height={600}
                   className="rounded-2xl shadow-2xl"
                   priority
                 />
@@ -282,8 +282,8 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
               <Image
                 src={imagePath}
                 alt={`${title} en CIATOB`}
-                width={600}
-                height={400}
+                width={800}
+                height={600}
                 className="rounded-2xl shadow-2xl"
                 priority
                 onLoad={() => console.log('📸 HERO-SPECIALTY: Imagen cargada exitosamente')}

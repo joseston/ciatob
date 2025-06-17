@@ -21,7 +21,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     'endocrinologia', 
     'nutricion', 
     'psicologia', 
-    'deportologia'
+    'prescripcion-ejercicio'
   ];
 
   return (

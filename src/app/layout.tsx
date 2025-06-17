@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "CIATOB - Clínica Integral Avanzada de Tratamiento de Obesidades",
   description: "Equipo multidisciplinario especializado en el tratamiento integral de la obesidad. Endocrinología, Nutrición, Psicología y Prescripción del ejercicio en Lima, Perú.",
-  keywords: ["obesidad", "endocrinología", "nutrición", "psicología", "medicina deportiva", "Lima", "Perú"],
+  keywords: ["obesidad", "endocrinología", "nutrición", "psicología", "prescripción del ejercicio", "Lima", "Perú"],
   authors: [{ name: "CIATOB" }],
   creator: "CIATOB",
   publisher: "CIATOB",

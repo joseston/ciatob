@@ -95,7 +95,7 @@ const EndocrinologiaPage = () => {
       <HeroSpecialty
         title="Endocrinología"
         description="Especialistas en el diagnóstico y tratamiento de trastornos hormonales y metabólicos relacionados con la obesidad. Nuestro enfoque personalizado combina la última tecnología con años de experiencia clínica."
-        imagePath="https://static.scieluxe.com/files/ciatob/ciatob_endocrinologia.webp"
+        imagePath="https://static.scieluxe.com/files/ciatob/endocrinologia-1.webp"
         stats={heroStats}
       />
 

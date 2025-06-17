@@ -50,7 +50,7 @@ export const ServicesSection = () => {
     },
     {
       icon: Dumbbell,
-      title: "Medicina Deportiva",
+      title: "Prescripción del Ejercicio",
       description: "Prescripción de ejercicio personalizado y seguimiento de la actividad física para optimizar resultados.",
       route: "/medicina-deportiva",
       primaryColor: "#398e43",

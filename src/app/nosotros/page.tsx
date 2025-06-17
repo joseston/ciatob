@@ -90,7 +90,7 @@ const especialidades = [
   },
   {
     icon: Dumbbell,
-    title: "Medicina Deportiva",
+    title: "Prescripción del Ejercicio",
     description: "Prescripción de actividad física adaptada a las necesidades y capacidades de cada paciente."
   }
 ];
@@ -376,7 +376,7 @@ const NosotrosPage = () => {
                 <g>
                   <line x1="200" y1="260" x2="200" y2="320" stroke="#02283b" strokeWidth="3" />
                   <circle cx="200" cy="340" r="30" fill="#475569" />
-                  <text x="200" y="340" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Medicina Deportiva</text>
+                  <text x="200" y="340" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="12">Prescripción del Ejercicio</text>
                 </g>
                 <g>
                   <line x1="147" y1="173" x2="80" y2="120" stroke="#02283b" strokeWidth="3" />

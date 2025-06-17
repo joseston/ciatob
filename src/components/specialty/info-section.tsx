@@ -29,7 +29,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       return '#d29113';
     } else if (title.toLowerCase().includes('psicología')) {
       return '#b72955';
-    } else if (title.toLowerCase().includes('medicina deportiva')) {
+    } else if (title.toLowerCase().includes('prescripción del ejercicio')) {
       return '#398e43';
     }
     return '#46b1b9'; // default

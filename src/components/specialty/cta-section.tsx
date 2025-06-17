@@ -27,7 +27,7 @@ const CTASection: React.FC<CTASectionProps> = ({ specialty }) => {  // Determine
           gradient: 'from-[#b72955] to-[#a02348]',
           primary: '#b72955'
         };
-      case 'medicina deportiva':
+      case 'prescripcion del ejercicio':
         return {
           gradient: 'from-[#398e43] to-[#2d7235]',
           primary: '#398e43'

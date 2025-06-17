@@ -85,7 +85,7 @@ const NutricionPage = () => {
       <HeroSpecialty
         title="Nutrición"
         description="Transforma tu relación con la comida a través de planes nutricionales personalizados, educación alimentaria y acompañamiento continuo para lograr cambios duraderos en tu salud y bienestar."
-        imagePath="https://static.scieluxe.com/files/ciatob/nutricion_ciatob.webp"
+        imagePath="https://static.scieluxe.com/files/ciatob/nutricion_11zon.webp"
         stats={heroStats}
       />      <InfoSection
         title="¿Por qué elegir nuestra especialidad en Nutrición?"

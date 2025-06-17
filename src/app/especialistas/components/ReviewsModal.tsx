@@ -19,7 +19,7 @@ const loaderProp = ({ src }: { src: string }) => {
 // Función para determinar el título adecuado según la especialidad y género
 const getTitleForSpecialist = (specialist: Specialist): string => {
   // Para nutrición y deportología (prescripción del ejercicio) usar "Lic."
-  if (specialist.category === 'nutricion' || specialist.category === 'deportologia') {
+  if (specialist.category === 'nutricion' || specialist.category === 'prescripcion-ejercicio') {
     return 'Lic.';
   }
   

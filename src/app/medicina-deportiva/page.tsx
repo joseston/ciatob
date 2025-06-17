@@ -81,23 +81,23 @@ const MedicinaDeportivaPage = () => {
   return (
     <main className="min-h-screen">
       <HeroSpecialty
-        title="Medicina Deportiva"
+        title="Prescripción del Ejercicio"
         description="Prescripción científica de actividad física como herramienta terapéutica para el manejo de la obesidad. Nuestros especialistas diseñan programas personalizados que consideran tu condición actual y objetivos de salud."
-        imagePath="https://static.scieluxe.com/files/ciatob/medicina_deportiva.webp"
+        imagePath="https://static.scieluxe.com/files/ciatob/prescripcion-ejercicio.webp"
         stats={heroStats}
       />
 
       <InfoSection
-        title="¿Por qué elegir nuestra especialidad en Medicina Deportiva?"
-        description="Nuestro equipo de especialistas en medicina deportiva proporciona programas de ejercicio científicamente diseñados para el manejo de la obesidad."
+        title="¿Por qué elegir nuestra especialidad en Prescripción del Ejercicio?"
+        description="Nuestro equipo de especialistas en prescripción del ejercicio proporciona programas de ejercicio científicamente diseñados para el manejo de la obesidad."
         items={infoItems}
       />
 
-      <TreatmentSection specialty="medicina deportiva" />
+      <TreatmentSection specialty="prescripcion del ejercicio" />
 
-      <FAQSection faqs={faqs} specialty="medicina deportiva" />
+      <FAQSection faqs={faqs} specialty="prescripcion del ejercicio" />
 
-      <CTASection specialty="medicina deportiva" />
+      <CTASection specialty="prescripcion del ejercicio" />
     </main>
   );
 };

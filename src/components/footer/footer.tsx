@@ -51,7 +51,7 @@ const footerSections: FooterSection[] = [
       { text: "Endocrinología", href: "/endocrinologia", icon: Droplet },
       { text: "Nutrición", href: "/nutricion", icon: Leaf },
       { text: "Psicología", href: "/psicologia", icon: Smile },
-      { text: "Medicina Deportiva", href: "/medicina-deportiva", icon: Barbell }
+      { text: "Prescripción del Ejercicio", href: "/medicina-deportiva", icon: Barbell }
     ]
   }
 ];
@@ -171,7 +171,7 @@ const Footer: React.FC = () => {
               <div className="flex space-x-3">
                 <SocialLink
                   icon={Instagram}
-                  href="https://www.instagram.com/clinicadeobesidad_ciatob/"
+                  href="https://www.instagram.com/clinicadeobesidades.ciatob/"
                   label="Instagram"
                 />
                 <SocialLink
