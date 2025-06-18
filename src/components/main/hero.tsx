@@ -8,17 +8,49 @@ const loaderProp = ({ src }: { src: string }) => {
   return src;
 };
 
-const carouselImages = [
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/prescripcion-ejercicio.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/nutricion_11zon.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/endocrinologia-1.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/endocrinologia-2.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/endocrinologia-3.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/psicologia_11zon.webp",
-  "https://scienceluxe.blob.core.windows.net/files/ciatob/hematologia.webp"
+const carouselSlides = [
+  {
+    id: 'come-inteligente',
+    title: 'Paquete - Come Inteligente y Pierde Peso Saludablemente',
+    description: 'Este plan está diseñado para guiar a las personas en su proceso de pérdida de peso a través de una alimentación consciente y equilibrada, sin recurrir a dietas extremas o métodos poco saludables. Aprende a comer y sin experimentos.',
+    link: '/servicios/come-inteligente-pierde-peso-saludablemente',
+    buttonText: 'Ver Paquete Completo',
+    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/nutricion_11zon.webp',
+    colors: {
+      primary: '#d29113',
+      secondary: '#b8781a',
+      gradient: 'from-[#d29113] to-[#f4b942]'
+    }
+  },
+  {
+    id: 'plan-integral',
+    title: 'Paquete - Plan Integral de Peso Saludable',
+    description: 'Un plan con evaluación médica especializada, asesoría nutricional, prescripción de la actividad física y apoyo psicológico, para lograr un peso ideal y ser feliz.',
+    link: '/servicios/plan-integral-peso-saludable',
+    buttonText: 'Ver Plan Integral',
+    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/prescripcion-ejercicio.webp',
+    colors: {
+      primary: '#398e43',
+      secondary: '#2d7235',
+      gradient: 'from-[#398e43] to-[#32a852]'
+    }
+  },
+  {
+    id: 'equilibrio-total',
+    title: 'Paquete - Plan Equilibrio Total y Control de Peso',
+    description: 'Un plan de Equilibrio Total y Control de Peso que combina la ciencia de 4 especialidades, ofreciendo una solución equilibrada que busca no solo la pérdida de peso, sino también mejorar la calidad de vida y promover el bienestar general.',
+    link: '/servicios/plan-equilibrio-total-control-peso',
+    buttonText: 'Ver Plan Equilibrio',
+    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/endocrinologia-1.webp',
+    colors: {
+      primary: '#02283b',
+      secondary: '#1a4a5c',
+      gradient: 'from-[#02283b] to-[#4a90a4]'
+    }
+  }
 ];
 
-const totalSlides = carouselImages.length + 1; // +1 para el slide de texto
+const totalSlides = carouselSlides.length;
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -60,89 +92,85 @@ export const HeroSection = () => {
       {/* Carrusel completo */}
       <div className="relative w-full overflow-hidden">
         {/* Contenedor con aspect ratio dinámico */}
-        <div className={`relative w-full ${
-          currentSlide === 0 
-            ? 'min-h-[60vh] md:min-h-[70vh] lg:min-h-[75vh] flex items-center' 
-            : 'h-[50vh] md:h-[60vh] lg:h-[70vh] max-h-[80vh] flex items-center justify-center'
-        }`}>
-          {/* Slide 0: Contenido de texto */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: currentSlide === 0 ? 1 : 0,
-              scale: currentSlide === 0 ? 1 : 1.05
-            }}
-            transition={{ duration: 0.7 }}
-            className={`absolute inset-0 flex items-center justify-center ${currentSlide === 0 ? 'z-10' : 'z-0'}`}
-          >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-8 md:py-12">
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-center space-y-6 md:space-y-8"
-              >
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#02283b] leading-tight">
-                  Tratamiento Integral de la{' '}
-                  <span className="bg-gradient-to-r from-[#02283b] to-slate-600 text-transparent bg-clip-text">
-                    Obesidad
-                  </span>
-                </h1>
-                <p className="text-base md:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-4xl mx-auto px-4">
-                  Equipo multidisciplinario especializado en transformar vidas a través de tratamientos personalizados y seguimiento continuo.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-4">
-                  <Link href="/agendar-cita">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-lg bg-[#02283b] text-white font-semibold shadow-lg hover:shadow-xl hover:bg-[#02283b]/90 transition-all duration-300 text-sm md:text-base"
-                    >
-                      Agendar Consulta
-                    </motion.button>
-                  </Link>
-                  <Link href="/servicios">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-lg border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition-all duration-300 text-sm md:text-base"
-                    >
-                      Conoce más
-                    </motion.button>
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+        <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh] max-h-[80vh] flex items-center justify-center">
+          {/* Slides de servicios/paquetes */}
+          {carouselSlides.map((slide, index) => (
+            <motion.div
+              key={slide.id}
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: currentSlide === index ? 1 : 0,
+                scale: currentSlide === index ? 1 : 1.05
+              }}
+              transition={{ duration: 0.7 }}
+              className={`absolute inset-0 flex items-center justify-center ${currentSlide === index ? 'z-10' : 'z-0'}`}
+            >
+              {/* Imagen de fondo */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  loader={loaderProp}
+                  unoptimized
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  sizes="100vw"
+                />
+                {/* Overlay para mejorar legibilidad del texto */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30 z-10" />
+              </div>
+                <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-8 md:py-12">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-center space-y-6 md:space-y-8 bg-black/20 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl border border-white/10"
+                >
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight drop-shadow-lg">
+                    {slide.title.split(' - ')[0]} -{' '}
+                    <span className={`bg-gradient-to-r ${slide.colors.gradient} text-transparent bg-clip-text`}>
+                      {slide.title.split(' - ')[1]}
+                    </span>
+                  </h1>
+                  <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
+                    {slide.description}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-4">
+                    <Link href={slide.link}>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-lg text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm md:text-base"
+                        style={{
+                          background: `linear-gradient(to right, ${slide.colors.primary}, ${slide.colors.secondary})`,
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = `linear-gradient(to right, ${slide.colors.secondary}, ${slide.colors.primary})`;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = `linear-gradient(to right, ${slide.colors.primary}, ${slide.colors.secondary})`;
+                        }}
+                      >
+                        {slide.buttonText}
+                      </motion.button>
+                    </Link>
+                    <Link href="/agendar-cita">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-3.5 rounded-lg border-2 border-white/80 text-white font-semibold hover:bg-white/10 backdrop-blur-sm transition-all duration-300 text-sm md:text-base"
+                      >
+                        Agendar Consulta
+                      </motion.button>
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-        {/* Slides 1-7: Imágenes médicas */}
-        {carouselImages.map((image, index) => (
-          <motion.div
-            key={index + 1}
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: currentSlide === index + 1 ? 1 : 0,
-              scale: currentSlide === index + 1 ? 1 : 1.02
-            }}
-            transition={{ duration: 0.7 }}
-            className={`absolute inset-0 ${currentSlide === index + 1 ? 'z-10' : 'z-0'}`}
-          >
-            <div className="relative w-full h-full max-w-[90vw] mx-auto">
-              <Image
-                loader={loaderProp}
-                unoptimized
-                src={image}
-                alt={`Especialidad médica ${index + 1}`}
-                fill
-                className="object-contain"
-                priority={index === 0}
-                sizes="90vw"
-              />
-            </div>
-            {/* Overlay gradiente sutil para mejor legibilidad */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/5 z-10 pointer-events-none" />
-          </motion.div>
-        ))}
+        
         {/* Botones de navegación */}
         <button
           onClick={prevSlide}

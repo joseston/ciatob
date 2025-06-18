@@ -1,10 +1,10 @@
 // src/components/specialty/treatment-section.tsx
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Activity, Droplet, Microscope, LineChart, Apple, BookOpen, Utensils, Scale, Brain, Heart, Users, Target } from 'lucide-react';
+import { Activity, Droplet, Microscope, LineChart, Apple, BookOpen, Utensils, Scale, Brain, Heart, Users, Target, Play } from 'lucide-react';
 
 interface Treatment {
   icon: React.ElementType;
@@ -17,6 +17,57 @@ interface TreatmentSectionProps {
 }
 
 const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocrinología' }) => {
+  const [showOverlay, setShowOverlay] = useState(true);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Función simple para activar el video
+  const handlePlayVideo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Ocultar el overlay inmediatamente
+    setShowOverlay(false);
+    
+    // Simular click directo en el iframe después de que se oculte el overlay
+    setTimeout(() => {
+      if (iframeRef.current) {
+        // Crear evento de click sintético en el iframe
+        const iframe = iframeRef.current;
+        const rect = iframe.getBoundingClientRect();
+        
+        // Crear eventos mouse down y up para simular un click completo
+        const mouseDownEvent = new MouseEvent('mousedown', {
+          bubbles: true,
+          cancelable: true,
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2,
+        });
+        
+        const mouseUpEvent = new MouseEvent('mouseup', {
+          bubbles: true,
+          cancelable: true,
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2,
+        });
+        
+        const clickEvent = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2,
+        });
+        
+        // Disparar los eventos en secuencia
+        iframe.dispatchEvent(mouseDownEvent);
+        iframe.dispatchEvent(mouseUpEvent);
+        iframe.dispatchEvent(clickEvent);
+        
+        // También intentar focus en el iframe
+        iframe.focus();
+      }
+    }, 50);
+  };
+
   // Get specialty-specific treatments
   const getSpecialtyTreatments = (specialtyName: string): Treatment[] => {
     switch (specialtyName.toLowerCase()) {
@@ -150,8 +201,12 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             secondary: '#1a4a5c',
             gradient: 'from-[#02283b] to-[#1a4a5c]'
           },
-          imageSrc: 'https://static.scieluxe.com/files/ciatob/ciatob_endocrinologia2.webp',
-          altText: 'Tratamientos endocrinológicos en CIATOB'
+          media: {
+            type: 'instagram',
+            src: 'https://www.instagram.com/p/DHObkvxu5x8/',
+            embedId: 'DHObkvxu5x8',
+            alt: 'Tratamientos endocrinológicos en CIATOB'
+          }
         };
       case 'nutrición':
         return {
@@ -160,8 +215,12 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             secondary: '#b8781a',
             gradient: 'from-[#d29113] to-[#b8781a]'
           },
-          imageSrc: 'https://static.scieluxe.com/files/ciatob/nutricion_ciatob2.webp',
-          altText: 'Tratamientos nutricionales en CIATOB'
+          media: {
+            type: 'instagram',
+            src: 'https://www.instagram.com/p/DHVwQuDtGhS/',
+            embedId: 'DHVwQuDtGhS',
+            alt: 'Tratamientos nutricionales en CIATOB'
+          }
         };
       case 'psicología':
         return {
@@ -170,8 +229,12 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             secondary: '#a02348',
             gradient: 'from-[#b72955] to-[#a02348]'
           },
-          imageSrc: 'https://static.scieluxe.com/files/ciatob/psicologia_ciatob2.webp',
-          altText: 'Tratamientos psicológicos en CIATOB'
+          media: {
+            type: 'instagram',
+            src: 'https://www.instagram.com/p/DEqP_KWyDKq/',
+            embedId: 'DEqP_KWyDKq',
+            alt: 'Tratamientos psicológicos en CIATOB'
+          }
         };
       case 'prescripcion del ejercicio':
         return {
@@ -180,8 +243,12 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             secondary: '#2d7235',
             gradient: 'from-[#398e43] to-[#2d7235]'
           },
-          imageSrc: 'https://static.scieluxe.com/files/ciatob/medicina_deportiva2.webp',
-          altText: 'Tratamientos de prescripción del ejercicio en CIATOB'
+          media: {
+            type: 'instagram',
+            src: 'https://www.instagram.com/p/DHI4WENNLdU/',
+            embedId: 'DHI4WENNLdU',
+            alt: 'Tratamientos de prescripción del ejercicio en CIATOB'
+          }
         };
       default:
         return {
@@ -190,13 +257,17 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             secondary: '#22616a',
             gradient: 'from-[#46b1b9] to-[#22616a]'
           },
-          imageSrc: 'https://static.scieluxe.com/files/ciatob/ciatob_general.webp',
-          altText: 'Tratamientos especializados en CIATOB'
+          media: {
+            type: 'image',
+            src: 'https://static.scieluxe.com/files/ciatob/ciatob_general.webp',
+            alt: 'Tratamientos especializados en CIATOB'
+          }
         };
     }
   };
+  
   const config = getSpecialtyConfig(specialty);
-  const { colors, imageSrc, altText } = config;
+  const { colors, media } = config;
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -248,13 +319,65 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             className="relative"
-          >            <Image
-              src={imageSrc}
-              alt={altText}
-              width={600}
-              height={400}
-              className="rounded-2xl shadow-2xl"
-            />
+          >
+            {media.type === 'instagram' ? (
+              <div className="relative rounded-2xl shadow-2xl overflow-hidden bg-white">
+                <iframe
+                  ref={iframeRef}
+                  src={`https://www.instagram.com/p/${media.embedId}/embed/`}
+                  width="600"
+                  height="750"
+                  frameBorder="0"
+                  scrolling="no"
+                  className="w-full rounded-2xl"
+                  title={media.alt}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+                
+                {/* Video Play Overlay - Solo se muestra si showOverlay es true */}
+                {showOverlay && (
+                  <div 
+                    className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-300 cursor-pointer z-20"
+                    onClick={handlePlayVideo}
+                  >
+                    <div className="bg-white/95 backdrop-blur-sm rounded-full p-6 shadow-2xl hover:scale-110 transition-transform duration-200">
+                      <Play className="w-16 h-16 text-gray-800 fill-current ml-2" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Video Indicator Badge */}
+                <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 pointer-events-none z-10">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  Video
+                </div>
+
+                {/* Instagram Logo Badge */}
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-medium pointer-events-none z-10">
+                  Instagram
+                </div>
+
+                {/* Botón para mostrar overlay nuevamente */}
+                {!showOverlay && (
+                  <button
+                    onClick={() => setShowOverlay(true)}
+                    className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 shadow-lg z-10 flex items-center gap-2"
+                  >
+                    <Play className="w-4 h-4" />
+                    Mostrar controles
+                  </button>
+                )}
+              </div>
+            ) : (
+              <Image
+                src={media.src}
+                alt={media.alt}
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-2xl"
+              />
+            )}
           </motion.div>
         </div>
       </div>
