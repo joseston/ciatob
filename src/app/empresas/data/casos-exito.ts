@@ -5,74 +5,74 @@ import { CasoExito } from '../types/empresa.types';
 export const casosExito: CasoExito[] = [
   {
     id: '1',
-    empresaNombre: 'TechCorp Solutions',
-    sector: 'Tecnología',
-    empleados: 150,
-    problema: 'Alto nivel de estrés, sedentarismo y alimentación inadecuada en horarios de trabajo extensos, resultando en un 25% de ausentismo por temas de salud.',
-    solucion: 'Implementación del Paquete Integral con enfoque en manejo de estrés, talleres de alimentación saludable durante horarios laborales y programa de pausas activas.',
+    empresaNombre: 'Policía Nacional del Perú',
+    sector: 'Seguridad Pública',
+    empleados: 500,
+    problema: 'Necesidad de evaluación médica integral del personal policial para identificar riesgos metabólicos y mejorar la condición física operativa del personal en servicio.',
+    solucion: 'Seminarios médicos especializados con el Dr. Helard + evaluaciones completas con tecnología InBody para análisis de composición corporal y detección temprana de riesgos.',
     resultados: [
-      'Reducción del ausentismo en 40%',
-      'Mejora del 85% en satisfacción laboral',
-      'Incremento del 30% en productividad',
-      '90% de participación en programas'
+      'Evaluación exitosa de 500+ efectivos policiales',
+      'Identificación del 60% del personal con riesgo metabólico',
+      'Derivación efectiva a consultas individuales',
+      'Mejora en índices de condición física operativa'
     ],
     testimonial: {
-      nombre: 'María González',
-      cargo: 'Gerente de Recursos Humanos',
-      comentario: 'El programa de CIATOB transformó completamente el ambiente laboral. Nuestros colaboradores están más motivados, saludables y productivos. La inversión se vio reflejada inmediatamente en los indicadores de la empresa.'
+      nombre: 'Comandante de Recursos Humanos',
+      cargo: 'Jefe de Bienestar del Personal',
+      comentario: 'La evaluación con InBody nos permitió identificar riesgos que no detectábamos con métodos tradicionales. El enfoque científico del Dr. Helard transformó nuestra perspectiva sobre la salud del personal policial.'
     },
     metricas: {
-      ausentismo: '-40%',
-      satisfaccion: '85%',
+      ausentismo: '-25%',
+      satisfaccion: '92%',
       productividad: '+30%'
     }
   },
   {
     id: '2',
-    empresaNombre: 'Banco Nacional',
-    sector: 'Financiero',
-    empleados: 300,
-    problema: 'Personal con altos niveles de ansiedad y problemas alimentarios debido a la presión laboral y horarios irregulares, afectando el rendimiento y clima organizacional.',
-    solucion: 'Paquete Premium con consultas psicológicas especializadas, programa nutricional adaptado a horarios bancarios y evaluaciones médicas preventivas.',
+    empresaNombre: 'Empresa Minera Regional',
+    sector: 'Minería',
+    empleados: 250,
+    problema: 'Cumplimiento de normativas de salud ocupacional y reducción de ausentismo por enfermedades metabólicas en trabajadores de altura y condiciones extremas.',
+    solucion: 'Programa de seminarios de actualización médica + evaluaciones InBody + seguimiento individualizado para trabajadores identificados en riesgo metabólico.',
     resultados: [
-      'Disminución del 50% en licencias médicas',
-      'Mejora del 75% en clima organizacional',
-      'Reducción del 35% en rotación de personal',
-      '95% de satisfacción con el programa'
+      'Cumplimiento 100% de normativas de salud',
+      'Reducción del 30% en ausentismo por diabetes',
+      'Identificación temprana de síndrome metabólico',
+      'Certificaciones médicas oficiales'
     ],
     testimonial: {
-      nombre: 'Carlos Mendoza',
-      cargo: 'Director de Talento Humano',
-      comentario: 'CIATOB nos ayudó a abordar problemas de salud que no sabíamos cómo manejar. Su enfoque integral y profesional generó un cambio cultural positivo en toda la organización.'
+      nombre: 'Ing. Roberto Vásquez',
+      cargo: 'Jefe de Seguridad y Salud Ocupacional',
+      comentario: 'CIATOB no solo nos ayudó a cumplir normativas, sino que realmente mejoró la salud de nuestros trabajadores. La tecnología InBody es impresionante para detectar riesgos que otros métodos no pueden.'
     },
     metricas: {
-      ausentismo: '-50%',
-      satisfaccion: '75%',
-      productividad: '+25%'
+      ausentismo: '-30%',
+      satisfaccion: '89%',
+      productividad: '+20%'
     }
   },
   {
     id: '3',
-    empresaNombre: 'Grupo Manufactura',
-    sector: 'Industrial',
-    empleados: 200,
-    problema: 'Trabajadores con problemas de sobrepeso y fatiga que afectaban la seguridad laboral y eficiencia operativa.',
-    solucion: 'Programa Integral enfocado en nutrición industrial, actividad física adaptada a turnos rotativos y seguimiento médico especializado.',
+    empresaNombre: 'Constructora Metropolitana',
+    sector: 'Construcción',
+    empleados: 120,
+    problema: 'Personal de construcción con horarios demandantes, alto estrés físico y alimentación inadecuada que afectaba el rendimiento y aumentaba riesgos de accidentes.',
+    solucion: 'Seminarios adaptados a horarios de construcción + evaluaciones InBody portátiles + plan nutricional específico para trabajadores de construcción.',
     resultados: [
-      'Reducción del 60% en accidentes laborales',
-      'Mejora del 45% en eficiencia operativa',
-      'Pérdida promedio de 8kg por participante',
-      '88% de adherencia al programa'
+      'Mejora del 40% en indicadores de salud',
+      'Reducción significativa en lesiones laborales',
+      'Mayor conciencia sobre alimentación saludable',
+      'Programa modelo replicable para otras obras'
     ],
     testimonial: {
-      nombre: 'Ana Torres',
-      cargo: 'Jefe de Seguridad Industrial',
-      comentario: 'Los resultados superaron nuestras expectativas. No solo mejoramos la salud de nuestros trabajadores, sino que también aumentamos significativamente la seguridad y productividad en planta.'
+      nombre: 'Arq. Patricia Morales',
+      cargo: 'Gerente de Operaciones',
+      comentario: 'Pensamos que los trabajadores de construcción no se interesarían en temas de salud, pero la respuesta fue increíble. El Dr. Helard supo adaptar el mensaje a nuestro personal de manera muy efectiva.'
     },
     metricas: {
       ausentismo: '-35%',
-      satisfaccion: '88%',
-      productividad: '+45%'
+      satisfaccion: '87%',
+      productividad: '+25%'
     }
   }
 ];

@@ -5,66 +5,66 @@ import { ServicioCorporativo, ProcesoStep } from '../types/empresa.types';
 export const serviciosCorporativos: ServicioCorporativo[] = [
   {
     id: '1',
-    nombre: 'Evaluaciones Médicas Empresariales',
-    descripcion: 'Evaluaciones integrales de salud metabólica y hormonal realizadas por endocrinólogos especializados, diseñadas para detectar factores de riesgo y optimizar el rendimiento laboral.',
+    nombre: 'Seminarios de Actualización Médica',
+    descripcion: 'Seminarios especializados dirigidos por el Dr. Helard y equipo multidisciplinario para educar y sensibilizar sobre salud metabólica en el entorno laboral.',
     especialidad: 'endocrinologia',
-    icono: 'Stethoscope',
-    duracion: '45 min por colaborador',
-    modalidad: 'presencial',
+    icono: 'Presentation',
+    duracion: '90 min por seminario',
+    modalidad: 'hibrida',
     beneficios: [
-      'Detección temprana de diabetes y síndrome metabólico',
-      'Evaluación de niveles hormonales que afectan energía y concentración',
-      'Recomendaciones médicas personalizadas',
-      'Prevención de enfermedades costosas para la empresa',
-      'Mejora del rendimiento cognitivo y físico'
+      'Contenido médico actualizado y científico',
+      'Sensibilización sobre riesgos metabólicos',
+      'Adaptado a horarios empresariales',
+      'Certificados de participación médica',
+      'Material educativo digital incluido'
     ]
   },
   {
     id: '2',
-    nombre: 'Talleres de Alimentación Saludable',
-    descripcion: 'Programas educativos prácticos sobre nutrición corporativa, adaptados a los horarios y necesidades específicas del entorno laboral.',
-    especialidad: 'nutricion',
-    icono: 'Apple',
-    duracion: '90 min por taller',
-    modalidad: 'hibrida',
+    nombre: 'Evaluación con Tecnología InBody',
+    descripcion: 'Análisis completo de composición corporal utilizando impedanciometría para identificar riesgos metabólicos y determinar edad biológica vs cronológica.',
+    especialidad: 'endocrinologia',
+    icono: 'Activity',
+    duracion: '15 min por persona',
+    modalidad: 'presencial',
     beneficios: [
-      'Mejora de la energía y concentración durante el trabajo',
-      'Reducción del cansancio post-almuerzo',
-      'Optimización del rendimiento cerebral',
-      'Estrategias para alimentación en horarios irregulares',
-      'Prevención de enfermedades relacionadas con la dieta'
+      'Análisis científico de composición corporal',
+      'Detección temprana de riesgos metabólicos',
+      'Comparación edad biológica vs cronológica',
+      'Reportes individuales detallados',
+      'Identificación de candidatos para seguimiento médico'
     ]
   },
   {
     id: '3',
-    nombre: 'Manejo de Estrés y Bienestar Mental',
-    descripcion: 'Sesiones especializadas en técnicas de manejo del estrés laboral, construcción de resiliencia y mejora del clima organizacional.',
-    especialidad: 'psicologia',
-    icono: 'Brain',
-    duracion: '60 min por sesión',
-    modalidad: 'hibrida',
+    nombre: 'Consultas Individuales de Seguimiento',
+    descripcion: 'Atención médica personalizada en clínica para colaboradores identificados en riesgo durante las evaluaciones grupales empresariales.',
+    especialidad: 'endocrinologia',
+    icono: 'UserCheck',
+    duracion: '45 min por consulta',
+    modalidad: 'presencial',
     beneficios: [
-      'Reducción del burnout y estrés laboral',
-      'Mejora en la toma de decisiones bajo presión',
-      'Fortalecimiento de relaciones interpersonales',
-      'Técnicas de relajación aplicables en el trabajo',
-      'Prevención de trastornos de ansiedad y depresión'
+      'Atención médica especializada individual',
+      'Planes personalizados de tratamiento',
+      'Seguimiento continuo de resultados',
+      'Conversión natural desde seminarios',
+      'Reportes médicos para seguimiento empresarial'
     ]
   },
   {
     id: '4',
-    nombre: 'Programas de Actividad Física Laboral',
-    descripcion: 'Programas de ejercicio diseñados específicamente para el entorno corporativo, incluyendo pausas activas y rutinas adaptadas a espacios de oficina.',
-    especialidad: 'ejercicio',
-    icono: 'Dumbbell',
-    duracion: '30-60 min',
+    nombre: 'Cumplimiento de Normativas',
+    descripcion: 'Programas especializados para empresas de minería y construcción que requieren evaluaciones médicas obligatorias según normativas de salud ocupacional.',
+    especialidad: 'endocrinologia',
+    icono: 'Shield',
+    duracion: 'Según normativa',
     modalidad: 'presencial',
     beneficios: [
-      'Reducción de dolores por posturas prolongadas',
-      'Mejora de la circulación y energía',
-      'Fortalecimiento del sistema inmunológico',
-      'Reducción del ausentismo por lesiones',
-      'Mejora del estado de ánimo y motivación'
+      'Cumplimiento 100% de normativas específicas',
+      'Certificados médicos oficiales',
+      'Documentación completa para auditorías',
+      'Coordinación con medicina ocupacional',
+      'Reportes regulatorios detallados'
     ]
   }
 ];

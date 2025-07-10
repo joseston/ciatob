@@ -8,3 +8,6 @@ export { default as PaqueteCard } from './PaqueteCard';
 export { default as CasosExito } from './CasosExito';
 export { default as ProcesoImplementacion } from './ProcesoImplementacion';
 export { default as ContactoEmpresarial } from './ContactoEmpresarial';
+export { default as InBodySection } from './InBodySection';
+export { default as SeminarioDetails } from './SeminarioDetails';
+export { default as TargetEmpresarial } from './TargetEmpresarial';

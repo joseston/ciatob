@@ -6,9 +6,12 @@ import React from 'react';
 import {
   EmpresasHero,
   ProblemasSection,
+  SeminarioDetails,
+  InBodySection,
   ServiciosCorporativos,
   PaquetesEmpresariales,
   CasosExito,
+  TargetEmpresarial,
   ProcesoImplementacion,
   ContactoEmpresarial
 } from './components';
@@ -22,14 +25,23 @@ export default function EmpresasPage() {
       {/* Problemas que enfrentan las empresas */}
       <ProblemasSection />
       
+      {/* Seminarios de Actualización Médica */}
+      <SeminarioDetails />
+      
+      {/* Tecnología InBody */}
+      <InBodySection />
+      
       {/* Servicios corporativos disponibles */}
       <ServiciosCorporativos />
       
       {/* Paquetes empresariales */}
       <PaquetesEmpresariales />
       
-      {/* Casos de éxito */}
+      {/* Casos de éxito reales */}
       <CasosExito />
+      
+      {/* Sectores objetivo */}
+      <TargetEmpresarial />
       
       {/* Proceso de implementación */}
       <ProcesoImplementacion />

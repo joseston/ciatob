@@ -15,23 +15,23 @@ const EmpresasHero: React.FC = () => {
   const stats = [
     {
       icon: Building,
-      value: "50+",
-      label: "Empresas Atendidas"
+      value: "3+",
+      label: "Sectores Especializados"
     },
     {
       icon: Users,
-      value: "5,000+",
-      label: "Colaboradores Beneficiados"
+      value: "500+",
+      label: "Colaboradores Evaluados"
     },
     {
       icon: TrendingUp,
-      value: "40%",
-      label: "Reducción de Ausentismo"
+      value: "60%",
+      label: "Riesgos Identificados"
     },
     {
       icon: Award,
-      value: "95%",
-      label: "Satisfacción Empresarial"
+      value: "S/25",
+      label: "Por Colaborador"
     }
   ];
 
@@ -77,11 +77,11 @@ const EmpresasHero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             >
-              Transforme la{' '}
+              Seminarios Médicos{' '}
               <span className="bg-gradient-to-r from-blue-300 to-cyan-300 text-transparent bg-clip-text">
-                salud
+                + InBody
               </span>{' '}
-              de su empresa
+              para su empresa
             </motion.h1>
 
             <motion.p
@@ -90,8 +90,8 @@ const EmpresasHero: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="text-xl text-white/90 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0"
             >
-              Programas integrales de bienestar corporativo que reducen el ausentismo, 
-              mejoran la productividad y crean un ambiente laboral más saludable.
+              Evaluaciones médicas con tecnología InBody que identifican riesgos metabólicos 
+              y motivan a sus colaboradores a buscar atención médica especializada.
             </motion.p>
 
             {/* CTA Buttons */}
