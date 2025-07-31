@@ -38,6 +38,29 @@ const AppointmentPage: React.FC = () => {  const {
     handleSlotSelect
   } = useAppointment();
 
+  // 🔍 Log para debugging
+  console.log('📋 AppointmentPage - Estado completo:', {
+    specialties: specialties.map(s => ({ id: s.id, name: s.name })),
+    selectedSpecialty,
+    totalDoctors: doctors.length,
+    doctorsData: doctors.map(d => ({
+      id: d.id,
+      nombre: d.nombre,
+      specialtyId: d.specialty?.id,
+      specialtyName: d.specialty?.name
+    })),
+    selectedDoctor,
+    dateRange,
+    groupedSlots: Object.keys(groupedSlots),
+    selectedSlot,
+    loading: {
+      main: loading,
+      specialties: loadingSpecialties,
+      doctors: loadingDoctors,
+      slots: loadingSlots
+    }
+  });
+
   const {
     isModalOpen,
     isLoading,

@@ -18,6 +18,22 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
   onSelectDoctor,
   disabled = false
 }) => {
+  console.log('👨‍⚕️ DoctorSelector - Renderizando con:', {
+    disabled,
+    totalDoctors: doctors.length,
+    doctors: doctors.map(d => ({
+      id: d.id,
+      nombre: d.nombre,
+      specialtyId: d.specialty?.id,
+      specialtyName: d.specialty?.name
+    })),
+    selectedDoctor: selectedDoctor ? {
+      id: selectedDoctor.id,
+      nombre: selectedDoctor.nombre,
+      specialtyName: selectedDoctor.specialty?.name
+    } : null
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 0 }}

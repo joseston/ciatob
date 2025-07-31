@@ -14,6 +14,22 @@ const HorizontalSpecialtySelector: React.FC<HorizontalSpecialtySelectorProps> = 
   selectedSpecialty,
   onSelectSpecialty
 }) => {
+  const handleSpecialtyClick = (specialtyId: number) => {
+    const specialty = specialties.find(s => s.id === specialtyId);
+    console.log('🏥 HorizontalSpecialtySelector - Especialidad seleccionada:', {
+      id: specialtyId,
+      specialty: specialty,
+      previouslySelected: selectedSpecialty
+    });
+    onSelectSpecialty(specialtyId);
+  };
+
+  console.log('🏥 HorizontalSpecialtySelector - Renderizando con:', {
+    totalSpecialties: specialties.length,
+    specialties: specialties.map(s => ({ id: s.id, name: s.name })),
+    selectedSpecialty
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -29,7 +45,7 @@ const HorizontalSpecialtySelector: React.FC<HorizontalSpecialtySelectorProps> = 
         {specialties.map((specialty) => (
           <motion.button
             key={specialty.id}
-            onClick={() => onSelectSpecialty(specialty.id)}
+            onClick={() => handleSpecialtyClick(specialty.id)}
             className={`p-3 rounded-lg text-center transition-all duration-300 flex-grow min-w-[150px] ${
               selectedSpecialty?.id === specialty.id
                 ? 'bg-gradient-to-r from-[#46b1b9]/20 to-[#22616a]/20 border-b-4 border-[#46b1b9]'

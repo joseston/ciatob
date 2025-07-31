@@ -25,9 +25,41 @@ export const useAppointment = () => {
   } = useDoctors();
 
   // Filtramos los médicos según la especialidad seleccionada
+  console.log('🔍 useAppointment - Estado actual:', {
+    selectedSpecialty,
+    totalDoctors: doctors.length,
+    doctorsWithSpecialties: doctors.map(d => ({
+      id: d.id,
+      nombre: d.nombre,
+      specialtyId: d.specialty?.id,
+      specialtyName: d.specialty?.name
+    }))
+  });
+
   const filteredDoctors = selectedSpecialty 
-    ? doctors.filter(doctor => doctor.specialty?.name === selectedSpecialty.name)
+    ? doctors.filter(doctor => {
+        const match = doctor.specialty?.id === selectedSpecialty.id;
+        console.log(`👨‍⚕️ useAppointment - Filtro doctor ${doctor.nombre}:`, {
+          doctorSpecialtyId: doctor.specialty?.id,
+          doctorSpecialtyName: doctor.specialty?.name,
+          selectedSpecialtyId: selectedSpecialty.id,
+          selectedSpecialtyName: selectedSpecialty.name,
+          match
+        });
+        return match;
+      })
     : [];
+
+  console.log('✅ useAppointment - Doctores filtrados:', {
+    selectedSpecialtyId: selectedSpecialty?.id,
+    selectedSpecialtyName: selectedSpecialty?.name,
+    filteredCount: filteredDoctors.length,
+    filteredDoctors: filteredDoctors.map(d => ({
+      id: d.id,
+      nombre: d.nombre,
+      specialtyName: d.specialty?.name
+    }))
+  });
 
   const {
     dateRange,
