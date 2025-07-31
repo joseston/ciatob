@@ -89,9 +89,9 @@ const BookingModal: React.FC<BookingModalProps> = ({
       newErrors.nombre = 'El nombre es obligatorio';
     }
     
-    // Validar teléfono (9 dígitos)
-    if (!formData.telefono || !/^\d{9}$/.test(formData.telefono)) {
-      newErrors.telefono = 'El teléfono debe tener 9 dígitos';
+    // Validar teléfono (9 dígitos, formato peruano)
+    if (!formData.telefono || !/^9\d{8}$/.test(formData.telefono)) {
+      newErrors.telefono = 'El teléfono debe tener 9 dígitos y empezar con 9';
     }
     
     // Validar email (opcional)
@@ -169,6 +169,33 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   </div>
                 </div>
               )}
+
+              {/* Información del proceso de confirmación */}
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
+                      <Phone className="w-4 h-4 text-green-600" />
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <h3 className="text-sm font-medium text-green-800">
+                      📱 Proceso de Confirmación
+                    </h3>
+                    <div className="mt-2 text-sm text-green-700">
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>Completa tus datos y envía la solicitud</li>
+                        <li><strong>Te contactaremos por WhatsApp</strong> para confirmar tu cita</li>
+                        <li>Coordinamos el pago y los detalles finales</li>
+                        <li>¡Tu cita queda confirmada!</li>
+                      </ol>
+                      <p className="mt-2 text-xs text-green-600 font-medium">
+                        💚 Es importante que mantengas tu WhatsApp activo para recibir nuestra confirmación
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               
               {patientType === 'RETURNING' && (
                 <div className="mb-4 p-3 bg-blue-50 text-blue-700 rounded-lg text-sm flex items-center">
@@ -240,7 +267,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="telefono">
-                    Teléfono *
+                    Teléfono * <span className="text-xs text-gray-500">(WhatsApp preferible)</span>
                   </label>
                   <div className="relative">
                     <input
@@ -252,13 +279,14 @@ const BookingModal: React.FC<BookingModalProps> = ({
                       className={`w-full p-2 pl-9 border rounded-md focus:ring-[#46b1b9] focus:border-[#46b1b9] outline-none ${
                         errors.telefono ? 'border-red-500' : 'border-gray-300'
                       }`}
-                      placeholder="Ingresa tu número de teléfono"
+                      placeholder="Ej: 987654321 (sin +51)"
                       maxLength={9}
                       disabled={isLoading}
                     />
                     <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
                   {errors.telefono && <p className="mt-1 text-sm text-red-500">{errors.telefono}</p>}
+                  <p className="mt-1 text-xs text-gray-500">Te contactaremos por WhatsApp a este número para confirmar tu cita</p>
                 </div>
                 
                 <div>
@@ -323,7 +351,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                         Procesando...
                       </span>
                     ) : (
-                      'Reservar Cita'
+                      'Solicitar Cita'
                     )}
                   </button>
                 </div>

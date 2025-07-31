@@ -1,7 +1,7 @@
 // src/hooks/useAppointmentSlots.ts
 import { useState, useEffect } from 'react';
 import { Slot, GroupedSlots, DateRange } from '../types/appointment';
-import { AppointmentService } from '../services/appointment.service';
+import { SlotService } from '../services/slot.service';
 import { addDays } from 'date-fns';
 
 interface UseAppointmentSlotsProps {
@@ -15,7 +15,7 @@ interface UseAppointmentSlotsReturn {
   loading: boolean;
   error: Error | null;
   setDateRange: (range: DateRange) => void;
-  selectSlot: (slot: Slot | null) => void;  // Modificar aquí para aceptar null
+  selectSlot: (slot: Slot | null) => void;
 }
 
 /**
@@ -33,20 +33,30 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
 
   useEffect(() => {
     const fetchSlots = async () => {
-      if (!doctorId) return;
+      if (!doctorId) {
+        setGroupedSlots({});
+        return;
+      }
 
       try {
         setLoading(true);
-        const slots = await AppointmentService.fetchAvailableSlots(
-          /* doctorId,
-          dateRange.startDate,
-          dateRange.endDate */
-        );
-        setGroupedSlots(slots);
         setError(null);
+        
+        const startDate = dateRange.startDate.toISOString().split('T')[0];
+        const endDate = dateRange.endDate.toISOString().split('T')[0];
+        
+        // Intentar obtener datos del backend
+        const slots = await SlotService.fetchAvailableSlots(doctorId, startDate, endDate);
+        setGroupedSlots(slots);
+        
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Error desconocido al cargar slots'));
-        console.error('Error loading slots:', err);
+        // Si falla el backend, usar datos mock
+        const startDate = dateRange.startDate.toISOString().split('T')[0];
+        const endDate = dateRange.endDate.toISOString().split('T')[0];
+        const mockSlots = SlotService.getMockSlots(startDate, endDate);
+        setGroupedSlots(mockSlots);
+        
+        setError(err instanceof Error ? err : new Error('Error al cargar slots del servidor'));
       } finally {
         setLoading(false);
       }
@@ -63,7 +73,7 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
     setSelectedSlot(null);
   };
 
-  const selectSlot = (slot: Slot | null) => {  // Modificar aquí para aceptar null
+  const selectSlot = (slot: Slot | null) => {
     setSelectedSlot(slot);
   };
 

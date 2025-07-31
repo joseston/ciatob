@@ -1,7 +1,7 @@
 // src/hooks/useDoctors.ts
 import { useState, useEffect } from 'react';
 import { Doctor } from '../types/appointment';
-import { AppointmentService } from '../services/appointment.service';
+import { DoctorService } from '../services/doctor.service';
 
 interface UseDoctorsReturn {
   doctors: Doctor[];
@@ -24,12 +24,21 @@ export const useDoctors = (): UseDoctorsReturn => {
     const fetchDoctors = async () => {
       try {
         setLoading(true);
-        const data = await AppointmentService.fetchDoctors();
-        setDoctors(data);
         setError(null);
+        
+        // Intentar obtener datos del backend
+        const data = await DoctorService.fetchDoctors();
+        setDoctors(data);
+        
+        console.log('✅ Doctores cargados exitosamente');
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Error desconocido al cargar médicos'));
-        console.error('Error loading doctors:', err);
+        console.warn('⚠️ Error al conectar con backend para doctores, usando datos mock');
+        
+        // Si falla el backend, usar datos mock
+        const mockData = DoctorService.getMockDoctors();
+        setDoctors(mockData);
+        
+        setError(err instanceof Error ? err : new Error('Error al cargar doctores del servidor'));
       } finally {
         setLoading(false);
       }

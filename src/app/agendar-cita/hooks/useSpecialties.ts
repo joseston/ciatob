@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Specialty } from '../types/appointment';
-import { getSpecialties } from '@/services/api';
+import { SpecialtyService } from '../services/specialty.service';
 
 interface UseSpecialtiesReturn {
   specialties: Specialty[];
@@ -23,12 +23,20 @@ export const useSpecialties = (): UseSpecialtiesReturn => {
     const fetchSpecialties = async () => {
       try {
         setLoading(true);
-        const data = await getSpecialties();
-        setSpecialties(data);
         setError(null);
+        
+        // Intentar obtener datos del backend
+        const data = await SpecialtyService.fetchSpecialties();
+        setSpecialties(data);
+        
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Error desconocido al cargar especialidades'));
-        console.error('Error loading specialties:', err);
+        console.warn('⚠️ Error al conectar con backend, usando datos mock');
+        
+        // Si falla el backend, usar datos mock
+        const mockData = SpecialtyService.getMockSpecialties();
+        setSpecialties(mockData);
+        
+        setError(err instanceof Error ? err : new Error('Error al cargar especialidades del servidor'));
       } finally {
         setLoading(false);
       }

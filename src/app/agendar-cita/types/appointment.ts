@@ -8,11 +8,17 @@ export interface Specialty {
   export interface Doctor {
     id: number;
     nombre: string;
+    // CORRECCIÓN: Se añade '| null' para que el tipo sea compatible
+    // con los datos procesados desde la API.
     specialty?: {
+      id?: number;
       name: string;
-    };
-    image?: string; // Añadir imagen opcional
-    gender?: 'male' | 'female'; // Género del doctor para formatear correctamente los títulos
+    } | null; 
+    image?: string;
+    gender?: 'male' | 'female';
+    profession?: string;
+    cmp_id?: string;
+    role?: string;
   }
     
   export interface Slot {

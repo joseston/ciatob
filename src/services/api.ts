@@ -16,7 +16,7 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000
 export const DEFAULT_COMPANY_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_COMPANY_ID) || 1;
 
 // ID de usuario por defecto (para desarrollo)
-export const DEFAULT_USER_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_USER_ID) || 2;
+export const DEFAULT_USER_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_USER_ID) || 19;
 
 // Función para hacer peticiones HTTP que funcione en cliente y servidor
 const apiClient = async (url: string, options: RequestInit = {}) => {

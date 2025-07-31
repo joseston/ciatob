@@ -1,5 +1,6 @@
 // src/app/agendar-cita/services/booking.service.ts
 import { API_URL, DEFAULT_COMPANY_ID } from '@/services/api';
+import { NotificationService } from './notification.service';
 
 export interface PatientFormData {
   dni: string;
@@ -51,28 +52,53 @@ export const BookingService = {
     patientData: PatientFormData
   ): Promise<BookingResponse> => {
     try {
+      const requestData = {
+        company_id: companyId,
+        company_doctor_id: doctorId,
+        cita_id: slotId,
+        dni: patientData.dni,
+        nombre: patientData.nombre,
+        telefono: patientData.telefono,
+        email: patientData.email || undefined // No enviar si está vacío
+      };
+      
+      
       const response = await fetch(`${API_URL}/business/calendar/public/book_appointment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          company_id: companyId,
-          company_doctor_id: doctorId,
-          cita_id: slotId,
-          dni: patientData.dni,
-          nombre: patientData.nombre,
-          telefono: patientData.telefono,
-          email: patientData.email || undefined // No enviar si está vacío
-        }),
+        body: JSON.stringify(requestData),
       });
       
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al realizar la reserva');
       }
       
       const data = await response.json();
+      
+      // 🚀 NUEVO: Enviar notificación automática a CIATOB
+      if (data.appointment) {
+        try {
+          
+          await NotificationService.notifyNewAppointment({
+            patientName: patientData.nombre,
+            patientPhone: patientData.telefono,
+            patientDni: patientData.dni,
+            doctorName: data.appointment.doctor.nombre,
+            specialty: data.appointment.doctor.specialty,
+            appointmentDate: data.appointment.fecha,
+            appointmentTime: `${data.appointment.hora_inicio} - ${data.appointment.hora_fin}`,
+            appointmentId: data.appointment.id
+          });
+          
+        } catch (notificationError) {
+          console.warn('⚠️ Error enviando notificación (la cita se guardó correctamente):', notificationError);
+          // No fallar toda la operación si falla la notificación
+        }
+      }
       
       return {
         success: true,
