@@ -26,52 +26,81 @@ export const NotificationService = {
    * Notifica a CIATOB sobre una nueva solicitud de cita
    */
   notifyNewAppointment: async (data: NotificationData): Promise<NotificationResponse> => {
+    console.log('📬 NotificationService.notifyNewAppointment - Iniciando envío de notificación:', {
+      patientName: data.patientName,
+      doctorName: data.doctorName,
+      appointmentDate: data.appointmentDate,
+      appointmentTime: data.appointmentTime,
+      appointmentId: data.appointmentId
+    });
+
     try {
-      console.log('📱 Enviando notificación a CIATOB:', data);
+      const requestBody = {
+        type: 'NEW_APPOINTMENT_REQUEST',
+        patient: {
+          name: data.patientName,
+          phone: data.patientPhone,
+          dni: data.patientDni
+        },
+        appointment: {
+          id: data.appointmentId,
+          doctor_name: data.doctorName,
+          specialty: data.specialty,
+          date: data.appointmentDate,
+          time: data.appointmentTime
+        },
+        // Números de WhatsApp de CIATOB (configurables)
+        recipients: [
+          '+51948213270', // WhatsApp principal de CIATOB
+          // Se pueden agregar más números aquí
+        ]
+      };
       
-      const response = await fetch(`${API_URL}/business/notifications/new_appointment`, {
+      console.log('📋 NotificationService.notifyNewAppointment - Datos de solicitud preparados:', {
+        ...requestBody,
+        patient: {
+          ...requestBody.patient,
+          phone: requestBody.patient.phone.substring(0, 3) + '***',
+          dni: requestBody.patient.dni.substring(0, 3) + '***'
+        }
+      });
+      
+      const url = `${API_URL}/business/notifications/new_appointment`;
+      console.log('🔗 NotificationService.notifyNewAppointment - URL de notificación:', url);
+      
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          type: 'NEW_APPOINTMENT_REQUEST',
-          patient: {
-            name: data.patientName,
-            phone: data.patientPhone,
-            dni: data.patientDni
-          },
-          appointment: {
-            id: data.appointmentId,
-            doctor_name: data.doctorName,
-            specialty: data.specialty,
-            date: data.appointmentDate,
-            time: data.appointmentTime
-          },
-          // Números de WhatsApp de CIATOB (configurables)
-          recipients: [
-            '+51948213270', // WhatsApp principal de CIATOB
-            // Se pueden agregar más números aquí
-          ]
-        }),
+        body: JSON.stringify(requestBody),
+      });
+      
+      console.log('✅ NotificationService.notifyNewAppointment - Respuesta recibida:', { 
+        status: response.status, 
+        statusText: response.statusText,
+        ok: response.ok
       });
       
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('❌ NotificationService.notifyNewAppointment - Error en respuesta:', errorData);
         throw new Error(errorData.error || 'Error al enviar notificación');
       }
       
       const result = await response.json();
+      console.log('📊 NotificationService.notifyNewAppointment - Respuesta exitosa:', result);
       
-      console.log('✅ Notificación enviada exitosamente:', result);
-      
-      return {
+      const successResult = {
         success: true,
         message: result.message || 'Notificación enviada',
         notificationId: result.notification_id
       };
+      
+      console.log('✅ NotificationService.notifyNewAppointment - Notificación enviada exitosamente:', successResult);
+      return successResult;
     } catch (error) {
-      console.error('❌ Error enviando notificación:', error);
+      console.error('❌ NotificationService.notifyNewAppointment - Error enviando notificación:', error);
       
       return {
         success: false,
@@ -84,6 +113,13 @@ export const NotificationService = {
    * Genera el mensaje de WhatsApp para CIATOB
    */
   generateCiatobMessage: (data: NotificationData): string => {
+    console.log('💬 NotificationService.generateCiatobMessage - Generando mensaje de WhatsApp:', {
+      patientName: data.patientName,
+      doctorName: data.doctorName,
+      appointmentDate: data.appointmentDate,
+      appointmentTime: data.appointmentTime
+    });
+
     const message = `🩺 *NUEVA SOLICITUD DE CITA - CIATOB*
 
 📋 *Datos del Paciente:*
@@ -107,6 +143,7 @@ Contactar al paciente por WhatsApp para:
 
 💚 _El paciente está esperando confirmación_`;
 
+    console.log('✅ NotificationService.generateCiatobMessage - Mensaje generado exitosamente');
     return message;
   },
 
@@ -114,10 +151,14 @@ Contactar al paciente por WhatsApp para:
    * Método de respaldo: envío directo por WhatsApp Web (si falla la API)
    */
   sendDirectWhatsApp: (data: NotificationData): void => {
+    console.log('📱 NotificationService.sendDirectWhatsApp - Enviando mensaje directo por WhatsApp Web');
+    
     const message = NotificationService.generateCiatobMessage(data);
     const whatsappUrl = `https://web.whatsapp.com/send?phone=+51948213270&text=${encodeURIComponent(message)}`;
     
-    console.log('📱 Abriendo WhatsApp Web como respaldo');
+    console.log('🔗 NotificationService.sendDirectWhatsApp - URL de WhatsApp generada:', whatsappUrl);
+    
     window.open(whatsappUrl, '_blank');
+    console.log('✅ NotificationService.sendDirectWhatsApp - Ventana de WhatsApp abierta');
   }
 };

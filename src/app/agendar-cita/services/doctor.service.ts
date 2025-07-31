@@ -21,10 +21,13 @@ interface ApiDoctor {
 
 // Cliente API reutilizable y genérico para manejar cualquier tipo de respuesta
 const apiClient = async <T>(url: string, options: RequestInit = {}): Promise<T> => {
+  console.log('🔄 DoctorService.apiClient - Iniciando petición:', { url, options });
+  
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
+    console.log('📡 DoctorService.apiClient - Enviando fetch a:', url);
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -35,20 +38,35 @@ const apiClient = async <T>(url: string, options: RequestInit = {}): Promise<T> 
     });
 
     clearTimeout(timeoutId);
+    console.log('✅ DoctorService.apiClient - Respuesta recibida:', { 
+      status: response.status, 
+      statusText: response.statusText,
+      ok: response.ok
+    });
 
     if (!response.ok) {
-      throw new Error(`Error del servidor: ${response.status} - ${response.statusText}`);
+      const errorMessage = `Error del servidor: ${response.status} - ${response.statusText}`;
+      console.error('❌ DoctorService.apiClient - Error en respuesta:', errorMessage);
+      throw new Error(errorMessage);
     }
 
+    const data = await response.json();
+    console.log('📊 DoctorService.apiClient - Datos recibidos:', data);
     // Se devuelve la respuesta JSON, convertida al tipo genérico T
-    return (await response.json()) as T;
+    return data as T;
   } catch (error) {
+    console.error('❌ DoctorService.apiClient - Error en petición:', error);
+    
     if (error instanceof Error) {
       if (error.name === 'AbortError') {
-        throw new Error('La petición tardó demasiado tiempo.');
+        const timeoutError = 'La petición tardó demasiado tiempo.';
+        console.error('⏰ DoctorService.apiClient - Timeout:', timeoutError);
+        throw new Error(timeoutError);
       }
       if (error.message.includes('fetch')) {
-        throw new Error('No se pudo conectar con el servidor. Verifique que el backend esté funcionando.');
+        const connectionError = 'No se pudo conectar con el servidor. Verifique que el backend esté funcionando.';
+        console.error('🌐 DoctorService.apiClient - Error de conexión:', connectionError);
+        throw new Error(connectionError);
       }
     }
     throw error;
@@ -63,30 +81,54 @@ export const DoctorService = {
    * Obtiene los doctores de la empresa CIATOB
    */
   fetchDoctors: async (): Promise<Doctor[]> => {
+    console.log('👩‍⚕️ DoctorService.fetchDoctors - Iniciando búsqueda de doctores');
+    console.log('🏢 DoctorService.fetchDoctors - Company ID:', DEFAULT_COMPANY_ID);
+    console.log('🌐 DoctorService.fetchDoctors - API URL base:', API_URL);
+    
     try {
       const url = `${API_URL}/business/config/public/doctors/${DEFAULT_COMPANY_ID}`;
+      console.log('🔗 DoctorService.fetchDoctors - URL construida:', url);
+      
       // Se llama a apiClient especificando el tipo de respuesta esperado: ApiDoctor[]
       const data = await apiClient<ApiDoctor[]>(url, { method: 'GET' });
+      console.log('📥 DoctorService.fetchDoctors - Datos crudos recibidos:', data);
       
-      const validDoctors: Doctor[] = data.filter((doctor) => 
-        doctor && 
-        doctor.id && 
-        doctor.nombre && 
-        doctor.status === true
-      ).map((doctor) => ({
-        id: doctor.id,
-        nombre: doctor.nombre,
-        profession: doctor.profession || 'medico',
-        cmp_id: doctor.cmp_id,
-        role: doctor.role,
-        specialty: doctor.specialty ? {
-          id: doctor.specialty.id,
-          name: doctor.specialty.name
-        } : null
-      }));
+      const validDoctors: Doctor[] = data.filter((doctor) => {
+        const isValid = doctor && 
+          doctor.id && 
+          doctor.nombre && 
+          doctor.status === true;
+        
+        if (!isValid) {
+          console.warn('⚠️ DoctorService.fetchDoctors - Doctor inválido filtrado:', doctor);
+        }
+        
+        return isValid;
+      }).map((doctor) => {
+        console.log('🔄 DoctorService.fetchDoctors - Procesando doctor:', doctor);
+        
+        const mappedDoctor: Doctor = {
+          id: doctor.id,
+          nombre: doctor.nombre,
+          profession: doctor.profession || 'medico',
+          cmp_id: doctor.cmp_id,
+          role: doctor.role,
+          specialty: doctor.specialty ? {
+            id: doctor.specialty.id,
+            name: doctor.specialty.name
+          } : null
+        };
+        
+        console.log('✅ DoctorService.fetchDoctors - Doctor mapeado:', mappedDoctor);
+        return mappedDoctor;
+      });
+      
+      console.log(`📊 DoctorService.fetchDoctors - Total doctores válidos: ${validDoctors.length}`);
+      console.log('✅ DoctorService.fetchDoctors - Lista final de doctores:', validDoctors);
       
       return validDoctors;
     } catch (error) {
+      console.error('❌ DoctorService.fetchDoctors - Error:', error);
       throw error;
     }
   },
@@ -95,12 +137,26 @@ export const DoctorService = {
    * Obtiene doctores filtrados por especialidad
    */
   fetchDoctorsBySpecialty: async (specialtyId: number): Promise<Doctor[]> => {
+    console.log('🔍 DoctorService.fetchDoctorsBySpecialty - Filtrando por especialidad:', specialtyId);
+    
     try {
       const allDoctors = await DoctorService.fetchDoctors();
-      return allDoctors.filter(doctor => 
-        doctor.specialty && doctor.specialty.id === specialtyId
-      );
+      console.log('📋 DoctorService.fetchDoctorsBySpecialty - Total doctores obtenidos:', allDoctors.length);
+      
+      const filteredDoctors = allDoctors.filter(doctor => {
+        const hasSpecialty = doctor.specialty && doctor.specialty.id === specialtyId;
+        console.log(`👨‍⚕️ DoctorService.fetchDoctorsBySpecialty - Doctor ${doctor.nombre}:`, {
+          hasSpecialty,
+          doctorSpecialtyId: doctor.specialty?.id,
+          targetSpecialtyId: specialtyId
+        });
+        return hasSpecialty;
+      });
+      
+      console.log(`✅ DoctorService.fetchDoctorsBySpecialty - Doctores filtrados: ${filteredDoctors.length}`, filteredDoctors);
+      return filteredDoctors;
     } catch (error) {
+      console.error('❌ DoctorService.fetchDoctorsBySpecialty - Error:', error);
       throw error;
     }
   },
@@ -109,7 +165,9 @@ export const DoctorService = {
    * Método de respaldo usando datos mock
    */
   getMockDoctors: (): Doctor[] => {
-    return [
+    console.log('🎭 DoctorService.getMockDoctors - Generando datos mock');
+    
+    const mockDoctors = [
       {
         id: 1,
         nombre: 'Dr. Juan Pérez',
@@ -127,5 +185,8 @@ export const DoctorService = {
         specialty: { id: 2, name: 'Dermatología' }
       }
     ];
+    
+    console.log('✅ DoctorService.getMockDoctors - Datos mock generados:', mockDoctors);
+    return mockDoctors;
   }
 };

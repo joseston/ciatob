@@ -26,13 +26,25 @@ const specialistsImages: Record<string, Record<string, string>> = {
   }
 };
 
+// Log inicial para mostrar las imágenes disponibles
+console.log('🖼️ AppointmentService - Imágenes de especialistas cargadas:', {
+  endocrinologia: Object.keys(specialistsImages.endocrinologia || {}),
+  nutricion: Object.keys(specialistsImages.nutricion || {}),
+  psicologia: Object.keys(specialistsImages.psicologia || {})
+});
+
 // Función para normalizar nombres y hacer el matching
 const normalizeNameForMatching = (name: string): string => {
-  return name.toLowerCase()
+  console.log('📝 normalizeNameForMatching - Normalizando nombre:', name);
+  
+  const normalized = name.toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // Remover acentos
     .replace(/[^\w\s]/g, '') // Remover caracteres especiales
     .trim();
+    
+  console.log('✅ normalizeNameForMatching - Nombre normalizado:', { original: name, normalized });
+  return normalized;
 };
 
 /**
@@ -42,11 +54,17 @@ export const AppointmentService = {
   /**
    * Obtiene la lista de médicos disponibles
    */  fetchDoctors: async (): Promise<Doctor[]> => {
+    console.log('👩‍⚕️ AppointmentService.fetchDoctors - Iniciando búsqueda de doctores');
+    console.log('🏢 AppointmentService.fetchDoctors - Company ID:', DEFAULT_COMPANY_ID);
+
     try {
       const doctors = await getDoctorsByCompany(DEFAULT_COMPANY_ID);
+      console.log('📥 AppointmentService.fetchDoctors - Doctores obtenidos de API:', doctors);
       
       // Agregar imágenes a los especialistas según su especialidad
-      return doctors.map((doctor: Doctor) => {
+      const processedDoctors = doctors.map((doctor: Doctor) => {
+        console.log('🔄 AppointmentService.fetchDoctors - Procesando doctor:', doctor);
+        
         const specialtyName = doctor.specialty?.name?.toLowerCase() || '';
         let category = '';
         
@@ -58,9 +76,20 @@ export const AppointmentService = {
         } else if (specialtyName.includes('psicolog')) {
           category = 'psicologia';
         }
-          // Determinar género basado en el nombre o los datos conocidos
+        
+        console.log('🏷️ AppointmentService.fetchDoctors - Categoría determinada:', { 
+          doctorName: doctor.nombre, 
+          specialtyName, 
+          category 
+        });
+        
+        // Determinar género basado en el nombre o los datos conocidos
         let gender: 'male' | 'female' = 'male';
         const normalizedName = normalizeNameForMatching(doctor.nombre);
+        console.log('📝 AppointmentService.fetchDoctors - Nombre normalizado:', { 
+          original: doctor.nombre, 
+          normalized: normalizedName 
+        });
         
         // Asignar género según los datos conocidos de los especialistas
         if (normalizedName.includes('katty') || 
@@ -71,22 +100,46 @@ export const AppointmentService = {
           gender = 'female';
         }
         
+        console.log('👤 AppointmentService.fetchDoctors - Género asignado:', { 
+          doctorName: doctor.nombre, 
+          gender 
+        });
+        
         // Si encontramos una categoría válida, buscamos la imagen
         if (category && specialistsImages[category]) {
           const image = specialistsImages[category][normalizedName];
           
           if (image) {
+            console.log('🖼️ AppointmentService.fetchDoctors - Imagen encontrada:', { 
+              doctorName: doctor.nombre, 
+              category, 
+              image 
+            });
             return { ...doctor, image, gender };
+          } else {
+            console.log('⚠️ AppointmentService.fetchDoctors - No se encontró imagen para el doctor:', { 
+              doctorName: doctor.nombre, 
+              category, 
+              normalizedName 
+            });
           }
           
           // Incluso si no tenemos imagen, asignamos el género
           return { ...doctor, gender };
         }
         
+        console.log('🔍 AppointmentService.fetchDoctors - No se encontró categoría válida:', { 
+          doctorName: doctor.nombre, 
+          specialtyName 
+        });
+        
         return doctor;
       });
+      
+      console.log('✅ AppointmentService.fetchDoctors - Doctores procesados exitosamente:', processedDoctors);
+      return processedDoctors;
     } catch (error) {
-      console.error('Error fetching doctors:', error);
+      console.error('❌ AppointmentService.fetchDoctors - Error:', error);
       throw error;
     }
   },
@@ -99,9 +152,15 @@ export const AppointmentService = {
     startDate: Date,
     endDate: Date */
   ): Promise<GroupedSlots> => {
+    console.log('📅 AppointmentService.fetchAvailableSlots - Iniciando búsqueda de slots');
+    console.log('⚠️ AppointmentService.fetchAvailableSlots - MODO WHATSAPP: Devolviendo objeto vacío para forzar uso de WhatsApp');
+    
     // Devolvemos un objeto vacío para que no se muestren slots
     // y así forzar el uso del botón de WhatsApp
-    return {};
+    const emptySlots = {};
+    
+    console.log('✅ AppointmentService.fetchAvailableSlots - Slots vacíos devueltos:', emptySlots);
+    return emptySlots;
     
     /* COMENTADO PARA USO FUTURO
     try {
@@ -142,19 +201,32 @@ export const AppointmentService = {
       // otros campos necesarios
     }
   ) => {
+    console.log('📅 AppointmentService.bookAppointment - Iniciando reserva de cita:', {
+      slotId,
+      patientData: {
+        ...patientData,
+        telefono: patientData.telefono.substring(0, 3) + '***',
+        email: patientData.email ? patientData.email.substring(0, 3) + '***' : 'N/A'
+      }
+    });
+
     try {
       // Implementar la lógica para reservar la cita
       // Esta sería una futura implementación que conectaría con el endpoint correspondiente
-      console.log('Reservando cita...', { slotId, patientData });
+      
+      console.log('🎭 AppointmentService.bookAppointment - Usando simulación de respuesta');
       
       // Simulación de respuesta exitosa
-      return {
+      const result = {
         success: true,
         message: 'Cita reservada exitosamente',
         appointmentId: Math.floor(Math.random() * 1000) // ID simulado
       };
+      
+      console.log('✅ AppointmentService.bookAppointment - Reserva simulada exitosa:', result);
+      return result;
     } catch (error) {
-      console.error('Error booking appointment:', error);
+      console.error('❌ AppointmentService.bookAppointment - Error:', error);
       throw error;
     }
   }
