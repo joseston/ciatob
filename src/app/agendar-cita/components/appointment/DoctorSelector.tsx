@@ -74,9 +74,9 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
                     <div className="text-sm text-[#46b1b9]">{doctor.specialty.name}</div>
                   )}
                 </div>
-                {doctor.image && (
-                  <div className="ml-3 flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#46b1b9]/20">
+                <div className="ml-3 flex-shrink-0">
+                  {doctor.image ? (
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#46b1b9]/20 bg-gray-100">
                       <Image
                         src={doctor.image}
                         alt={`Dr. ${doctor.nombre}`}
@@ -89,8 +89,14 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
                         }}
                       />
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#46b1b9] to-[#22616a] flex items-center justify-center">
+                      <span className="text-white text-sm font-semibold">
+                        {doctor.nombre.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.button>
           ))}

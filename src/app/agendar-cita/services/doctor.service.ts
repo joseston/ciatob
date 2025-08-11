@@ -5,6 +5,42 @@ import { Doctor } from '../types/appointment';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 const DEFAULT_COMPANY_ID = Number(process.env.NEXT_PUBLIC_DEFAULT_COMPANY_ID) || 1;
 
+// Mapeo de nombres de doctores de producción con sus imágenes
+const DOCTOR_IMAGES: Record<string, string> = {
+  'HELARD ANDRES MANRIQUE HURTADO': 'https://static.scieluxe.com/files/helard-manrique.png',
+  'KATTY MANRIQUE FRANCO': 'https://static.scieluxe.com/files/katty-manrique.jpg',
+  'KENNLLY JOSSEPH CARDOZA JIMENEZ': 'https://static.scieluxe.com/files/kenlly-cardoza.JPG',
+  'LUCIANA CASTRO CABRERA': 'https://static.scieluxe.com/files/luciana-castro.jpg',
+  'VALERIA VILCHEZ ALBURQUERQUE': 'https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg',
+  // Variaciones de nombres que podrían aparecer
+  'GUADALUPE RUIZ': 'https://static.scieluxe.com/files/guadalupe-ruiz.JPG',
+  'ALONDRA RAMIREZ': 'https://static.scieluxe.com/files/alondra-ramirez.webp',
+  'ALEXANDER FERNANDEZ': 'https://static.scieluxe.com/files/alexander-fernandez.JPG'
+};
+
+// Función helper para obtener la imagen del doctor basada en el nombre
+const getDoctorImage = (nombre: string): string | undefined => {
+  // Primero intentamos con el nombre exacto
+  if (DOCTOR_IMAGES[nombre]) {
+    return DOCTOR_IMAGES[nombre];
+  }
+  
+  // Si no encontramos exacto, intentamos con variaciones comunes
+  const upperName = nombre.toUpperCase().trim();
+  if (DOCTOR_IMAGES[upperName]) {
+    return DOCTOR_IMAGES[upperName];
+  }
+  
+  // Búsqueda parcial para casos donde el backend tenga nombres ligeramente diferentes
+  for (const [key, value] of Object.entries(DOCTOR_IMAGES)) {
+    if (key.includes(upperName) || upperName.includes(key)) {
+      return value;
+    }
+  }
+  
+  return undefined;
+};
+
 // Interfaz que representa la respuesta cruda de la API para un doctor
 interface ApiDoctor {
   id: number;
@@ -107,12 +143,17 @@ export const DoctorService = {
       }).map((doctor) => {
         console.log('🔄 DoctorService.fetchDoctors - Procesando doctor:', doctor);
         
+        // Obtener la imagen basada en el nombre del doctor
+        const doctorImage = getDoctorImage(doctor.nombre);
+        console.log(`🖼️ DoctorService.fetchDoctors - Imagen para ${doctor.nombre}:`, doctorImage);
+        
         const mappedDoctor: Doctor = {
           id: doctor.id,
           nombre: doctor.nombre,
           profession: doctor.profession || 'medico',
           cmp_id: doctor.cmp_id,
           role: doctor.role,
+          image: doctorImage, // Agregamos la imagen al doctor
           specialty: doctor.specialty ? {
             id: doctor.specialty.id,
             name: doctor.specialty.name
@@ -170,19 +211,21 @@ export const DoctorService = {
     const mockDoctors = [
       {
         id: 1,
-        nombre: 'Dr. Juan Pérez',
+        nombre: 'HELARD ANDRES MANRIQUE HURTADO',
         profession: 'medico',
         cmp_id: '12345',
         role: 'contratado',
-        specialty: { id: 1, name: 'Cardiología' }
+        image: 'https://static.scieluxe.com/files/helard-manrique.png',
+        specialty: { id: 1, name: 'Endocrinología' }
       },
       {
         id: 2,
-        nombre: 'Dra. María García',
+        nombre: 'VALERIA VILCHEZ ALBURQUERQUE',
         profession: 'medico',
         cmp_id: '67890',
         role: 'contratado',
-        specialty: { id: 2, name: 'Dermatología' }
+        image: 'https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg',
+        specialty: { id: 2, name: 'Nutrición' }
       }
     ];
     
