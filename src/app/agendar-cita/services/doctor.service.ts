@@ -13,7 +13,7 @@ const DOCTOR_IMAGES: Record<string, string> = {
   'LUCIANA CASTRO CABRERA': 'https://static.scieluxe.com/files/luciana-castro.jpg',
   'VALERIA VILCHEZ ALBURQUERQUE': 'https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg',
   // Variaciones de nombres que podrían aparecer
-  'GUADALUPE RUIZ': 'https://static.scieluxe.com/files/guadalupe-ruiz.JPG',
+  'GUADALUPE RUIZ HUARANGA': 'https://static.scieluxe.com/files/guadalupe-ruiz.JPG',
   'ALONDRA RAMIREZ': 'https://static.scieluxe.com/files/alondra-ramirez.webp',
   'ALEXANDER FERNANDEZ': 'https://static.scieluxe.com/files/alexander-fernandez.JPG'
 };
@@ -57,13 +57,11 @@ interface ApiDoctor {
 
 // Cliente API reutilizable y genérico para manejar cualquier tipo de respuesta
 const apiClient = async <T>(url: string, options: RequestInit = {}): Promise<T> => {
-  console.log('🔄 DoctorService.apiClient - Iniciando petición:', { url, options });
   
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-    console.log('📡 DoctorService.apiClient - Enviando fetch a:', url);
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -74,11 +72,7 @@ const apiClient = async <T>(url: string, options: RequestInit = {}): Promise<T> 
     });
 
     clearTimeout(timeoutId);
-    console.log('✅ DoctorService.apiClient - Respuesta recibida:', { 
-      status: response.status, 
-      statusText: response.statusText,
-      ok: response.ok
-    });
+   
 
     if (!response.ok) {
       const errorMessage = `Error del servidor: ${response.status} - ${response.statusText}`;
@@ -87,7 +81,6 @@ const apiClient = async <T>(url: string, options: RequestInit = {}): Promise<T> 
     }
 
     const data = await response.json();
-    console.log('📊 DoctorService.apiClient - Datos recibidos:', data);
     // Se devuelve la respuesta JSON, convertida al tipo genérico T
     return data as T;
   } catch (error) {
@@ -117,17 +110,13 @@ export const DoctorService = {
    * Obtiene los doctores de la empresa CIATOB
    */
   fetchDoctors: async (): Promise<Doctor[]> => {
-    console.log('👩‍⚕️ DoctorService.fetchDoctors - Iniciando búsqueda de doctores');
-    console.log('🏢 DoctorService.fetchDoctors - Company ID:', DEFAULT_COMPANY_ID);
-    console.log('🌐 DoctorService.fetchDoctors - API URL base:', API_URL);
+    
     
     try {
       const url = `${API_URL}/business/config/public/doctors/${DEFAULT_COMPANY_ID}`;
-      console.log('🔗 DoctorService.fetchDoctors - URL construida:', url);
       
       // Se llama a apiClient especificando el tipo de respuesta esperado: ApiDoctor[]
       const data = await apiClient<ApiDoctor[]>(url, { method: 'GET' });
-      console.log('📥 DoctorService.fetchDoctors - Datos crudos recibidos:', data);
       
       const validDoctors: Doctor[] = data.filter((doctor) => {
         const isValid = doctor && 
@@ -141,11 +130,9 @@ export const DoctorService = {
         
         return isValid;
       }).map((doctor) => {
-        console.log('🔄 DoctorService.fetchDoctors - Procesando doctor:', doctor);
         
         // Obtener la imagen basada en el nombre del doctor
         const doctorImage = getDoctorImage(doctor.nombre);
-        console.log(`🖼️ DoctorService.fetchDoctors - Imagen para ${doctor.nombre}:`, doctorImage);
         
         const mappedDoctor: Doctor = {
           id: doctor.id,
@@ -160,12 +147,10 @@ export const DoctorService = {
           } : null
         };
         
-        console.log('✅ DoctorService.fetchDoctors - Doctor mapeado:', mappedDoctor);
         return mappedDoctor;
       });
       
-      console.log(`📊 DoctorService.fetchDoctors - Total doctores válidos: ${validDoctors.length}`);
-      console.log('✅ DoctorService.fetchDoctors - Lista final de doctores:', validDoctors);
+
       
       return validDoctors;
     } catch (error) {
@@ -178,23 +163,16 @@ export const DoctorService = {
    * Obtiene doctores filtrados por especialidad
    */
   fetchDoctorsBySpecialty: async (specialtyId: number): Promise<Doctor[]> => {
-    console.log('🔍 DoctorService.fetchDoctorsBySpecialty - Filtrando por especialidad:', specialtyId);
     
     try {
       const allDoctors = await DoctorService.fetchDoctors();
-      console.log('📋 DoctorService.fetchDoctorsBySpecialty - Total doctores obtenidos:', allDoctors.length);
       
       const filteredDoctors = allDoctors.filter(doctor => {
         const hasSpecialty = doctor.specialty && doctor.specialty.id === specialtyId;
-        console.log(`👨‍⚕️ DoctorService.fetchDoctorsBySpecialty - Doctor ${doctor.nombre}:`, {
-          hasSpecialty,
-          doctorSpecialtyId: doctor.specialty?.id,
-          targetSpecialtyId: specialtyId
-        });
+        
         return hasSpecialty;
       });
       
-      console.log(`✅ DoctorService.fetchDoctorsBySpecialty - Doctores filtrados: ${filteredDoctors.length}`, filteredDoctors);
       return filteredDoctors;
     } catch (error) {
       console.error('❌ DoctorService.fetchDoctorsBySpecialty - Error:', error);
@@ -206,7 +184,6 @@ export const DoctorService = {
    * Método de respaldo usando datos mock
    */
   getMockDoctors: (): Doctor[] => {
-    console.log('🎭 DoctorService.getMockDoctors - Generando datos mock');
     
     const mockDoctors = [
       {
@@ -229,7 +206,6 @@ export const DoctorService = {
       }
     ];
     
-    console.log('✅ DoctorService.getMockDoctors - Datos mock generados:', mockDoctors);
     return mockDoctors;
   }
 };
