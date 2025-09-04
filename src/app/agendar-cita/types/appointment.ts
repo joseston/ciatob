@@ -28,6 +28,9 @@ export interface Specialty {
     hora_fin: string;
     duracion: string;
   }
+
+  // Alias for TimeSlot to maintain compatibility
+  export type TimeSlot = Slot;
     
   export interface GroupedSlots {
     [key: string]: Slot[];

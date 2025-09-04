@@ -24,7 +24,7 @@ interface UseAppointmentSlotsReturn {
 export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): UseAppointmentSlotsReturn => {
   const [dateRange, setDateRange] = useState<DateRange>({
     startDate: new Date(),
-    endDate: addDays(new Date(), 14), // Por defecto 2 semanas
+    endDate: addDays(new Date(), 90), // Extender a 3 meses para el calendario
   });
   const [groupedSlots, setGroupedSlots] = useState<GroupedSlots>({});
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
