@@ -15,7 +15,7 @@ const carouselSlides = [
     description: 'Este plan está diseñado para guiar a las personas en su proceso de pérdida de peso a través de una alimentación consciente y equilibrada, sin recurrir a dietas extremas o métodos poco saludables. Aprende a comer y sin experimentos.',
     link: '/servicios/come-inteligente-pierde-peso-saludablemente',
     buttonText: 'Ver Paquete Completo',
-    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/nutricion_11zon.webp',
+    image: 'https://static.scieluxe.com/files/ciatob/nutricion_11zon.webp',
     colors: {
       primary: '#d29113',
       secondary: '#b8781a',
@@ -28,7 +28,7 @@ const carouselSlides = [
     description: 'Un plan con evaluación médica especializada, asesoría nutricional, prescripción de la actividad física y apoyo psicológico, para lograr un peso ideal y ser feliz.',
     link: '/servicios/plan-integral-peso-saludable',
     buttonText: 'Ver Plan Integral',
-    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/prescripcion-ejercicio.webp',
+    image: 'https://static.scieluxe.com/files/ciatob/prescripcion-ejercicio.webp',
     colors: {
       primary: '#398e43',
       secondary: '#2d7235',
@@ -41,7 +41,7 @@ const carouselSlides = [
     description: 'Un plan de Equilibrio Total y Control de Peso que combina la ciencia de 4 especialidades, ofreciendo una solución equilibrada que busca no solo la pérdida de peso, sino también mejorar la calidad de vida y promover el bienestar general.',
     link: '/servicios/plan-equilibrio-total-control-peso',
     buttonText: 'Ver Plan Equilibrio',
-    image: 'https://scienceluxe.blob.core.windows.net/files/ciatob/endocrinologia-1.webp',
+    image: 'https://static.scieluxe.com/files/ciatob/endocrinologia-1.webp',
     colors: {
       primary: '#02283b',
       secondary: '#1a4a5c',
