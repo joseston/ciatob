@@ -36,6 +36,7 @@ export const useAppointment = () => {
     }))
   });
 
+  // Si hay especialidad seleccionada, filtrar; si no, mostrar todos
   const filteredDoctors = selectedSpecialty 
     ? doctors.filter(doctor => {
         const match = doctor.specialty?.id === selectedSpecialty.id;
@@ -48,7 +49,7 @@ export const useAppointment = () => {
         });
         return match;
       })
-    : [];
+    : doctors; // ✅ CAMBIO CLAVE: mostrar todos los doctores si no hay especialidad seleccionada
 
   console.log('✅ useAppointment - Doctores filtrados:', {
     selectedSpecialtyId: selectedSpecialty?.id,
@@ -102,13 +103,13 @@ export const useAppointment = () => {
     selectSlot(slot);
   };
   return {
-    // Estado
-    specialties,
+    // Estado - Asegurar que los arrays nunca sean undefined
+    specialties: specialties || [],
     selectedSpecialty,
-    doctors: filteredDoctors,
+    doctors: filteredDoctors || [],
     selectedDoctor,
     dateRange,
-    groupedSlots,
+    groupedSlots: groupedSlots || {},
     selectedSlot,
     loading: loadingSpecialties || loadingDoctors || loadingSlots,
     loadingSpecialties,

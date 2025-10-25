@@ -27,15 +27,10 @@ const specialistsImages: Record<string, Record<string, string>> = {
 };
 
 // Log inicial para mostrar las imágenes disponibles
-console.log('🖼️ AppointmentService - Imágenes de especialistas cargadas:', {
-  endocrinologia: Object.keys(specialistsImages.endocrinologia || {}),
-  nutricion: Object.keys(specialistsImages.nutricion || {}),
-  psicologia: Object.keys(specialistsImages.psicologia || {})
-});
+
 
 // Función para normalizar nombres y hacer el matching
 const normalizeNameForMatching = (name: string): string => {
-  console.log('📝 normalizeNameForMatching - Normalizando nombre:', name);
   
   const normalized = name.toLowerCase()
     .normalize('NFD')
@@ -43,7 +38,6 @@ const normalizeNameForMatching = (name: string): string => {
     .replace(/[^\w\s]/g, '') // Remover caracteres especiales
     .trim();
     
-  console.log('✅ normalizeNameForMatching - Nombre normalizado:', { original: name, normalized });
   return normalized;
 };
 
@@ -54,16 +48,13 @@ export const AppointmentService = {
   /**
    * Obtiene la lista de médicos disponibles
    */  fetchDoctors: async (): Promise<Doctor[]> => {
-    console.log('👩‍⚕️ AppointmentService.fetchDoctors - Iniciando búsqueda de doctores');
-    console.log('🏢 AppointmentService.fetchDoctors - Company ID:', DEFAULT_COMPANY_ID);
+    
 
     try {
       const doctors = await getDoctorsByCompany(DEFAULT_COMPANY_ID);
-      console.log('📥 AppointmentService.fetchDoctors - Doctores obtenidos de API:', doctors);
       
       // Agregar imágenes a los especialistas según su especialidad
       const processedDoctors = doctors.map((doctor: Doctor) => {
-        console.log('🔄 AppointmentService.fetchDoctors - Procesando doctor:', doctor);
         
         const specialtyName = doctor.specialty?.name?.toLowerCase() || '';
         let category = '';
@@ -77,19 +68,12 @@ export const AppointmentService = {
           category = 'psicologia';
         }
         
-        console.log('🏷️ AppointmentService.fetchDoctors - Categoría determinada:', { 
-          doctorName: doctor.nombre, 
-          specialtyName, 
-          category 
-        });
+        
         
         // Determinar género basado en el nombre o los datos conocidos
         let gender: 'male' | 'female' = 'male';
         const normalizedName = normalizeNameForMatching(doctor.nombre);
-        console.log('📝 AppointmentService.fetchDoctors - Nombre normalizado:', { 
-          original: doctor.nombre, 
-          normalized: normalizedName 
-        });
+        
         
         // Asignar género según los datos conocidos de los especialistas
         if (normalizedName.includes('katty') || 
@@ -100,21 +84,14 @@ export const AppointmentService = {
           gender = 'female';
         }
         
-        console.log('👤 AppointmentService.fetchDoctors - Género asignado:', { 
-          doctorName: doctor.nombre, 
-          gender 
-        });
+        
         
         // Si encontramos una categoría válida, buscamos la imagen
         if (category && specialistsImages[category]) {
           const image = specialistsImages[category][normalizedName];
           
           if (image) {
-            console.log('🖼️ AppointmentService.fetchDoctors - Imagen encontrada:', { 
-              doctorName: doctor.nombre, 
-              category, 
-              image 
-            });
+            
             return { ...doctor, image, gender };
           } else {
             console.log('⚠️ AppointmentService.fetchDoctors - No se encontró imagen para el doctor:', { 

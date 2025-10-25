@@ -30,7 +30,6 @@ export const useDoctors = (): UseDoctorsReturn => {
         const data = await DoctorService.fetchDoctors();
         setDoctors(data);
         
-        console.log('✅ Doctores cargados exitosamente');
       } catch (err) {
         console.warn('⚠️ Error al conectar con backend para doctores, usando datos mock');
         

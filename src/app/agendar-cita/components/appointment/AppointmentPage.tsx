@@ -181,7 +181,7 @@ const AppointmentPage: React.FC = () => {
                   doctors={doctors}
                   selectedDoctor={selectedDoctor}
                   onSelectDoctor={handleDoctorChange}
-                  disabled={!selectedSpecialty}
+                  disabled={false}
                 />
               )}
 
