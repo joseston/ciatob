@@ -38,34 +38,8 @@ const AppointmentPage: React.FC = () => {
     loadingSlots,
     handleSpecialtySelect,
     handleDoctorSelect,
-    /* handleDateRangeChange, */
     handleSlotSelect
   } = useAppointment();
-
-  // 🔍 Log para debugging
-  console.log('📋 AppointmentPage - Estado completo:', {
-    specialties: specialties.map(s => ({ id: s.id, name: s.name })),
-    selectedSpecialty,
-    totalDoctors: doctors.length,
-    doctorsData: doctors.map(d => ({
-      id: d.id,
-      nombre: d.nombre,
-      specialtyId: d.specialty?.id,
-      specialtyName: d.specialty?.name
-    })),
-    selectedDoctor,
-    dateRange,
-    groupedSlots: Object.keys(groupedSlots),
-    selectedSlot,
-    selectedDate,
-    showTimeSlots,
-    loading: {
-      main: loading,
-      specialties: loadingSpecialties,
-      doctors: loadingDoctors,
-      slots: loadingSlots
-    }
-  });
 
   // Obtener fechas disponibles del groupedSlots
   const availableDates = useMemo(() => {
