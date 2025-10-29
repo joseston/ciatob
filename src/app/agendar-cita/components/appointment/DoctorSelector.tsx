@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, ChevronDown, User, Award, IdCard } from 'lucide-react';
-import Image from 'next/image';
 import { Doctor } from '../../types/appointment';
 
 interface DoctorSelectorProps {
@@ -19,22 +18,6 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
   disabled = false
 }) => {
   const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
-
-  console.log('👨‍⚕️ DoctorSelector - Renderizando con:', {
-    disabled,
-    totalDoctors: doctors.length,
-    doctors: doctors.map(d => ({
-      id: d.id,
-      nombre: d.nombre,
-      specialtyId: d.specialty?.id,
-      specialtyName: d.specialty?.name
-    })),
-    selectedDoctor: selectedDoctor ? {
-      id: selectedDoctor.id,
-      nombre: selectedDoctor.nombre,
-      specialtyName: selectedDoctor.specialty?.name
-    } : null
-  });
 
   const handleDoctorClick = (doctor: Doctor) => {
     if (selectedDoctor?.id === doctor.id) {
@@ -95,11 +78,9 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
                       <div className="flex-shrink-0">
                         {doctor.image ? (
                           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#46b1b9]/20 bg-gray-100">
-                            <Image
+                            <img
                               src={doctor.image}
                               alt={`Dr. ${doctor.nombre}`}
-                              width={48}
-                              height={48}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
