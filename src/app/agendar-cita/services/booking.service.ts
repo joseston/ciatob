@@ -1,3 +1,4 @@
+
 // src/app/agendar-cita/services/booking.service.ts
 import { API_URL, DEFAULT_COMPANY_ID } from '@/services/api';
 import { NotificationService } from './notification.service';
@@ -91,7 +92,7 @@ export const BookingService = {
             appointmentTime: `${data.appointment.hora_inicio} - ${data.appointment.hora_fin}`,
             appointmentId: data.appointment.id
           });
-        } catch (notificationError) {
+        } catch {
           // No fallar toda la operación si falla la notificación
         }
       }
@@ -139,7 +140,7 @@ export const BookingService = {
 
       const data = await response.json();
       return data;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

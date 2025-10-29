@@ -94,12 +94,12 @@ export const AppointmentService = {
    * Reserva una cita en el slot seleccionado (a implementar)
    */
   bookAppointment: async (
-    slotId: number,
-    patientData: {
+   /*  slotId: number, */
+    /* patientData: {
       nombre: string;
       email: string;
       telefono: string;
-    }
+    } */
   ) => {
     try {
       return {

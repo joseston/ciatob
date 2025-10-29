@@ -32,7 +32,7 @@ const AppointmentPage: React.FC = () => {
     dateRange,
     groupedSlots,
     selectedSlot,
-    loading,
+    /* loading, */
     loadingSpecialties,
     loadingDoctors,
     loadingSlots,
