@@ -15,7 +15,8 @@ const DOCTOR_IMAGES: Record<string, string> = {
   // Variaciones de nombres que podrían aparecer
   'GUADALUPE RUIZ HUARANGA': 'https://static.scieluxe.com/files/guadalupe-ruiz.JPG',
   'ALONDRA RAMIREZ': 'https://static.scieluxe.com/files/alondra-ramirez.webp',
-  'ALEXANDER FERNANDEZ': 'https://static.scieluxe.com/files/alexander-fernandez.JPG'
+  'ALEXANDER FERNANDEZ': 'https://static.scieluxe.com/files/alexander-fernandez.JPG',
+  'DALIA MENDOZA YAÑE': 'https://static.scieluxe.com/files/ciatob/dalia_mendoza.webp'
 };
 
 // Función helper para obtener la imagen del doctor basada en el nombre
