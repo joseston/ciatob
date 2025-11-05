@@ -263,7 +263,15 @@ const Footer: React.FC = () => {
         <div className="mt-12 pt-6 border-t border-white/20">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
             <p className="text-sm text-white/60">
-              © {new Date().getFullYear()} CIATOB. Todos los derechos reservados.
+              © {new Date().getFullYear()} CIATOB. Todos los derechos reservados. Desarrollado por{' '}
+              <a 
+                href="https://scieluxe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/80 transition-colors underline"
+              >
+                Scieluxe
+              </a>
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <Link
