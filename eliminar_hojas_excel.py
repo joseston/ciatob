@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script para eliminar hojas de Excel que contengan "REPORTE CONSULTAS" en su nombre
+Script para eliminar hojas de Excel que contengan combinaciones de "REPORTE" y "CONSULTAS"
 y guardar el resultado como FARMACIA_LAB.xlsx
 """
 
@@ -14,7 +14,8 @@ archivo_path = r"C:\Users\JOSE\Escritorio\MMC\CIATOB\postgre\migracion\extraccio
 archivo_salida = r"C:\Users\JOSE\Escritorio\MMC\CIATOB\postgre\migracion\extraccion\FARMACIA_LAB.xlsx"
 
 # Palabras clave para identificar hojas a eliminar
-palabras_eliminar = "REPORTE CONSULTAS"
+# Se eliminarán las hojas que contengan AMBAS palabras en cualquier combinación
+palabras_clave = ["REPORTE", "CONSULTAS"]
 
 print(f"Cargando archivo: {archivo_path}")
 
@@ -29,11 +30,14 @@ for sheet_name in wb.sheetnames:
 hojas_a_eliminar = []
 
 # Identificar hojas que contienen las palabras clave
+# Se eliminan las hojas que contengan TODAS las palabras de la lista
 for sheet_name in wb.sheetnames:
-    if palabras_eliminar in sheet_name.upper():
+    sheet_upper = sheet_name.upper()
+    # Verificar si todas las palabras clave están presentes en el nombre de la hoja
+    if all(palabra in sheet_upper for palabra in palabras_clave):
         hojas_a_eliminar.append(sheet_name)
 
-print(f"\nHojas que se eliminarán (contienen '{palabras_eliminar}'):")
+print(f"\nHojas que se eliminarán (contienen combinaciones de {', '.join(palabras_clave)}):")
 if hojas_a_eliminar:
     for hoja in hojas_a_eliminar:
         print(f"  - {hoja}")
