@@ -32,29 +32,33 @@ const PsicologiaPage = () => {
   // Info section data
   const infoItems = [
     {
-      title: "Terapia Cognitivo-Conductual",
-      description: "Abordaje especializado para modificar patrones de pensamiento y comportamiento relacionados con la alimentación y la imagen corporal."
+      title: "Terapia de Aceptación y Compromiso (ACT)",
+      description: "Aprenderás a relacionarte de forma más flexible con tus pensamientos y emociones, sin que estos dirijan tus decisiones. Te acompañamos a elegir acciones alineadas con lo que realmente te importa, incluso cuando el camino se vuelve difícil."
     },
     {
-      title: "Atención a Trastornos Alimentarios",
-      description: "Diagnóstico y tratamiento de trastornos de la conducta alimentaria como parte integral del manejo de la obesidad."
+      title: "Atención a Trastornos de la Conducta Alimentaria",
+      description: "Realizamos evaluación y diagnóstico psicológico. Cuando es necesario, te conectamos con especialistas en TCA, priorizando siempre una relación más segura y respetuosa con tu cuerpo y la comida."
     },
     {
       title: "Manejo de Ansiedad y Estrés",
-      description: "Técnicas efectivas para reducir la ansiedad y el estrés que frecuentemente conducen a la alimentación emocional."
+      description: "La ansiedad y el estrés son parte de la experiencia humana. Aquí aprenderás a hacerles espacio sin que controlen tu conducta alimentaria, ganando mayor libertad para responder en lugar de reaccionar."
     },
     {
-      title: "Apoyo en Cambio de Hábitos",
-      description: "Estrategias psicológicas para facilitar la adopción y mantenimiento de hábitos saludables de forma sostenible."
+      title: "Apoyo en el Cambio de Hábitos",
+      description: "Trabajamos desde motivaciones reales —cuidar tu salud, disfrutar más tu vida, estar presente para quienes amas— para construir hábitos a los que puedas volver incluso en momentos difíciles."
     },
     {
-      title: "Mejora de Autoestima",
-      description: "Trabajo terapéutico orientado a fortalecer la autoimagen y la confianza durante el proceso de cambio."
+      title: "Autoestima y Relación con el Cuerpo",
+      description: "Más que basar tu valor en el peso o la apariencia, te acompañamos a desarrollar una relación más amable y coherente contigo. Tu valor no depende de cómo te ves, sino de quién eres."
     },
     {
       title: "Terapia Individual y Grupal",
-      description: "Opciones de tratamiento adaptadas a tus necesidades personales, incluyendo sesiones individuales y grupos de apoyo."
-    }  ];
+      description: "Ofrecemos espacios individuales y grupales. Ambos promueven conexión, aprendizaje y crecimiento en un entorno seguro, sin juicios y acompañado de personas que atraviesan procesos similares."
+    },
+    {
+      title: "Tratamientos Psicológicos Especializados",
+      description: "Integramos el tratamiento médico de la obesidad con intervenciones psicológicas basadas en la ciencia del comportamiento contextual."
+    }];
 
   // FAQ section data
   const faqs = [
@@ -77,21 +81,21 @@ const PsicologiaPage = () => {
     {
       question: "¿Es normal sentir ansiedad cuando se cambian los hábitos alimentarios?",
       answer: "Sí, es completamente normal. El cambio de hábitos alimentarios puede generar ansiedad, especialmente al inicio. Parte de la terapia psicológica consiste en desarrollar herramientas para manejar esta ansiedad de forma saludable."
-    }  ];
+    }];
 
   return (
     <main className="min-h-screen">
-      
+
       <HeroSpecialty
-        title="Psicología"
-        description="Abordamos los aspectos emocionales y conductuales que influyen en la obesidad. Nuestros psicólogos especializados te ayudarán a transformar tu relación con la comida y desarrollar estrategias efectivas para el cambio duradero."
+        title="Especialidad en Psicología"
+        description="Acompañamos a personas con obesidad a comprender y trabajar los factores emocionales, conductuales y contextuales que influyen en su relación con la comida y el cuerpo, y a desarrollar hábitos sostenibles en el tiempo. Nuestro equipo de psicólogos te ayuda a construir decisiones más conscientes y sostenibles para tu salud, desde la presencia y la compasión —no desde la culpa ni la autoexigencia."
         imagePath="https://static.scieluxe.com/files/ciatob/psicologia_11zon.webp"
         stats={heroStats}
       />
 
       <InfoSection
         title="¿Por qué elegir nuestra especialidad en Psicología?"
-        description="Nuestro equipo de psicólogos está especializado en los aspectos emocionales y conductuales que influyen en la obesidad."
+        description="Entendemos que la obesidad no se trata solo de fuerza de voluntad. Trabajamos los aspectos emocionales, conductuales y contextuales que muchas veces sostienen el malestar, con un enfoque compasivo y basado en evidencia científica."
         items={infoItems}
       />
 

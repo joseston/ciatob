@@ -24,17 +24,17 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
   const handlePlayVideo = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Ocultar el overlay inmediatamente
     setShowOverlay(false);
-    
+
     // Simular click directo en el iframe después de que se oculte el overlay
     setTimeout(() => {
       if (iframeRef.current) {
         // Crear evento de click sintético en el iframe
         const iframe = iframeRef.current;
         const rect = iframe.getBoundingClientRect();
-        
+
         // Crear eventos mouse down y up para simular un click completo
         const mouseDownEvent = new MouseEvent('mousedown', {
           bubbles: true,
@@ -42,26 +42,26 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
           clientX: rect.left + rect.width / 2,
           clientY: rect.top + rect.height / 2,
         });
-        
+
         const mouseUpEvent = new MouseEvent('mouseup', {
           bubbles: true,
           cancelable: true,
           clientX: rect.left + rect.width / 2,
           clientY: rect.top + rect.height / 2,
         });
-        
+
         const clickEvent = new MouseEvent('click', {
           bubbles: true,
           cancelable: true,
           clientX: rect.left + rect.width / 2,
           clientY: rect.top + rect.height / 2,
         });
-        
+
         // Disparar los eventos en secuencia
         iframe.dispatchEvent(mouseDownEvent);
         iframe.dispatchEvent(mouseUpEvent);
         iframe.dispatchEvent(clickEvent);
-        
+
         // También intentar focus en el iframe
         iframe.focus();
       }
@@ -121,23 +121,23 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
         return [
           {
             icon: Brain,
-            title: "Terapia Cognitivo-Conductual",
-            description: "Modificación de patrones de pensamiento y comportamiento relacionados con la alimentación y el peso."
+            title: "Aceptación y compromiso",
+            description: "Aprende a observar pensamientos y reglas internas sin que te limiten, eligiendo cómo responder con mayor libertad."
           },
           {
             icon: Heart,
-            title: "Manejo Emocional",
-            description: "Desarrollo de herramientas para gestionar emociones sin recurrir a la comida como mecanismo de afrontamiento."
+            title: "Regulación emocional",
+            description: "Te ayudamos a identificar las emociones que están detrás del comer emocional y aprender nuevas formas de gestionarlas, sin que la comida sea la única salida."
           },
           {
             icon: Users,
-            title: "Terapia Grupal",
-            description: "Sesiones de apoyo grupal para compartir experiencias y estrategias con personas en situaciones similares."
+            title: "Terapia grupal",
+            description: "Un espacio de contención y aprendizaje compartido con personas en situaciones similares, donde se practican habilidades."
           },
           {
             icon: Target,
-            title: "Establecimiento de Metas",
-            description: "Definición de objetivos realistas y desarrollo de estrategias para mantener la motivación a largo plazo."
+            title: "Establecimiento de metas con sentido",
+            description: "Te ayudamos a definir metas realistas y elegidas por ti, y desarrollar estrategias para mantener la motivación a largo plazo."
           }
         ];
       case 'prescripcion del ejercicio':
@@ -265,7 +265,7 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
         };
     }
   };
-  
+
   const config = getSpecialtyConfig(specialty);
   const { colors, media } = config;
 
@@ -278,10 +278,21 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Tratamientos Especializados en{' '}
-              <span className={`bg-gradient-to-r ${colors.gradient} text-transparent bg-clip-text`}>
-                {specialty.charAt(0).toUpperCase() + specialty.slice(1)}
-              </span>
+              {specialty.toLowerCase() === 'psicología' ? (
+                <>
+                  Herramientas que{' '}
+                  <span className={`bg-gradient-to-r ${colors.gradient} text-transparent bg-clip-text`}>
+                    Trabajamos
+                  </span>
+                </>
+              ) : (
+                <>
+                  Tratamientos Especializados en{' '}
+                  <span className={`bg-gradient-to-r ${colors.gradient} text-transparent bg-clip-text`}>
+                    {specialty.charAt(0).toUpperCase() + specialty.slice(1)}
+                  </span>
+                </>
+              )}
             </h2>
             <p className="text-lg text-gray-600 mb-8">
               Nuestro enfoque integral combina las últimas tecnologías y tratamientos basados en evidencia para abordar la obesidad desde una perspectiva endocrinológica.
@@ -334,10 +345,10 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 />
-                
+
                 {/* Video Play Overlay - Solo se muestra si showOverlay es true */}
                 {showOverlay && (
-                  <div 
+                  <div
                     className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-300 cursor-pointer z-20"
                     onClick={handlePlayVideo}
                   >
