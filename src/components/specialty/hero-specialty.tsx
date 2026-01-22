@@ -17,6 +17,7 @@ interface HeroSpecialtyProps {
   description: string;
   imagePath: string;
   stats: Stat[];
+  specialty?: string;
 }
 
 interface SpecialtyColors {
@@ -34,11 +35,12 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
   title,
   description,
   imagePath,
-  stats
+  stats,
+  specialty
 }) => {
-  const [isHydrated, setIsHydrated] = useState(false);  const [colors, setColors] = useState<SpecialtyColors>({
+  const [isHydrated, setIsHydrated] = useState(false); const [colors, setColors] = useState<SpecialtyColors>({
     primary: '#02283b',
-    secondary: '#011a28', 
+    secondary: '#011a28',
     gradient: 'from-[#02283b] to-[#011a28]',
     bgGradient: 'from-[#02283b] to-[#011a28]',
     textGradient: 'from-white to-gray-200',
@@ -111,30 +113,32 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
   useEffect(() => {
     console.log('🔍 HERO-SPECIALTY: useEffect ejecutándose');
     console.log('📋 HERO-SPECIALTY: title recibido:', title);
-    
-    const specialtyColors = getSpecialtyColors(title);
+
+    // Use specialty prop if available, otherwise fallback to title
+    const specialtyForColors = specialty || title;
+    const specialtyColors = getSpecialtyColors(specialtyForColors);
     console.log('🎨 HERO-SPECIALTY: colores calculados:', specialtyColors);
     console.log('🎨 HERO-SPECIALTY: colores previos:', colors);
-    
+
     setColors(specialtyColors);
     setIsHydrated(true);
-    
+
     console.log('✅ HERO-SPECIALTY: Estado actualizado - isHydrated: true');
-  }, [title]);
+  }, [title, specialty]);
   // Render loading state during hydration
   if (!isHydrated) {
     console.log('⏳ HERO-SPECIALTY: Renderizando estado de carga (no hidratado)');
     console.log('🖼️ HERO-SPECIALTY: imagePath en loading:', imagePath);
     console.log('📝 HERO-SPECIALTY: title en loading:', title);
     console.log('📝 HERO-SPECIALTY: description en loading:', description);
-    
+
     return (
       <section className="relative py-20 bg-gradient-to-br from-[#46b1b9] to-[#22616a] overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
             backgroundSize: '40px 40px'
-          }}/>
+          }} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -150,7 +154,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
               <p className="text-lg text-gray-200 mb-8">
                 {description}
               </p>
-              
+
               {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {stats.map((stat) => (
@@ -200,9 +204,9 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
   console.log('🔧 HERO-SPECIALTY: isHydrated:', isHydrated);
   console.log('🖼️ HERO-SPECIALTY: Renderizando Image component con src:', imagePath);
   console.log('🎨 HERO-SPECIALTY: Overlay aplicado con color:', `${colors.primary}20`);
-  
+
   return (
-    <section 
+    <section
       className={`relative py-20 overflow-hidden ${colors.bgClass}`}
       suppressHydrationWarning={true}
     >
@@ -211,7 +215,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
         <div className="absolute inset-0" style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
           backgroundSize: '40px 40px'
-        }}/>
+        }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -225,7 +229,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Especialidad en{' '}
-              <span 
+              <span
                 className={`${colors.textClass} text-transparent bg-clip-text`}
                 suppressHydrationWarning={true}
               >
@@ -235,7 +239,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
             <p className="text-lg text-gray-200 mb-8">
               {description}
             </p>
-            
+
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {stats.map((stat, index) => (
@@ -247,7 +251,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
                   className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20"
                 >
                   <div className="flex flex-col items-center">
-                    <stat.icon 
+                    <stat.icon
                       className={`w-8 h-8 mb-2 ${colors.iconColor}`}
                       suppressHydrationWarning={true}
                     />
@@ -288,7 +292,7 @@ const HeroSpecialty: React.FC<HeroSpecialtyProps> = ({
                 priority
                 onLoad={() => console.log('📸 HERO-SPECIALTY: Imagen cargada exitosamente')}
                 onError={(e) => console.error('❌ HERO-SPECIALTY: Error cargando imagen:', e)}
-              />              <div 
+              />              <div
                 className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/10 to-transparent transition-all duration-300"
                 suppressHydrationWarning={true}
               ></div>
