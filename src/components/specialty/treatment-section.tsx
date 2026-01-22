@@ -121,7 +121,7 @@ const TreatmentSection: React.FC<TreatmentSectionProps> = ({ specialty = 'endocr
         return [
           {
             icon: Brain,
-            title: "Aceptación y compromiso",
+            title: "Terapia de Aceptación y compromiso",
             description: "Aprende a observar pensamientos y reglas internas sin que te limiten, eligiendo cómo responder con mayor libertad."
           },
           {

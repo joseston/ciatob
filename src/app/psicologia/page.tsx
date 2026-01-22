@@ -87,7 +87,7 @@ const PsicologiaPage = () => {
     <main className="min-h-screen">
 
       <HeroSpecialty
-        title="Especialidad en Psicología"
+        title="Psicología"
         description="Acompañamos a personas con obesidad a comprender y trabajar los factores emocionales, conductuales y contextuales que influyen en su relación con la comida y el cuerpo, y a desarrollar hábitos sostenibles en el tiempo. Nuestro equipo de psicólogos te ayuda a construir decisiones más conscientes y sostenibles para tu salud, desde la presencia y la compasión —no desde la culpa ni la autoexigencia."
         imagePath="https://static.scieluxe.com/files/ciatob/psicologia_11zon.webp"
         stats={heroStats}
