@@ -87,12 +87,18 @@ export const DoctorService = {
       const data = await apiClient<ApiDoctor[]>(url, { method: 'GET' });
 
       const validDoctors: Doctor[] = data.filter((doctor) => {
+        const docName = (doctor.nombre || '').toLowerCase();
+        // Identificar y bloquear al Dr. Helard Manrique Hurtado de la lista pública
+        const isBlockedDoctor = docName.includes('helard') &&
+          (docName.includes('manrique') || docName.includes('hurtado'));
+
         const isValid = doctor &&
           doctor.id &&
           doctor.nombre &&
-          doctor.status === true;
+          doctor.status === true &&
+          !isBlockedDoctor;
 
-        if (!isValid) {
+        if (!isValid && !isBlockedDoctor) {
           console.warn('⚠️ DoctorService.fetchDoctors - Doctor inválido filtrado:', doctor);
         }
 
@@ -153,15 +159,6 @@ export const DoctorService = {
   getMockDoctors: (): Doctor[] => {
 
     const mockDoctors = [
-      {
-        id: 1,
-        nombre: 'HELARD ANDRES MANRIQUE HURTADO',
-        profession: 'medico',
-        cmp_id: '12345',
-        role: 'contratado',
-        image: 'https://static.scieluxe.com/files/helard-manrique.png',
-        specialty: { id: 1, name: 'Endocrinología' }
-      },
       {
         id: 2,
         nombre: 'VALERIA VILCHEZ ALBURQUERQUE',
