@@ -21,18 +21,7 @@ const reviews: Review[] = [
     patientInfo: "José Hugo",
     rating: 5
   },
-  {
-    id: 4,
-    content: "En CIATOB, con la Dra. Katty Manrique y la Lic. Alondra Ramirez, encontré el apoyo para bajar de peso sin ansiedad. En 5 meses logré cambios notables porque me enseñaron a alimentarme correctamente con la misma comida familiar, evitando dietas imposibles y el estrés de preparar platos separados.",
-    patientInfo: "Gabriela Rojas",
-    rating: 5
-  },
-  {
-    id: 5,
-    content: "Gracias a una recomendación conocí CIATOB. El Dr. Helard Manrique y la Lic. Alondra Ramirez me ayudaron desde el primer día a lograr mi mejor versión. Ahora tengo más energía, me siento radiante y segura de mí misma. He renacido y estoy muy agradecida.",
-    patientInfo: "Julia Rivera",
-    rating: 5
-  }
+
 ];
 
 // Datos estáticos de especialistas
@@ -44,7 +33,7 @@ export const specialists: Specialist[] = [
     category: "endocrinologia",
     gender: "male", // Dr.
     image: "https://static.scieluxe.com/files/helard-manrique.png",
-    reviews: [reviews[4]], // Añadido el testimonio de Julia Rivera
+    reviews: [],
     averageRating: 5
   },
   {
@@ -74,19 +63,10 @@ export const specialists: Specialist[] = [
     category: "endocrinologia",
     gender: "female", // Dra.
     image: "https://static.scieluxe.com/files/katty-manrique.jpg",
-    reviews: [reviews[0], reviews[3]], // Añadido el testimonio de Gabriela Rojas
+    reviews: [reviews[0]],
     averageRating: 5
   },
-  {
-    id: 5,
-    name: "Alondra Ramirez",
-    specialty: "Nutrición",
-    category: "nutricion",
-    gender: "female", // Este campo no afectará el título ya que en nutrición son Lic.
-    image: "https://static.scieluxe.com/files/alondra-ramirez.webp",
-    reviews: [reviews[3], reviews[4]], // Añadidos ambos testimonios que la mencionan
-    averageRating: 5
-  },
+
   {
     id: 6,
     name: "Valeria Vilchez",

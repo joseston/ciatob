@@ -12,7 +12,6 @@ const specialistsImages: Record<string, Record<string, string>> = {
     "katty manrique franco": "https://static.scieluxe.com/files/katty-manrique.jpg"
   },
   nutricion: {
-    "alondra ramirez": "https://static.scieluxe.com/files/alondra-ramirez.webp",
     "valeria vilchez": "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg",
     "valeria vilchez alburquerque": "https://static.scieluxe.com/files/valeria-vilchez-ciatob.jpg"
   },
@@ -59,7 +58,6 @@ export const AppointmentService = {
         if (normalizedName.includes('katty') ||
             normalizedName.includes('guadalupe') ||
             normalizedName.includes('valeria') ||
-            normalizedName.includes('alondra') ||
             normalizedName.includes('luciana')) {
           gender = 'female';
         }
