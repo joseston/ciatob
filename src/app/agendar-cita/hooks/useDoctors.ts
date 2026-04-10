@@ -28,14 +28,16 @@ export const useDoctors = (): UseDoctorsReturn => {
         
         // Intentar obtener datos del backend
         const data = await DoctorService.fetchDoctors();
-        setDoctors(data);
+        const filteredData = data.filter(doc => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(doc.nombre.toUpperCase()));
+        setDoctors(filteredData);
         
       } catch (err) {
         console.warn('⚠️ Error al conectar con backend para doctores, usando datos mock');
         
         // Si falla el backend, usar datos mock
         const mockData = DoctorService.getMockDoctors();
-        setDoctors(mockData);
+        const filteredMockData = mockData.filter(doc => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(doc.nombre.toUpperCase()));
+        setDoctors(filteredMockData);
         
         setError(err instanceof Error ? err : new Error('Error al cargar doctores del servidor'));
       } finally {

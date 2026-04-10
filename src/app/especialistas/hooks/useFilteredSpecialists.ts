@@ -11,42 +11,44 @@ export const useFilteredSpecialists = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Cargar todos los especialistas al iniciar
-  useEffect(() => {
-    const fetchSpecialists = async () => {
-      try {
-        setLoading(true);
-        const data = await SpecialistsService.getAll();
-        setAllSpecialists(data);
-        setFilteredSpecialists(data);
-        setError(null);
-      } catch (err) {
-        setError('Error al cargar los especialistas');
-        console.error('Error fetching specialists:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSpecialists();
-  }, []);
-
-  // Filtrar especialistas cuando cambia la categoría seleccionada
-  useEffect(() => {
-    const filterSpecialists = async () => {
-      try {
-        setLoading(true);
-        const filtered = await SpecialistsService.getByCategory(selectedCategory);
-        setFilteredSpecialists(filtered);
-      } catch (err) {
-        setError('Error al filtrar especialistas');
-        console.error('Error filtering specialists:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    filterSpecialists();
-  }, [selectedCategory]);
+    useEffect(() => {
+      const fetchSpecialists = async () => {
+        try {
+          setLoading(true);
+          const data = await SpecialistsService.getAll();
+          const filteredData = data.filter(spec => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(spec.name.toUpperCase()));
+          setAllSpecialists(filteredData);
+          setFilteredSpecialists(filteredData);
+          setError(null);
+        } catch (err) {
+          setError('Error al cargar los especialistas');
+          console.error('Error fetching specialists:', err);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      fetchSpecialists();
+    }, []);
+    
+    // Filtrar especialistas cuando cambia la categoría seleccionada
+    useEffect(() => {
+      const filterSpecialists = async () => {
+        try {
+          setLoading(true);
+          const filtered = await SpecialistsService.getByCategory(selectedCategory);
+          const finalFiltered = filtered.filter(spec => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(spec.name.toUpperCase()));
+          setFilteredSpecialists(finalFiltered);
+        } catch (err) {
+          setError('Error al filtrar especialistas');
+          console.error('Error filtering specialists:', err);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      filterSpecialists();
+    }, [selectedCategory]);
 
   // Cambiar la categoría seleccionada
   const selectCategory = (category: SpecialtyCategory) => {
