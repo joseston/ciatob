@@ -10,6 +10,19 @@ const loaderProp = ({ src }: { src: string }) => {
 
 const carouselSlides = [
   {
+    id: 'equilibrio-total',
+    title: 'Paquete - Plan Equilibrio Total y Control de Peso',
+    description: 'Un plan de Equilibrio Total y Control de Peso que combina la ciencia de 4 especialidades, ofreciendo una solución equilibrada que busca no solo la pérdida de peso, sino también mejorar la calidad de vida y promover el bienestar general.',
+    link: '/servicios/plan-equilibrio-total-control-peso',
+    buttonText: 'Ver Plan Equilibrio',
+    image: 'https://static.scieluxe.com/files/ciatob/endocrinologia-1.webp',
+    colors: {
+      primary: '#02283b',
+      secondary: '#1a4a5c',
+      gradient: 'from-[#02283b] to-[#4a90a4]'
+    }
+  },
+  {
     id: 'come-inteligente',
     title: 'Paquete - Come Inteligente y Pierde Peso Saludablemente',
     description: 'Este plan está diseñado para guiar a las personas en su proceso de pérdida de peso a través de una alimentación consciente y equilibrada, sin recurrir a dietas extremas o métodos poco saludables. Aprende a comer y sin experimentos.',
@@ -34,19 +47,6 @@ const carouselSlides = [
       secondary: '#2d7235',
       gradient: 'from-[#398e43] to-[#32a852]'
     }
-  },
-  {
-    id: 'equilibrio-total',
-    title: 'Paquete - Plan Equilibrio Total y Control de Peso',
-    description: 'Un plan de Equilibrio Total y Control de Peso que combina la ciencia de 4 especialidades, ofreciendo una solución equilibrada que busca no solo la pérdida de peso, sino también mejorar la calidad de vida y promover el bienestar general.',
-    link: '/servicios/plan-equilibrio-total-control-peso',
-    buttonText: 'Ver Plan Equilibrio',
-    image: 'https://static.scieluxe.com/files/ciatob/endocrinologia-1.webp',
-    colors: {
-      primary: '#02283b',
-      secondary: '#1a4a5c',
-      gradient: 'from-[#02283b] to-[#4a90a4]'
-    }
   }
 ];
 
@@ -61,7 +61,7 @@ export const HeroSection = () => {
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 5000); // Tiempo ligeramente aumentado para mejor UX
+    }, 10000); // Tiempo ajustado a 10 segundos
 
     return () => clearInterval(interval);
   }, [isAutoPlay]);
