@@ -141,7 +141,7 @@ const DoctorSelector: React.FC<DoctorSelectorProps> = ({
                             </div>
                           )}
                           
-                          {doctor.cmp_id && (
+                          {doctor.cmp_id && doctor.specialty && ['endocrinología', 'endocrinologia', 'cardiología', 'cardiologia', 'nefrología', 'nefrologia'].includes(doctor.specialty.name.toLowerCase()) && (
                             <div className="flex items-center space-x-2">
                               <IdCard className="w-4 h-4 text-[#46b1b9]" />
                               <span className="text-gray-600">CMP:</span>

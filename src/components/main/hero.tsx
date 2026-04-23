@@ -28,7 +28,7 @@ const carouselSlides = [
     description: 'Este plan está diseñado para guiar a las personas en su proceso de pérdida de peso a través de una alimentación consciente y equilibrada, sin recurrir a dietas extremas o métodos poco saludables. Aprende a comer y sin experimentos.',
     link: '/servicios/come-inteligente-pierde-peso-saludablemente',
     buttonText: 'Ver Paquete Completo',
-    image: 'https://static.scieluxe.com/files/ciatob/nutricion_11zon.webp',
+    image: 'https://static.scieluxe.com/cidon/nutricion.jpg',
     colors: {
       primary: '#d29113',
       secondary: '#b8781a',
