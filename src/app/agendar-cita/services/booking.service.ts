@@ -1,6 +1,5 @@
 
-// src/app/agendar-cita/services/booking.service.ts
-import { API_URL, DEFAULT_COMPANY_ID } from '@/services/api';
+import { API_URL, DEFAULT_COMPANY_ID } from '../../../services/api';
 import { NotificationService } from './notification.service';
 
 export interface PatientFormData {
@@ -50,13 +49,15 @@ export const BookingService = {
     companyId: number,
     doctorId: number,
     slotId: number,
-    patientData: PatientFormData
+    patientData: PatientFormData,
+    citaId?: number
   ): Promise<BookingResponse> => {
     try {
       const requestData = {
         company_id: companyId,
         company_doctor_id: doctorId,
-        cita_id: slotId,
+        slot_id: slotId,
+        cita_id: citaId ?? slotId,
         dni: patientData.dni,
         nombre: patientData.nombre,
         telefono: patientData.telefono,

@@ -168,16 +168,15 @@ export const getAvailableSlots = async (
     const url = `${API_URL}/business/calendar/public/available-slots?${queryParams}`;
     console.log(`🔄 Obteniendo slots del backend: ${url}`);
     
-    // CORRECCIÓN: Se tipa el resultado esperado.
-    const data: Slot[] = await apiClient(url, {
+    const responseData = await apiClient(url, {
       method: 'GET',
     });
     
-    console.log('✅ Slots obtenidos del backend:', data);
+    const slots: Slot[] = Array.isArray(responseData) ? responseData : (responseData?.slots || []);
+    console.log('✅ Slots obtenidos del backend:', slots);
     
-    return data;
-  } catch (error)
- {
+    return slots;
+  } catch (error) {
     console.error('❌ Error al obtener slots del backend:', error);
     throw new Error('No se pudieron cargar los horarios disponibles. Verifique que el backend esté funcionando.');
   }

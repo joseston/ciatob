@@ -16,7 +16,7 @@ import {
   DoctorSelectorSkeleton, 
   SpecialtySelectorSkeleton 
 } from './SkeletonLoader';
-import { parseISO, isSameDay } from 'date-fns';
+import { parseISO, isSameDay, format } from 'date-fns';
 import { TimeSlot } from '../../types/appointment';
 
 const AppointmentPage: React.FC = () => {
@@ -55,7 +55,7 @@ const AppointmentPage: React.FC = () => {
   // Obtener horarios para la fecha seleccionada
   const selectedDateSlots = useMemo(() => {
     if (!selectedDate) return [];
-    const dateStr = selectedDate.toISOString().split('T')[0];
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
     return groupedSlots[dateStr] || [];
   }, [selectedDate, groupedSlots]);
 

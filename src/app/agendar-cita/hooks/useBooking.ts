@@ -1,6 +1,6 @@
 // src/app/agendar-cita/hooks/useBooking.ts
 import { useState, useCallback } from 'react';
-import { DEFAULT_COMPANY_ID } from '@/services/api';
+import { DEFAULT_COMPANY_ID } from '../../../services/api';
 import { BookingService, PatientFormData, AppointmentData } from '../services/booking.service';
 import { Doctor, Slot } from '../types/appointment';
 
@@ -54,7 +54,8 @@ export const useBooking = ({ doctor, selectedSlot }: UseBookingProps) => {
         DEFAULT_COMPANY_ID,
         doctor.id,
         selectedSlot.id,
-        patientData
+        patientData,
+        selectedSlot.cita_id
       );
 
       if (result.success && result.appointment) {

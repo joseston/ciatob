@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Slot, GroupedSlots, DateRange } from '../types/appointment';
 import { SlotService } from '../services/slot.service';
-import { addDays } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 interface UseAppointmentSlotsProps {
   doctorId: number | null;
@@ -42,8 +42,8 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
         setLoading(true);
         setError(null);
         
-        const startDate = dateRange.startDate.toISOString().split('T')[0];
-        const endDate = dateRange.endDate.toISOString().split('T')[0];
+        const startDate = format(dateRange.startDate, 'yyyy-MM-dd');
+        const endDate = format(dateRange.endDate, 'yyyy-MM-dd');
         
         // Intentar obtener datos del backend
         const slots = await SlotService.fetchAvailableSlots(doctorId, startDate, endDate);
@@ -51,8 +51,8 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
         
       } catch (err) {
         // Si falla el backend, usar datos mock
-        const startDate = dateRange.startDate.toISOString().split('T')[0];
-        const endDate = dateRange.endDate.toISOString().split('T')[0];
+        const startDate = format(dateRange.startDate, 'yyyy-MM-dd');
+        const endDate = format(dateRange.endDate, 'yyyy-MM-dd');
         const mockSlots = SlotService.getMockSlots(startDate, endDate);
         setGroupedSlots(mockSlots);
         

@@ -1,5 +1,5 @@
 // src/app/agendar-cita/services/notification.service.ts
-import { API_URL } from '@/services/api';
+import { API_URL } from '../../../services/api';
 
 export interface NotificationData {
   patientName: string;

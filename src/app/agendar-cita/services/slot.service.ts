@@ -80,6 +80,7 @@ export const SlotService = {
           }
           groupedSlots[date].push({
             id: slot.id,
+            cita_id: slot.cita_id ?? slot.id,
             fecha: slot.fecha,
             hora_inicio: slot.hora_inicio,
             hora_fin: slot.hora_fin,
