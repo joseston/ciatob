@@ -37,16 +37,6 @@ export const specialists: Specialist[] = [
     averageRating: 5
   },
   {
-    id: 2,
-    name: "Kenlly Cardoza",
-    specialty: "Endocrinología",
-    category: "endocrinologia",
-    gender: "male", // Dra.
-    image: "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-    reviews: [],
-    averageRating: 0
-  },
-  {
     id: 3,
     name: "Guadalupe Ruiz",
     specialty: "Endocrinología",

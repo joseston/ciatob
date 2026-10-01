@@ -6,8 +6,6 @@ const specialistsImages: Record<string, Record<string, string>> = {
   endocrinologia: {
     "helard manrique": "https://static.scieluxe.com/files/helard-manrique.png",
     "helard andres manrique hurtado": "https://static.scieluxe.com/files/helard-manrique.png",
-    "kenlly cardoza": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
-    "kennlly josseph cardoza jimenez": "https://static.scieluxe.com/files/kenlly-cardoza.JPG",
     "katty manrique": "https://static.scieluxe.com/files/katty-manrique.jpg",
     "katty manrique franco": "https://static.scieluxe.com/files/katty-manrique.jpg"
   },
