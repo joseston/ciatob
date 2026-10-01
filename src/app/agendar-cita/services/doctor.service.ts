@@ -88,9 +88,12 @@ export const DoctorService = {
 
       const validDoctors: Doctor[] = data.filter((doctor) => {
         const docName = (doctor.nombre || '').toLowerCase();
-        // Identificar y bloquear al Dr. Helard Manrique Hurtado de la lista pública
-        const isBlockedDoctor = docName.includes('helard') &&
-          (docName.includes('manrique') || docName.includes('hurtado'));
+        // Identificar y bloquear doctores de la lista pública
+        const isBlockedDoctor = (docName.includes('helard') &&
+          (docName.includes('manrique') || docName.includes('hurtado'))) ||
+          docName.includes('cardoza') ||
+          docName.includes('kennlly') ||
+          docName.includes('kenlly');
 
         const isValid = doctor &&
           doctor.id &&

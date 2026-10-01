@@ -38,7 +38,12 @@ export const AppointmentService = {
     try {
       const doctors = await getDoctorsByCompany(DEFAULT_COMPANY_ID);
 
-      const processedDoctors = doctors.map((doctor: Doctor) => {
+      const processedDoctors = doctors
+        .filter((doctor: Doctor) => {
+          const normalizedName = normalizeNameForMatching(doctor.nombre || '');
+          return !normalizedName.includes('cardoza') && !normalizedName.includes('kennlly') && !normalizedName.includes('kenlly');
+        })
+        .map((doctor: Doctor) => {
         const specialtyName = doctor.specialty?.name?.toLowerCase() || '';
         let category = '';
 
