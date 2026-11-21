@@ -3,13 +3,15 @@ import { useState, useCallback } from 'react';
 import { DEFAULT_COMPANY_ID } from '../../../services/api';
 import { BookingService, PatientFormData, AppointmentData } from '../services/booking.service';
 import { Doctor, Slot } from '../types/appointment';
+import { trackAndreaEvent } from '../../especialistas/andrea-siles-de-la-portilla/campaign';
 
 interface UseBookingProps {
   doctor: Doctor | null;
   selectedSlot: Slot | null;
+  andreaBookingSource?: 'whatsapp' | 'profile';
 }
 
-export const useBooking = ({ doctor, selectedSlot }: UseBookingProps) => {
+export const useBooking = ({ doctor, selectedSlot, andreaBookingSource }: UseBookingProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
@@ -24,7 +26,8 @@ export const useBooking = ({ doctor, selectedSlot }: UseBookingProps) => {
     
     setIsModalOpen(true);
     setErrorMessage(null);
-  }, [doctor, selectedSlot]);
+    if (andreaBookingSource) trackAndreaEvent('booking_started', andreaBookingSource === 'whatsapp');
+  }, [doctor, selectedSlot, andreaBookingSource]);
 
   const closeBookingModal = useCallback(() => {
     if (!isLoading) {
@@ -61,6 +64,7 @@ export const useBooking = ({ doctor, selectedSlot }: UseBookingProps) => {
       if (result.success && result.appointment) {
         setBookingSuccess(true);
         setAppointmentData(result.appointment);
+        if (andreaBookingSource) trackAndreaEvent('booking_completed', andreaBookingSource === 'whatsapp');
       } else {
         setErrorMessage(result.message);
       }
@@ -71,7 +75,7 @@ export const useBooking = ({ doctor, selectedSlot }: UseBookingProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [doctor, selectedSlot]);
+  }, [doctor, selectedSlot, andreaBookingSource]);
 
   const checkPatientStatus = useCallback(async (dni: string) => {
     if (!dni || dni.length < 8) return null;

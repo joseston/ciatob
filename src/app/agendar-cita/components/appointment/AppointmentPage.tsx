@@ -18,8 +18,14 @@ import {
 } from './SkeletonLoader';
 import { parseISO, isSameDay, format } from 'date-fns';
 import { TimeSlot } from '../../types/appointment';
+import { andreaReceptionUrl } from '../../../especialistas/andrea-siles-de-la-portilla/campaign';
 
-const AppointmentPage: React.FC = () => {
+interface AppointmentPageProps {
+  andreaDoctorId?: number;
+  fromWhatsApp: boolean;
+}
+
+const AppointmentPage: React.FC<AppointmentPageProps> = ({ andreaDoctorId, fromWhatsApp }) => {
   // Estado local para manejar la vista del calendario/horarios
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showTimeSlots, setShowTimeSlots] = useState(false);
@@ -39,12 +45,12 @@ const AppointmentPage: React.FC = () => {
     handleSpecialtySelect,
     handleDoctorSelect,
     handleSlotSelect
-  } = useAppointment();
+  } = useAppointment(andreaDoctorId);
 
   // Obtener fechas disponibles del groupedSlots
   const availableDates = useMemo(() => {
     const dates: Date[] = [];
-    Object.keys(groupedSlots).forEach(dateStr => {
+    Object.keys(groupedSlots).sort().forEach(dateStr => {
       if (groupedSlots[dateStr].length > 0) {
         dates.push(parseISO(dateStr));
       }
@@ -95,7 +101,8 @@ const AppointmentPage: React.FC = () => {
     resetBooking
   } = useBooking({
     doctor: selectedDoctor,
-    selectedSlot
+    selectedSlot,
+    andreaBookingSource: andreaDoctorId ? (fromWhatsApp ? 'whatsapp' : 'profile') : undefined
   });
 
   const handleReset = () => {
@@ -116,18 +123,19 @@ const AppointmentPage: React.FC = () => {
             className="text-center mb-10"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Agenda tu{' '}
-              <span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">
-                Consulta
-              </span>
+              {andreaDoctorId ? 'Agenda con la Dra. Andrea Siles' : (
+                <>Agenda tu{' '}<span className="bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-transparent bg-clip-text">Consulta</span></>
+              )}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Selecciona la especialidad y el profesional que mejor se adapte a tus necesidades
+              {andreaDoctorId
+                ? 'Selecciona un día disponible para ver sus horarios en CIATOB.'
+                : 'Selecciona la especialidad y el profesional que mejor se adapte a tus necesidades'}
             </p>
           </motion.div>
 
           {/* Selección de especialidad horizontal */}
-          {loadingSpecialties ? (
+          {!andreaDoctorId && (loadingSpecialties ? (
             <SpecialtySelectorSkeleton />
           ) : (
             <HorizontalSpecialtySelector 
@@ -135,19 +143,21 @@ const AppointmentPage: React.FC = () => {
               selectedSpecialty={selectedSpecialty}
               onSelectSpecialty={handleSpecialtySelect}
             />
-          )}
+          ))}
 
           {/* Layout dinámico basado en el estado de selección */}
           <motion.div 
             layout
             className={`grid gap-6 mb-10 transition-all duration-500 ease-out ${
-              showTimeSlots && selectedDate 
+              andreaDoctorId
+                ? 'mx-auto max-w-4xl md:grid-cols-2'
+                : showTimeSlots && selectedDate
                 ? 'grid-cols-1 xl:grid-cols-3' // 3 columnas cuando se selecciona día
                 : 'grid-cols-1 lg:grid-cols-2'  // 2 columnas por defecto
             }`}
           >
             {/* Columna 1: Selección de Especialista - SIEMPRE VISIBLE */}
-            <div className="space-y-6">
+            {!andreaDoctorId && <div className="space-y-6">
               {loadingDoctors || loadingSpecialties ? (
                 <DoctorSelectorSkeleton />
               ) : (
@@ -173,17 +183,29 @@ const AppointmentPage: React.FC = () => {
                   />
                 </motion.div>
               )}
-            </div>
+            </div>}
 
             {/* Columna 2: Calendario - SIEMPRE VISIBLE cuando hay doctor */}
-            <div className="space-y-6">
-              <InteractiveCalendar
-                selectedDoctor={selectedDoctor}
-                onDateSelect={handleDateSelect}
-                selectedDate={selectedDate}
-                availableDates={availableDates}
-                loading={loadingSlots}
-              />
+            <div className={andreaDoctorId && !showTimeSlots ? "space-y-6 md:col-span-2" : "space-y-6"}>
+              {andreaDoctorId && (loadingDoctors || loadingSlots) ? (
+                <p className="text-center text-gray-600" role="status">Buscando los horarios de la Dra. Andrea…</p>
+              ) : andreaDoctorId && availableDates.length === 0 ? (
+                <div className="mx-auto max-w-lg rounded-xl bg-white p-6 text-center shadow">
+                  <p className="text-gray-700">No encontramos horarios disponibles en línea. Recepción puede ayudarte a consultar disponibilidad.</p>
+                  <a href={andreaReceptionUrl} className="mt-4 inline-block font-semibold text-[#22616a] underline underline-offset-4">
+                    Consultar por WhatsApp
+                  </a>
+                </div>
+              ) : (
+                <InteractiveCalendar
+                  selectedDoctor={selectedDoctor}
+                  onDateSelect={handleDateSelect}
+                  selectedDate={selectedDate}
+                  availableDates={availableDates}
+                  loading={loadingSlots}
+                  initialMonth={andreaDoctorId ? availableDates[0] : undefined}
+                />
+              )}
             </div>
 
             {/* Columna 3: Horarios - Solo aparece cuando se selecciona un día */}

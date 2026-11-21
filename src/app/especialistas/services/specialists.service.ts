@@ -24,6 +24,18 @@ const reviews: Review[] = [
 
 ];
 
+export const andreaSiles: Specialist & { profilePath: string } = {
+  id: 57,
+  name: "Andrea Siles de la Portella",
+  specialty: "Endocrinología",
+  category: "endocrinologia",
+  gender: "female",
+  image: "https://static.scieluxe.com/files/andrea-siles-de-la-portella.webp",
+  profilePath: "/especialistas/andrea-siles-de-la-portilla",
+  reviews: [],
+  averageRating: 0
+};
+
 // Datos estáticos de especialistas
 export const specialists: Specialist[] = [
   {
@@ -56,16 +68,7 @@ export const specialists: Specialist[] = [
     reviews: [reviews[0]],
     averageRating: 5
   },
-  {
-    id: 57,
-    name: "Andrea Siles de la Portella",
-    specialty: "Endocrinología",
-    category: "endocrinologia",
-    gender: "female",
-    image: "https://static.scieluxe.com/files/andrea-siles-de-la-portella.webp",
-    reviews: [],
-    averageRating: 0
-  },
+  andreaSiles,
 
   {
     id: 6,

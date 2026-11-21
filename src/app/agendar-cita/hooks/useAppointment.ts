@@ -7,7 +7,7 @@ import { Slot } from '../types/appointment';
 /**
  * Hook principal que combina la lógica de selección de especialidades, médicos y slots
  */
-export const useAppointment = () => {
+export const useAppointment = (requestedDoctorId?: number) => {
   const {
     specialties,
     selectedSpecialty,
@@ -22,7 +22,7 @@ export const useAppointment = () => {
     loading: loadingDoctors,
     error: doctorsError,
     selectDoctor
-  } = useDoctors();
+  } = useDoctors(requestedDoctorId);
 
   const filteredDoctors = selectedSpecialty
     ? doctors.filter(doctor => doctor.specialty?.id === selectedSpecialty.id)
@@ -37,7 +37,8 @@ export const useAppointment = () => {
     setDateRange,
     selectSlot
   } = useAppointmentSlots({
-    doctorId: selectedDoctor?.id || null
+    doctorId: selectedDoctor?.id || null,
+    allowMock: !requestedDoctorId
   });
 
   const handleSpecialtySelect = (specialtyId: number) => {

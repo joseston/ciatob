@@ -6,6 +6,7 @@ import { addDays, format } from 'date-fns';
 
 interface UseAppointmentSlotsProps {
   doctorId: number | null;
+  allowMock: boolean;
 }
 
 interface UseAppointmentSlotsReturn {
@@ -21,7 +22,7 @@ interface UseAppointmentSlotsReturn {
 /**
  * Hook para gestionar los slots disponibles para un médico
  */
-export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): UseAppointmentSlotsReturn => {
+export const useAppointmentSlots = ({ doctorId, allowMock }: UseAppointmentSlotsProps): UseAppointmentSlotsReturn => {
   const [dateRange, setDateRange] = useState<DateRange>({
     startDate: new Date(),
     endDate: addDays(new Date(), 90), // Extender a 3 meses para el calendario
@@ -29,12 +30,15 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
   const [groupedSlots, setGroupedSlots] = useState<GroupedSlots>({});
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadedDoctorId, setLoadedDoctorId] = useState<number | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    let active = true;
     const fetchSlots = async () => {
       if (!doctorId) {
-        setGroupedSlots({});
+        setLoading(false);
+        setLoadedDoctorId(null);
         return;
       }
 
@@ -47,26 +51,32 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
         
         // Intentar obtener datos del backend
         const slots = await SlotService.fetchAvailableSlots(doctorId, startDate, endDate);
-        setGroupedSlots(slots);
+        if (active) setGroupedSlots(slots);
         
       } catch (err) {
-        // Si falla el backend, usar datos mock
-        const startDate = format(dateRange.startDate, 'yyyy-MM-dd');
-        const endDate = format(dateRange.endDate, 'yyyy-MM-dd');
-        const mockSlots = SlotService.getMockSlots(startDate, endDate);
-        setGroupedSlots(mockSlots);
+        if (!active) return;
+        if (allowMock) {
+          const startDate = format(dateRange.startDate, 'yyyy-MM-dd');
+          const endDate = format(dateRange.endDate, 'yyyy-MM-dd');
+          setGroupedSlots(SlotService.getMockSlots(startDate, endDate));
+        }
         
         setError(err instanceof Error ? err : new Error('Error al cargar slots del servidor'));
       } finally {
-        setLoading(false);
+        if (active) {
+          setLoadedDoctorId(doctorId);
+          setLoading(false);
+        }
       }
     };
 
     // Reset selected slot when doctor changes
     setSelectedSlot(null);
+    setGroupedSlots({});
     
     fetchSlots();
-  }, [doctorId, dateRange]);
+    return () => { active = false; };
+  }, [doctorId, dateRange, allowMock]);
 
   const updateDateRange = (range: DateRange) => {
     setDateRange(range);
@@ -81,7 +91,7 @@ export const useAppointmentSlots = ({ doctorId }: UseAppointmentSlotsProps): Use
     dateRange,
     groupedSlots,
     selectedSlot,
-    loading,
+    loading: loading || doctorId !== loadedDoctorId,
     error,
     setDateRange: updateDateRange,
     selectSlot

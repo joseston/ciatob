@@ -14,13 +14,14 @@ interface UseDoctorsReturn {
 /**
  * Hook para gestionar la carga y selección de médicos
  */
-export const useDoctors = (): UseDoctorsReturn => {
+export const useDoctors = (requestedDoctorId?: number): UseDoctorsReturn => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    let active = true;
     const fetchDoctors = async () => {
       try {
         setLoading(true);
@@ -29,9 +30,16 @@ export const useDoctors = (): UseDoctorsReturn => {
         // Intentar obtener datos del backend
         const data = await DoctorService.fetchDoctors();
         const filteredData = data.filter(doc => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(doc.nombre.toUpperCase()));
+        if (!active) return;
         setDoctors(filteredData);
+        if (requestedDoctorId) {
+          setSelectedDoctor(filteredData.find(doctor => doctor.id === requestedDoctorId) ?? null);
+        }
         
       } catch (err) {
+        if (!active) return;
+        setError(err instanceof Error ? err : new Error('Error al cargar doctores del servidor'));
+        if (requestedDoctorId) return;
         console.warn('⚠️ Error al conectar con backend para doctores, usando datos mock');
         
         // Si falla el backend, usar datos mock
@@ -39,14 +47,14 @@ export const useDoctors = (): UseDoctorsReturn => {
         const filteredMockData = mockData.filter(doc => !["ALONDRA RAMIREZ REYES", "INBODY"].includes(doc.nombre.toUpperCase()));
         setDoctors(filteredMockData);
         
-        setError(err instanceof Error ? err : new Error('Error al cargar doctores del servidor'));
       } finally {
-        setLoading(false);
+        if (active) setLoading(false);
       }
     };
 
     fetchDoctors();
-  }, []);
+    return () => { active = false; };
+  }, [requestedDoctorId]);
 
   const selectDoctor = (doctor: Doctor | null) => {  // Modificado para aceptar null
     setSelectedDoctor(doctor);

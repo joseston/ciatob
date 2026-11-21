@@ -14,6 +14,7 @@ interface InteractiveCalendarProps {
   selectedDate: Date | null;
   availableDates: Date[];
   loading: boolean;
+  initialMonth?: Date;
 }
 
 const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
@@ -21,9 +22,10 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
   onDateSelect,
   selectedDate,
   availableDates,
-  loading
+  loading,
+  initialMonth
 }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(() => initialMonth ?? new Date());
 
   // Navegar entre meses
   const goToPreviousMonth = () => {
@@ -59,10 +61,10 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white p-6 rounded-xl shadow-lg"
+      className="bg-white p-3 sm:p-6 rounded-xl shadow-lg"
     >
       {/* Header del calendario */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
         <h2 className="text-xl font-semibold text-gray-900 flex items-center">
           <CalendarIcon className="w-5 h-5 mr-2 text-[#46b1b9]" />
           Disponibilidad
@@ -73,6 +75,7 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
             onClick={goToPreviousMonth}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             disabled={loading}
+            aria-label="Mes anterior"
           >
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
@@ -85,6 +88,7 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
             onClick={goToNextMonth}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             disabled={loading}
+            aria-label="Mes siguiente"
           >
             <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
@@ -106,7 +110,7 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
           {/* Días de la semana */}
           <div className="grid grid-cols-7 gap-1 mb-2">
             {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map((day) => (
-              <div key={day} className="p-2 text-center text-sm font-medium text-gray-600">
+              <div key={day} className="py-2 text-center text-xs sm:text-sm font-medium text-gray-600">
                 {day}
               </div>
             ))}
@@ -133,7 +137,7 @@ const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                   onClick={() => isSelectable ? onDateSelect(day) : undefined}
                   disabled={!isSelectable || loading}
                   className={`
-                    relative p-2 text-sm font-medium rounded-lg transition-all duration-200
+                    relative min-h-9 py-2 text-sm font-medium rounded-lg transition-all duration-200
                     ${isSelected
                       ? 'bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white shadow-lg'
                       : isSelectable

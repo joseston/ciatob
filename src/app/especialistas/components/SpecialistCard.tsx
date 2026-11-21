@@ -73,14 +73,11 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
             </motion.button>
           )}
         </div>
-        <Link href="/agendar-cita" className="mt-4">
-          <motion.button
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#46b1b9] to-[#22616a] text-white text-sm font-medium"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Agendar Cita
-          </motion.button>
+        <Link
+          href={specialist.profilePath ?? '/agendar-cita'}
+          className="mt-4 rounded-lg bg-gradient-to-r from-[#46b1b9] to-[#22616a] px-4 py-2 text-sm font-medium text-white transition-transform hover:scale-105 active:scale-95"
+        >
+          {specialist.profilePath ? 'Ver perfil' : 'Agendar Cita'}
         </Link>
       </motion.div>
       

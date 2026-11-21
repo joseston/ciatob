@@ -19,6 +19,7 @@ export interface Specialist {
   category: SpecialtyCategory; // Categoría para filtrado
   gender?: Gender; // Campo para indicar si es Dr. o Dra.
   image: string;
+  profilePath?: string;
   description?: string;
   reviews?: Review[];
   averageRating?: number;

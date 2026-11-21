@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Award, Star } from 'lucide-react';
 import ReviewsModal from '../../app/especialistas/components/ReviewsModal';
@@ -60,6 +61,12 @@ const SpecialistCard: React.FC<{
       </div>
       
       {/* Estrellas clickeables para mostrar reseñas */}
+      {specialist.profilePath && (
+        <Link href={specialist.profilePath} className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-[#22616a] hover:bg-gray-200">
+          Ver perfil
+        </Link>
+      )}
+      {(!specialist.profilePath || hasReviews) && (
       <button
         onClick={() => onReviewsClick(specialist)}
         className="flex items-center space-x-1 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -83,6 +90,7 @@ const SpecialistCard: React.FC<{
           }
         </span>
       </button>
+      )}
     </motion.div>
   );
 };
